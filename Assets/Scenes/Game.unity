@@ -181,6 +181,8 @@ MonoBehaviour:
     type: 2}
   zombiePrefab: {fileID: 1711905891153286, guid: 538f0c84110356f4dbf2400b4eaf7fec,
     type: 2}
+  treasurePrefab: {fileID: 1846780188279498, guid: da5de4f4cf1c9454d8f855e0aa812f0c,
+    type: 2}
 --- !u!1 &576703299
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,6 +340,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a96a6acca75ee1438e04f454b656e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1108446034
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1108446035}
+  m_Layer: 0
+  m_Name: TreasureSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1108446035
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1108446034}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1249941347}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1249941345
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,8 +405,23 @@ MonoBehaviour:
   wallSizeThreshold: 50
   roomSizeThreshold: 50
   numberOfZombiesRange:
-    min: 10
-    max: 20
+    min: 100
+    max: 200
+  playerSpawnRange:
+    center:
+      x: 75
+      y: 75
+    range: 30
+  treasureSpawnRange:
+    center:
+      x: 149
+      y: 149
+    range: 40
+  noZombieRange:
+    center:
+      x: 75
+      y: 75
+    range: 50
 --- !u!4 &1249941347
 Transform:
   m_ObjectHideFlags: 0
@@ -390,6 +435,7 @@ Transform:
   - {fileID: 822114244}
   - {fileID: 171884183}
   - {fileID: 576703300}
+  - {fileID: 1108446035}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

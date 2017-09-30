@@ -7,6 +7,7 @@ public class TileGenerator : MonoBehaviour
 	static string TILES_NAME = "Tiles";
 	static string PLAYER_SPAWN_NAME = "PlayerSpawn";
 	static string ZOMBIE_SPAWNS_NAME = "ZombieSpawns";
+	static string TREASURE_SPAWNS_NAME = "TreasureSpawn";
 
 	public GameObject emptyTile;
 	public GameObject wallTile;
@@ -16,6 +17,7 @@ public class TileGenerator : MonoBehaviour
 	GameObject tilesObject;
 	GameObject playerSpawnObject;
 	GameObject zombieSpawnsObject;
+	GameObject treasureSpawnObject;
 
 	private void Start()
 	{
@@ -27,6 +29,9 @@ public class TileGenerator : MonoBehaviour
 
 		zombieSpawnsObject = GameObject.Find(ZOMBIE_SPAWNS_NAME);
 		Debug.Assert(zombieSpawnsObject);
+
+		treasureSpawnObject = GameObject.Find(TREASURE_SPAWNS_NAME);
+		Debug.Assert(treasureSpawnObject);
 	}
 
 	public void GenerateDungeon()
@@ -34,6 +39,7 @@ public class TileGenerator : MonoBehaviour
 		SpawnTiles();
 		CreatePlayerSpawn();
 		CreateZombieSpawns();
+		CreateTreasureSpawn();
 	}
 
 	void SpawnTiles()
@@ -95,6 +101,13 @@ public class TileGenerator : MonoBehaviour
 		}
 	}
 
+	void CreateTreasureSpawn()
+	{
+		var spawn = new GameObject("Spawn");
+		spawn.transform.parent = treasureSpawnObject.transform;
+		spawn.transform.position = GetTileCenter(currentDungeon.treasureSpawn.x, currentDungeon.treasureSpawn.y);
+	}
+
 	public GameObject GetPlayerSpawn()
 	{
 		return playerSpawnObject.transform.GetChild(0).gameObject;
@@ -109,5 +122,10 @@ public class TileGenerator : MonoBehaviour
 		}
 
 		return spawns;
+	}
+
+	public GameObject GetTreasureSpawn()
+	{
+		return treasureSpawnObject.transform.GetChild(0).gameObject;
 	}
 }

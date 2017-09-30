@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
 	public GameObject dungeon;
 	public GameObject playerPrefab;
 	public GameObject zombiePrefab;
+	public GameObject treasurePrefab;
 
 	DungeonGenerator dungeonGenerator;
 	TileGenerator tileGenerator;
@@ -29,6 +30,7 @@ public class GameController : MonoBehaviour
 
 		SpawnPlayer();
 		SpawnZombies();
+		SpawnTreasure();
 	}
 
 	void SpawnPlayer()
@@ -42,11 +44,19 @@ public class GameController : MonoBehaviour
 	void SpawnZombies()
 	{
 		var spawns = tileGenerator.GetZombieSpawns();
+		var zombies = new GameObject("Zombies");
 
 		foreach (var spawn in spawns)
 		{
 			var pos = spawn.transform.position;
-			var zombie = Instantiate(zombiePrefab, pos, Quaternion.identity);
+			var zombie = Instantiate(zombiePrefab, pos, Quaternion.identity, zombies.transform);
+			zombie.name = "Zombie";
 		}
+	}
+
+	void SpawnTreasure()
+	{
+		var pos = tileGenerator.GetTreasureSpawn().transform.position;
+		var player = Instantiate(treasurePrefab, pos, Quaternion.identity);
 	}
 }

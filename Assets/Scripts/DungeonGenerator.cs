@@ -19,6 +19,10 @@ public class DungeonGenerator : MonoBehaviour
 	public int roomSizeThreshold;
 
 	public IntRange numberOfZombiesRange;
+	public CircleRange playerSpawnRange;
+	public CircleRange treasureSpawnRange;
+
+	public CircleRange noZombieRange;
 
 	private System.Random rnd;
 	private DungeonData currentDungeon;
@@ -35,6 +39,7 @@ public class DungeonGenerator : MonoBehaviour
 		public TileType[,] tiles;
 		public Coord playerSpawn;
 		public List<Coord> zombieSpawns;
+		public Coord treasureSpawn;
 
 		public DungeonData(int w, int h)
 		{
@@ -60,7 +65,38 @@ public class DungeonGenerator : MonoBehaviour
 		}
 	}
 
-	public struct Coord
+	[Serializable]
+	public class CircleRange
+	{
+		public Coord center;
+		public int range;
+
+		public Coord Random(System.Random rnd, int maxWidth, int maxHeight)
+		{
+			var left = Mathf.Clamp(center.x - range, 0, maxWidth);
+			var right = Mathf.Clamp(center.x + range, 0, maxWidth);
+			var bottom = Mathf.Clamp(center.y - range, 0, maxHeight);
+			var top = Mathf.Clamp(center.y + range, 0, maxHeight);
+			IntRange xr = new IntRange(left, right);
+			IntRange yr = new IntRange(bottom, top);
+
+			Coord pt = null;
+			while (pt == null || !IsInRange(pt))
+			{
+				pt = new Coord(xr.Random(rnd), yr.Random(rnd));
+			}
+
+			return pt;
+		}
+
+		public bool IsInRange(Coord pt)
+		{
+			return Coord.ManhattanDistance(pt, center) <= range;
+		}
+	}
+
+	[Serializable]
+	public class Coord
 	{
 		public int x, y;
 
@@ -68,6 +104,11 @@ public class DungeonGenerator : MonoBehaviour
 		{
 			this.x = x;
 			this.y = y;
+		}
+
+		public static int ManhattanDistance(Coord pt1, Coord pt2)
+		{
+			return Mathf.Abs(pt2.x - pt1.x) + Mathf.Abs(pt2.y - pt1.y);
 		}
 	}
 
@@ -97,6 +138,7 @@ public class DungeonGenerator : MonoBehaviour
 	{
 		GeneratePlayerSpawnTile();
 		GenerateZombieSpawnTiles();
+		GenerateTreasureSpawnTile();
 	}
 
 	void InitData()
@@ -224,14 +266,13 @@ public class DungeonGenerator : MonoBehaviour
 
 	void GeneratePlayerSpawnTile()
 	{
-		for (int i = 0; i < mapWidth; i++)
+		Coord pt = null;
+		while (pt == null || currentDungeon.tiles[pt.x, pt.y] != TileType.Floor)
 		{
-			for (int j = 0; j < mapHeight; j++)
-			{
-				if (currentDungeon.tiles[i, j] == TileType.Floor)
-					currentDungeon.playerSpawn = new Coord(i, j);
-			}
+			pt = playerSpawnRange.Random(rnd, mapWidth, mapHeight);
 		}
+
+		currentDungeon.playerSpawn = pt;
 	}
 
 	void GenerateZombieSpawnTiles()
@@ -240,9 +281,21 @@ public class DungeonGenerator : MonoBehaviour
 		{
 			var x = new IntRange(0, mapWidth - 1).Random(rnd);
 			var y = new IntRange(0, mapHeight - 1).Random(rnd);
+			var pt = new Coord(x, y);
 
-			if (currentDungeon.tiles[x, y] == TileType.Floor)
-				currentDungeon.zombieSpawns.Add(new Coord(x, y));
+			if (currentDungeon.tiles[x, y] == TileType.Floor && !noZombieRange.IsInRange(pt))
+				currentDungeon.zombieSpawns.Add(pt);
 		}
+	}
+
+	void GenerateTreasureSpawnTile()
+	{
+		Coord pt = null;
+		while (pt == null || currentDungeon.tiles[pt.x, pt.y] != TileType.Floor)
+		{
+			pt = treasureSpawnRange.Random(rnd, mapWidth, mapHeight);
+		}
+
+		currentDungeon.treasureSpawn = pt;
 	}
 }

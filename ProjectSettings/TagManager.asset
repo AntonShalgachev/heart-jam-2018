@@ -18,7 +18,7 @@ TagManager:
   - Player
   - Bullet
   - ShootingRange
-  - 
+  - Treasure
   - 
   - 
   - 
@@ -52,4 +52,7 @@ TagManager:
     locked: 0
   - name: Bullet
     uniqueID: 1366169871
+    locked: 0
+  - name: Treasure
+    uniqueID: 3822801035
     locked: 0
