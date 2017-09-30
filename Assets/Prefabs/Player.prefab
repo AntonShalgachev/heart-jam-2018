@@ -165,6 +165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 200
+  regen: 1
+  regenRate: 5
 --- !u!114 &114842125889650136
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 	public GameObject playerPrefab;
 	public GameObject zombiePrefab;
 	public GameObject treasurePrefab;
+	public HealthBar healthBar;
 
 	DungeonGenerator dungeonGenerator;
 	TileGenerator tileGenerator;
@@ -39,6 +40,7 @@ public class GameController : MonoBehaviour
 		var player = Instantiate(playerPrefab, playerPos, Quaternion.identity);
 
 		Camera.main.GetComponent<PlayerFollower>().SetPlayer(player);
+		healthBar.SetPlayer(player);
 	}
 
 	void SpawnZombies()
