@@ -6,6 +6,7 @@ public class TileGenerator : MonoBehaviour
 {
 	public GameObject emptyTile;
 	public GameObject wallTile;
+	public bool spawnTiles;
 	public float tileSize;
 
 	public GameObject tilesObject;
@@ -29,7 +30,9 @@ public class TileGenerator : MonoBehaviour
 		var dungeonGenerator = GetComponent<DungeonGenerator>();
 		currentDungeon = dungeonGenerator.GenerateDungeon();
 
-		GenerateTiles();
+		if (spawnTiles)
+			GenerateTiles();
+
 		CreateCaveMesh();
 		CreatePlayerSpawn();
 		CreateZombieSpawns();

@@ -4,26 +4,16 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-	public float maxSpeed;
-	public float maxForce;
-	public float forceScale;
+	Movement movement;
 
-	Rigidbody2D rigidBody;
-
-	private void Start()
+	private void Awake()
 	{
-		rigidBody = GetComponent<Rigidbody2D>();
+		movement = GetComponent<Movement>();
 	}
 
 	private void Update()
 	{
-		var dir = GetCurrentDirection();
-		var velocity = rigidBody.velocity;
-		var newVelocity = dir * maxSpeed;
-		var force = (newVelocity - velocity) * forceScale;
-		force = Vector2.ClampMagnitude(force, maxForce);
-
-		rigidBody.AddForce(force);
+		movement.SetDirection(GetCurrentDirection());
 	}
 
 	Vector2 GetCurrentDirection()
@@ -38,8 +28,7 @@ public class PlayerMovement : MonoBehaviour
 			dir += new Vector2(-1.0f, 0.0f);
 		if (Input.GetKey(KeyCode.D))
 			dir += new Vector2(1.0f, 0.0f);
-
-		dir.Normalize();
+		
 		return dir;
 	}
 }

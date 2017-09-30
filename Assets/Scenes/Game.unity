@@ -466,8 +466,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomSeed: 0
-  mapWidth: 50
-  mapHeight: 50
+  mapWidth: 150
+  mapHeight: 150
   fillChance: 0.534
   smoothingIterations: 5
   cellularThreshold: 4
@@ -480,17 +480,17 @@ MonoBehaviour:
     center:
       x: 0
       y: 0
-    range: 30
+    range: 40
   treasureSpawnRange:
     center:
-      x: 0
-      y: 0
+      x: 149
+      y: 149
     range: 40
   noZombieRange:
     center:
       x: 0
       y: 0
-    range: 1
+    range: 60
 --- !u!4 &1249941347
 Transform:
   m_ObjectHideFlags: 0
@@ -522,6 +522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   emptyTile: {fileID: 1618899316292718, guid: 1958d6da8e751ec48bb191e5ffcf658d, type: 2}
   wallTile: {fileID: 1792354290127124, guid: 98ce23d267127ca4587d406f34ab33c4, type: 2}
+  spawnTiles: 0
   tileSize: 1
   tilesObject: {fileID: 822114243}
   wallsObject: {fileID: 824033515}
