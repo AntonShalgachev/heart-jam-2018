@@ -9,6 +9,7 @@ public class DungeonGenerator : MonoBehaviour
 	
 	public int mapWidth;
 	public int mapHeight;
+	public int borderSize;
 
 	[Range(0.0f, 1.0f)]
 	public float fillChance;
@@ -153,7 +154,7 @@ public class DungeonGenerator : MonoBehaviour
 		{
 			for (int y = 0; y < mapHeight; ++y)
 			{
-				if (x == 0 || x == mapWidth - 1 || y == 0 || y == mapHeight - 1)
+				if (x < borderSize || x > mapWidth - borderSize - 1 || y < borderSize || y > mapHeight - borderSize - 1)
 					currentDungeon.tiles[x, y] = TileType.Wall;
 				else
 					currentDungeon.tiles[x, y] = (rnd.NextDouble() < fillChance) ? TileType.Floor : TileType.Wall;

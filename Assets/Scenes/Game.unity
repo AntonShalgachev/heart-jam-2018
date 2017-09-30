@@ -466,8 +466,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomSeed: 0
-  mapWidth: 150
-  mapHeight: 150
+  mapWidth: 200
+  mapHeight: 200
+  borderSize: 20
   fillChance: 0.534
   smoothingIterations: 5
   cellularThreshold: 4
@@ -478,8 +479,8 @@ MonoBehaviour:
     max: 200
   playerSpawnRange:
     center:
-      x: 0
-      y: 0
+      x: 50
+      y: 50
     range: 40
   treasureSpawnRange:
     center:
@@ -488,8 +489,8 @@ MonoBehaviour:
     range: 40
   noZombieRange:
     center:
-      x: 0
-      y: 0
+      x: 50
+      y: 50
     range: 60
 --- !u!4 &1249941347
 Transform:
