@@ -134,7 +134,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1249941347}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &382446963
 GameObject:
@@ -209,7 +209,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1249941347}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &822114243
 GameObject:
@@ -239,6 +239,75 @@ Transform:
   m_Father: {fileID: 1249941347}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &824033515
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 824033516}
+  - component: {fileID: 824033518}
+  - component: {fileID: 824033517}
+  m_Layer: 8
+  m_Name: Walls
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &824033516
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 824033515}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1249941347}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &824033517
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 824033515}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 478b7cfd988eb3443b9d5044c5c4004d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &824033518
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 824033515}
+  m_Mesh: {fileID: 0}
 --- !u!1 &1054139347
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +435,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1249941347}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1249941345
 GameObject:
@@ -397,8 +466,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomSeed: 0
-  mapWidth: 150
-  mapHeight: 150
+  mapWidth: 50
+  mapHeight: 50
   fillChance: 0.534
   smoothingIterations: 5
   cellularThreshold: 4
@@ -409,19 +478,19 @@ MonoBehaviour:
     max: 200
   playerSpawnRange:
     center:
-      x: 75
-      y: 75
+      x: 0
+      y: 0
     range: 30
   treasureSpawnRange:
     center:
-      x: 149
-      y: 149
+      x: 0
+      y: 0
     range: 40
   noZombieRange:
     center:
-      x: 75
-      y: 75
-    range: 50
+      x: 0
+      y: 0
+    range: 1
 --- !u!4 &1249941347
 Transform:
   m_ObjectHideFlags: 0
@@ -433,6 +502,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 822114244}
+  - {fileID: 824033516}
   - {fileID: 171884183}
   - {fileID: 576703300}
   - {fileID: 1108446035}
@@ -453,3 +523,8 @@ MonoBehaviour:
   emptyTile: {fileID: 1618899316292718, guid: 1958d6da8e751ec48bb191e5ffcf658d, type: 2}
   wallTile: {fileID: 1792354290127124, guid: 98ce23d267127ca4587d406f34ab33c4, type: 2}
   tileSize: 1
+  tilesObject: {fileID: 822114243}
+  wallsObject: {fileID: 824033515}
+  playerSpawnObject: {fileID: 171884182}
+  zombieSpawnsObject: {fileID: 576703299}
+  treasureSpawnObject: {fileID: 1108446034}

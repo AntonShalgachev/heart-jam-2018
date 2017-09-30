@@ -13,7 +13,7 @@ public class Autoshoot : MonoBehaviour
 	GameObject bullets;
 	List<GameObject> zombiesInRange;
 
-	private void Start()
+	private void Awake()
 	{
 		bullets = new GameObject("Bullets");
 		zombiesInRange = new List<GameObject>();
