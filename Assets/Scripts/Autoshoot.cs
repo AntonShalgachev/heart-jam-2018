@@ -35,10 +35,10 @@ public class Autoshoot : MonoBehaviour
 			return;
 
 		var targetDir = (Vector2)zombie.transform.position - (Vector2)transform.position;
-		targetDir.Normalize();
+		var distance = targetDir.magnitude;
 
 		var spread = Random.Range(-shootingSpread, shootingSpread);
-		var dir = Quaternion.Euler(0, 0, spread) * targetDir;
+		var dir = Quaternion.Euler(0, 0, spread) * targetDir.normalized;
 
 		Shoot(dir);
 		shootingDelay = reloadingTime;
@@ -53,6 +53,13 @@ public class Autoshoot : MonoBehaviour
 			if (zombie == null)
 				continue;
 
+			var dir = zombie.transform.position - transform.position;
+			var dist = dir.magnitude;
+			var layerMask = 1 << LayerMask.NameToLayer("Wall");
+			var wallHit = Physics2D.Raycast(transform.position, dir.normalized, dist, layerMask);
+			if (wallHit.collider != null)
+				continue;
+
 			if (closestZombie == null)
 			{
 				closestZombie = zombie;
@@ -60,7 +67,6 @@ public class Autoshoot : MonoBehaviour
 			else
 			{
 				var closestDist = (transform.position - closestZombie.transform.position).magnitude;
-				var dist = (transform.position - zombie.transform.position).magnitude;
 				if (dist < closestDist)
 					closestZombie = zombie;
 			}
