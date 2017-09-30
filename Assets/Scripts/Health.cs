@@ -15,7 +15,7 @@ public class Health : MonoBehaviour
 
 	public void TakeDamage(float damage)
 	{
-		//Debug.Log(string.Format("Taking {0} damage", damage));
+		Debug.Log(string.Format("Taking {0} damage", damage));
 		health -= damage;
 
 		if (health < 0.0f)
