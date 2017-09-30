@@ -6,14 +6,14 @@ using UnityEditor;
 [CustomEditor(typeof(TileGenerator))]
 public class TileGeneratorEditor : Editor
 {
-	public override void OnInspectorGUI()
-	{
-		var gen = (TileGenerator)target;
+	//public override void OnInspectorGUI()
+	//{
+	//	var gen = (TileGenerator)target;
 
-		if (DrawDefaultInspector())
-			gen.GenerateTiles();
+	//	if (DrawDefaultInspector())
+	//		gen.SpawnTiles();
 
-		if (GUILayout.Button("Generate"))
-			gen.GenerateTiles();
-	}
+	//	if (GUILayout.Button("Generate"))
+	//		gen.SpawnTiles();
+	//}
 }

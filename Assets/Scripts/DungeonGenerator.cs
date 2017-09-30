@@ -18,7 +18,11 @@ public class DungeonGenerator : MonoBehaviour
 	public int wallSizeThreshold;
 	public int roomSizeThreshold;
 
+	public IntRange numberOfZombiesRange;
+
 	private System.Random rnd;
+	private DungeonData currentDungeon;
+	private int numberOfZombies;
 
 	public enum TileType
 	{
@@ -29,36 +33,32 @@ public class DungeonGenerator : MonoBehaviour
 	public class DungeonData
 	{
 		public TileType[,] tiles;
-		public Coord startingTile;
+		public Coord playerSpawn;
+		public List<Coord> zombieSpawns;
 
-		public DungeonData(int w, int h, bool initToWall = false)
+		public DungeonData(int w, int h)
 		{
 			tiles = new TileType[w, h];
-
-			if (initToWall)
-			{
-				for (int x = 0; x < w; x++)
-				{
-					for (int y = 0; y < h; y++)
-					{
-						tiles[x, y] = TileType.Wall;
-					}
-				}
-			}
 		}
 	}
 
-	//[Serializable]
-	//public class IntRange
-	//{
-	//	public int min;
-	//	public int max;
+	[Serializable]
+	public class IntRange
+	{
+		public int min;
+		public int max;
 
-	//	public int Random(System.Random rnd)
-	//	{
-	//		return rnd.Next(min, max);
-	//	}
-	//}
+		public IntRange(int min, int max)
+		{
+			this.min = min;
+			this.max = max;
+		}
+
+		public int Random(System.Random rnd)
+		{
+			return rnd.Next(min, max);
+		}
+	}
 
 	public struct Coord
 	{
@@ -73,52 +73,69 @@ public class DungeonGenerator : MonoBehaviour
 
 	public DungeonData GenerateDungeon()
 	{
-		var data = new DungeonData(mapWidth, mapHeight);
 		rnd = new System.Random(randomSeed);
 
-		FillRandomly(data);
-		for (int i = 0; i < smoothingIterations; i++)
-		{
-			Smooth(data);
-		}
+		currentDungeon = new DungeonData(mapWidth, mapHeight);
+		InitData();
 
-		//FillSmallRegions(data);
-		FindStartingTile(data);
+		GenerateTiles();
+		GenerateSpawns();
 
-		return data;
+		return currentDungeon;
 	}
 
-	void FillRandomly(DungeonData data)
+	void GenerateTiles()
+	{
+		FillRandomly();
+		for (int i = 0; i < smoothingIterations; i++)
+			Smooth();
+
+		//FillSmallRegions();
+	}
+
+	void GenerateSpawns()
+	{
+		GeneratePlayerSpawnTile();
+		GenerateZombieSpawnTiles();
+	}
+
+	void InitData()
+	{
+		numberOfZombies = numberOfZombiesRange.Random(rnd);
+		currentDungeon.zombieSpawns = new List<Coord>();
+	}
+
+	void FillRandomly()
 	{
 		for (int x = 0; x < mapWidth; ++x)
 		{
 			for (int y = 0; y < mapHeight; ++y)
 			{
 				if (x == 0 || x == mapWidth - 1 || y == 0 || y == mapHeight - 1)
-					data.tiles[x, y] = TileType.Wall;
+					currentDungeon.tiles[x, y] = TileType.Wall;
 				else
-					data.tiles[x, y] = (rnd.NextDouble() < fillChance) ? TileType.Floor : TileType.Wall;
+					currentDungeon.tiles[x, y] = (rnd.NextDouble() < fillChance) ? TileType.Floor : TileType.Wall;
 			}
 		}
 	}
 
-	void Smooth(DungeonData data)
+	void Smooth()
 	{
 		for (int x = 0; x < mapWidth; ++x)
 		{
 			for (int y = 0; y < mapHeight; ++y)
 			{
-				int wallCount = CountSurroundingWalls(data, x, y);
+				int wallCount = CountSurroundingWalls(x, y);
 
 				if (wallCount > cellularThreshold)
-					data.tiles[x, y] = TileType.Wall;
+					currentDungeon.tiles[x, y] = TileType.Wall;
 				else if (wallCount < cellularThreshold)
-					data.tiles[x, y] = TileType.Floor;
+					currentDungeon.tiles[x, y] = TileType.Floor;
 			}
 		}
 	}
 
-	int CountSurroundingWalls(DungeonData data, int cx, int cy)
+	int CountSurroundingWalls(int cx, int cy)
 	{
 		int wallsCount = 0;
 
@@ -129,7 +146,7 @@ public class DungeonGenerator : MonoBehaviour
 				if (x == cx && y == cy)
 					continue;
 
-				if (!IsInMapRange(x, y) || data.tiles[x, y] == TileType.Wall)
+				if (!IsInMapRange(x, y) || currentDungeon.tiles[x, y] == TileType.Wall)
 					wallsCount++;
 			}
 		}
@@ -142,12 +159,12 @@ public class DungeonGenerator : MonoBehaviour
 		return x >= 0 && x < mapWidth && y >= 0 && y < mapHeight;
 	}
 
-	void FillSmallRegions(DungeonData data)
+	void FillSmallRegions()
 	{
 
 	}
 
-	List<List<Coord>> GetRegions(DungeonData data, TileType tileType)
+	List<List<Coord>> GetRegions(TileType tileType)
 	{
 		List<List<Coord>> regions = new List<List<Coord>>();
 		bool[,] flooded = new bool[mapWidth, mapHeight];
@@ -156,9 +173,9 @@ public class DungeonGenerator : MonoBehaviour
 		{
 			for (int y = 0; y < mapHeight; ++y)
 			{
-				if (!flooded[x, y] && data.tiles[x, y] == tileType)
+				if (!flooded[x, y] && currentDungeon.tiles[x, y] == tileType)
 				{
-					List<Coord> newRegion = GetRegionTiles(data, flooded, x, y);
+					List<Coord> newRegion = GetRegionTiles(flooded, x, y);
 					regions.Add(newRegion);
 
 					foreach (Coord tile in newRegion)
@@ -172,10 +189,10 @@ public class DungeonGenerator : MonoBehaviour
 		return regions;
 	}
 
-	List<Coord> GetRegionTiles(DungeonData data, bool[,] flooded, int startX, int startY)
+	List<Coord> GetRegionTiles(bool[,] flooded, int startX, int startY)
 	{
 		List<Coord> tiles = new List<Coord>();
-		var tileType = data.tiles[startX, startY];
+		var tileType = currentDungeon.tiles[startX, startY];
 
 		Queue<Coord> queue = new Queue<Coord>();
 		queue.Enqueue(new Coord(startX, startY));
@@ -192,7 +209,7 @@ public class DungeonGenerator : MonoBehaviour
 				{
 					if (IsInMapRange(x, y) && (y == tile.y || x == tile.x))
 					{
-						if (!flooded[x, y] && data.tiles[x, y] == tileType)
+						if (!flooded[x, y] && currentDungeon.tiles[x, y] == tileType)
 						{
 							flooded[x, y] = true;
 							queue.Enqueue(new Coord(x, y));
@@ -205,15 +222,27 @@ public class DungeonGenerator : MonoBehaviour
 		return tiles;
 	}
 
-	void FindStartingTile(DungeonData data)
+	void GeneratePlayerSpawnTile()
 	{
 		for (int i = 0; i < mapWidth; i++)
 		{
 			for (int j = 0; j < mapHeight; j++)
 			{
-				if (data.tiles[i, j] == TileType.Floor)
-					data.startingTile = new Coord(i, j);
+				if (currentDungeon.tiles[i, j] == TileType.Floor)
+					currentDungeon.playerSpawn = new Coord(i, j);
 			}
+		}
+	}
+
+	void GenerateZombieSpawnTiles()
+	{
+		while(currentDungeon.zombieSpawns.Count < numberOfZombies)
+		{
+			var x = new IntRange(0, mapWidth - 1).Random(rnd);
+			var y = new IntRange(0, mapHeight - 1).Random(rnd);
+
+			if (currentDungeon.tiles[x, y] == TileType.Floor)
+				currentDungeon.zombieSpawns.Add(new Coord(x, y));
 		}
 	}
 }

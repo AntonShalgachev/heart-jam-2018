@@ -13,11 +13,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Wall
+  - Zombie
+  - Player
+  - Bullet
+  - ShootingRange
   - 
   - 
   - 
@@ -38,12 +38,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Dungeon
     uniqueID: 105228161
     locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
   - name: Player
     uniqueID: 185404757
+    locked: 0
+  - name: Zombies
+    uniqueID: 1114541535
+    locked: 0
+  - name: Bullet
+    uniqueID: 1366169871
     locked: 0

@@ -6,17 +6,17 @@ using UnityEditor;
 [CustomEditor(typeof(DungeonGenerator))]
 public class DungeonGeneratorEditor : Editor
 {
-	public override void OnInspectorGUI()
-	{
-		var changed = DrawDefaultInspector();
+	//public override void OnInspectorGUI()
+	//{
+	//	var changed = DrawDefaultInspector();
 
-		var gen = (DungeonGenerator)target;
-		var tileGen = gen.gameObject.GetComponent<TileGenerator>();
+	//	var gen = (DungeonGenerator)target;
+	//	var tileGen = gen.gameObject.GetComponent<TileGenerator>();
 
-		if (changed)
-			tileGen.GenerateTiles();
+	//	if (changed)
+	//		tileGen.SpawnTiles();
 
-		if (GUILayout.Button("Generate"))
-			tileGen.GenerateTiles();
-	}
+	//	if (GUILayout.Button("Generate"))
+	//		tileGen.SpawnTiles();
+	//}
 }
