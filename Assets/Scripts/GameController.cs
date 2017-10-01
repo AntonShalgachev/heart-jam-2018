@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
 	public GameObject zombiePrefab;
 	public GameObject treasurePrefab;
 	public HealthBar healthBar;
+	public MeshRenderer fogOfWar;
 
 	public HudController hud;
 
@@ -33,6 +34,12 @@ public class GameController : MonoBehaviour
 	private void Start()
 	{
 		Invoke("SetupGame", 0.1f);
+	}
+
+	private void Update()
+	{
+		if (playerController)
+			fogOfWar.material.SetVector("_PlayerPos", playerController.transform.position);
 	}
 
 	void SetupGame()

@@ -12,6 +12,7 @@ public class TileGenerator : MonoBehaviour
 	public GameObject floorObject;
 	public GameObject tilesObject;
 	public GameObject wallsObject;
+	public GameObject fogOfWarObject;
 	public GameObject playerSpawnObject;
 	public GameObject playerSpawnPrefab;
 	public GameObject zombieSpawnsObject;
@@ -40,6 +41,7 @@ public class TileGenerator : MonoBehaviour
 		CreatePlayerSpawn();
 		CreateZombieSpawns();
 		CreateTreasureSpawn();
+		CreateFogOfWar();
 	}
 
 	void GenerateTiles()
@@ -79,6 +81,13 @@ public class TileGenerator : MonoBehaviour
 		var width = currentDungeon.tiles.GetLength(0) * tileSize / 10;
 		var height = currentDungeon.tiles.GetLength(1) * tileSize / 10;
 		floorObject.transform.localScale = new Vector3(width, 1.0f, height);
+	}
+
+	void CreateFogOfWar()
+	{
+		var width = currentDungeon.tiles.GetLength(0) * tileSize / 10;
+		var height = currentDungeon.tiles.GetLength(1) * tileSize / 10;
+		fogOfWarObject.transform.localScale = new Vector3(width, 1.0f, height);
 	}
 
 	void CreateCaveMesh()
