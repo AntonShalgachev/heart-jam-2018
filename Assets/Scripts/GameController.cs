@@ -57,6 +57,8 @@ public class GameController : MonoBehaviour
 		SpawnPlayer();
 		SpawnZombies();
 		SpawnTreasure();
+
+		hud.InitObjectives();
 	}
 
 	void SpawnPlayer()
