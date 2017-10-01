@@ -9,6 +9,7 @@ public class TileGenerator : MonoBehaviour
 	public bool spawnTiles;
 	public float tileSize;
 
+	public GameObject floorObject;
 	public GameObject tilesObject;
 	public GameObject wallsObject;
 	public GameObject playerSpawnObject;
@@ -33,6 +34,7 @@ public class TileGenerator : MonoBehaviour
 		if (spawnTiles)
 			GenerateTiles();
 
+		CreateFloor();
 		CreateCaveMesh();
 		CreatePlayerSpawn();
 		CreateZombieSpawns();
@@ -69,6 +71,13 @@ public class TileGenerator : MonoBehaviour
 		var width = currentDungeon.tiles.GetLength(0);
 		var height = currentDungeon.tiles.GetLength(1);
 		return new Vector2((x - 0.5f * width) * tileSize, (y - 0.5f * height) * tileSize);
+	}
+
+	void CreateFloor()
+	{
+		var width = currentDungeon.tiles.GetLength(0) * tileSize / 10;
+		var height = currentDungeon.tiles.GetLength(1) * tileSize / 10;
+		floorObject.transform.localScale = new Vector3(width, 1.0f, height);
 	}
 
 	void CreateCaveMesh()
