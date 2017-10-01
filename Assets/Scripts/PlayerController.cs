@@ -1,9 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
+	public event Action onTreasureCollected;
+	public event Action onSpawnReached;
+
 	Movement movement;
 
 	private void Awake()
@@ -30,5 +34,21 @@ public class PlayerMovement : MonoBehaviour
 			dir += new Vector2(1.0f, 0.0f);
 		
 		return dir;
+	}
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.gameObject.layer == LayerMask.NameToLayer("Treasure"))
+		{
+			Destroy(collision.gameObject);
+			if (onTreasureCollected != null)
+				onTreasureCollected.Invoke();
+		}
+		
+		if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerSpawn"))
+		{
+			if (onSpawnReached != null)
+				onSpawnReached.Invoke();
+		}
 	}
 }

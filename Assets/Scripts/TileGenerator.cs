@@ -13,6 +13,7 @@ public class TileGenerator : MonoBehaviour
 	public GameObject tilesObject;
 	public GameObject wallsObject;
 	public GameObject playerSpawnObject;
+	public GameObject playerSpawnPrefab;
 	public GameObject zombieSpawnsObject;
 	public GameObject treasureSpawnObject;
 
@@ -468,9 +469,8 @@ public class TileGenerator : MonoBehaviour
 
 	void CreatePlayerSpawn()
 	{
-		var playerSpawn = new GameObject("Spawn");
-		playerSpawn.transform.parent = playerSpawnObject.transform;
-		playerSpawn.transform.position = GetTileCenter(currentDungeon.playerSpawn.x, currentDungeon.playerSpawn.y);
+		var pos = GetTileCenter(currentDungeon.playerSpawn.x, currentDungeon.playerSpawn.y);
+		var playerSpawn = Instantiate(playerSpawnPrefab, pos, Quaternion.identity, playerSpawnObject.transform);
 	}
 
 	void CreateZombieSpawns()

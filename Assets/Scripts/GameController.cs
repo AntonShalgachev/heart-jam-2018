@@ -10,10 +10,25 @@ public class GameController : MonoBehaviour
 	public GameObject treasurePrefab;
 	public HealthBar healthBar;
 
+	public HudController hud;
+
 	DungeonGenerator dungeonGenerator;
 	TileGenerator tileGenerator;
+	PlayerController playerController;
 
 	DungeonGenerator.DungeonData dungeonData;
+
+	bool treasureCollected;
+
+	public static GameController instance;
+
+	private void Awake()
+	{
+		Debug.Assert(instance == null, "There can't be multiple game controllers");
+		instance = this;
+
+		Debug.Assert(hud);
+	}
 
 	private void Start()
 	{
@@ -41,6 +56,10 @@ public class GameController : MonoBehaviour
 
 		Camera.main.GetComponent<PlayerFollower>().SetPlayer(player);
 		healthBar.SetPlayer(player);
+
+		playerController = player.GetComponent<PlayerController>();
+		Debug.Assert(playerController);
+		SetupPlayer();
 	}
 
 	void SpawnZombies()
@@ -60,5 +79,27 @@ public class GameController : MonoBehaviour
 	{
 		var pos = tileGenerator.GetTreasureSpawn().transform.position;
 		var player = Instantiate(treasurePrefab, pos, Quaternion.identity);
+	}
+
+	void SetupPlayer()
+	{
+		playerController.onTreasureCollected += OnTreasureCollected;
+		playerController.onSpawnReached += OnSpawnReached;
+	}
+
+	void OnTreasureCollected()
+	{
+		Debug.Log("Treasure collected");
+		treasureCollected = true;
+		hud.OnTreasureCollected();
+	}
+
+	void OnSpawnReached()
+	{
+		if (!treasureCollected)
+			return;
+
+		Debug.Log("Spawn reached");
+		hud.OnSpawnReached();
 	}
 }

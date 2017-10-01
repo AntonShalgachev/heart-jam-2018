@@ -37,7 +37,7 @@ public class Attack : MonoBehaviour
 		var health = obj.GetComponent<Health>();
 		if (health)
 		{
-			Debug.Log(string.Format("Trying to deal {0} damage to '{1}'", damage, obj.name));
+			//Debug.Log(string.Format("Trying to deal {0} damage to '{1}'", damage, obj.name));
 			health.TakeDamage(damage);
 		}
 	}

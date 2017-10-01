@@ -165,6 +165,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 150da419649f5eb4280d2fa1450bdde6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  treasureMask:
+    serializedVersion: 2
+    m_Bits: 8192
+  spawnMask:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!114 &114770811078710478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -223,7 +229,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 185404757
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1dbed88b5c0e36949a78421bfad9472d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
