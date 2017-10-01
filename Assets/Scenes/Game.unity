@@ -1429,6 +1429,9 @@ MonoBehaviour:
   - {fileID: 622666107}
   - {fileID: 186555303}
   objectivePanel: {fileID: 676927281}
+  mouseKnobPrefab: {fileID: 1212794468550590, guid: 67d195ef2ca86484eb25ae7c63b49c5b,
+    type: 2}
+  maxKnobDistance: 100
 --- !u!1 &1344798834
 GameObject:
   m_ObjectHideFlags: 0

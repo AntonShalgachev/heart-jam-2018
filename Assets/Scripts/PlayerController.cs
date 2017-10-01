@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
 
 	Movement movement;
 
+	bool mouseDown;
+	Vector2 downPos;
+
 	private void Awake()
 	{
 		movement = GetComponent<Movement>();
@@ -17,10 +20,24 @@ public class PlayerController : MonoBehaviour
 
 	private void Update()
 	{
-		movement.SetDirection(GetCurrentDirection());
+		mouseDown = Input.GetMouseButton(0);
+		if (Input.GetMouseButtonDown(0))
+			downPos = Input.mousePosition;
+
+		var dir = GetCurrentDirection();
+		movement.SetDirection(dir);
 	}
 
 	Vector2 GetCurrentDirection()
+	{
+		var dir = GetTouchDirection();
+		if (dir.magnitude < Mathf.Epsilon)
+			dir = GetWASDDirection();
+
+		return dir;
+	}
+
+	Vector2 GetWASDDirection()
 	{
 		Vector2 dir = Vector2.zero;
 
@@ -32,7 +49,17 @@ public class PlayerController : MonoBehaviour
 			dir += new Vector2(-1.0f, 0.0f);
 		if (Input.GetKey(KeyCode.D))
 			dir += new Vector2(1.0f, 0.0f);
-		
+
+		return dir;
+	}
+
+	Vector2 GetTouchDirection()
+	{
+		Vector2 dir = Vector2.zero;
+
+		if (mouseDown)
+			dir = (Vector2)Input.mousePosition - downPos;
+
 		return dir;
 	}
 
