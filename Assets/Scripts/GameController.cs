@@ -39,7 +39,10 @@ public class GameController : MonoBehaviour
 	private void Update()
 	{
 		if (playerController)
+		{
 			fogOfWar.material.SetVector("_PlayerPos", playerController.transform.position);
+			fogOfWar.material.SetVector("_PlayerDir", playerController.transform.rotation * Vector2.right);
+		}
 	}
 
 	void SetupGame()

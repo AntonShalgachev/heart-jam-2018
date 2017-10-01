@@ -59,8 +59,10 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
-    - _FogMaxRadius: 0.45
+    - _FogMaxRadius: 0.2
     - _FogRadius: 10
+    - _Fov: 0.54
+    - _FovRange: 20
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -68,6 +70,11 @@ Material:
     - _Mode: 3
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _Range: 7
+    - _RangeAmplification: 0.29
+    - _RangeAplification: 0.5
+    - _SectorAmplification: 0.09
+    - _SectorAplification: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -79,4 +86,5 @@ Material:
     - _Player1_Pos: {r: 0, g: 0, b: 0, a: 1}
     - _Player2_Pos: {r: 0, g: 0, b: 0, a: 1}
     - _Player3_Pos: {r: 0, g: 0, b: 0, a: 1}
+    - _PlayerDir: {r: 0, g: 1, b: 0, a: 1}
     - _PlayerPos: {r: 0, g: 0, b: 0, a: 1}
