@@ -13,7 +13,8 @@ public class MovementOrientation : MonoBehaviour
 
 	private void Update()
 	{
-		if (body.velocity.magnitude > Mathf.Epsilon)
+		if (body.velocity.magnitude > 0.1f)
 			transform.rotation = Quaternion.FromToRotation(Vector2.right, body.velocity);
+		body.angularVelocity = 0.0f;
 	}
 }
