@@ -21,7 +21,6 @@ public class DungeonGenerator : MonoBehaviour
 
 	public IntRange numberOfZombiesRange;
 	public CircleRange playerSpawnRange;
-	public CircleRange treasureSpawnRange;
 
 	public CircleRange noZombieRange;
 
@@ -40,7 +39,6 @@ public class DungeonGenerator : MonoBehaviour
 		public TileType[,] tiles;
 		public Point playerSpawn;
 		public List<Point> zombieSpawns;
-		public Point treasureSpawn;
 
 		public DungeonData(int w, int h)
 		{
@@ -139,7 +137,6 @@ public class DungeonGenerator : MonoBehaviour
 	{
 		GeneratePlayerSpawnTile();
 		GenerateZombieSpawnTiles();
-		GenerateTreasureSpawnTile();
 	}
 
 	void InitData()
@@ -287,16 +284,5 @@ public class DungeonGenerator : MonoBehaviour
 			if (currentDungeon.tiles[x, y] == TileType.Floor && !noZombieRange.IsInRange(pt))
 				currentDungeon.zombieSpawns.Add(pt);
 		}
-	}
-
-	void GenerateTreasureSpawnTile()
-	{
-		Point pt = null;
-		while (pt == null || currentDungeon.tiles[pt.x, pt.y] != TileType.Floor)
-		{
-			pt = treasureSpawnRange.Random(rnd, mapWidth, mapHeight);
-		}
-
-		currentDungeon.treasureSpawn = pt;
 	}
 }

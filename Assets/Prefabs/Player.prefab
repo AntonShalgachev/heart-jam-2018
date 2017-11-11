@@ -41,7 +41,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4774489593561608}
-  - component: {fileID: 114354927124220966}
   - component: {fileID: 58057965340139728}
   m_Layer: 12
   m_Name: ShootingRange
@@ -127,22 +126,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.9
---- !u!114 &114354927124220966
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1240995542541530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e6f508e827516549b461a04f1544509, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootingSpread: 10
-  reloadingTime: 0.3
-  bulletSpeed: 50
-  bulletPrefab: {fileID: 1299371444396520, guid: 321645feba1d3a74db62bc73c3db5fb4,
-    type: 2}
 --- !u!114 &114518056358650860
 MonoBehaviour:
   m_ObjectHideFlags: 1

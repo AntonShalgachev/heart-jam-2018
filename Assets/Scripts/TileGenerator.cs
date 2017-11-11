@@ -12,11 +12,9 @@ public class TileGenerator : MonoBehaviour
 	public GameObject floorObject;
 	public GameObject tilesObject;
 	public GameObject wallsObject;
-	public GameObject fogOfWarObject;
 	public GameObject playerSpawnObject;
 	public GameObject playerSpawnPrefab;
 	public GameObject zombieSpawnsObject;
-	public GameObject treasureSpawnObject;
 
 	DungeonGenerator.DungeonData currentDungeon;
 	bool[,] boolDungeonMap;
@@ -40,8 +38,6 @@ public class TileGenerator : MonoBehaviour
 		CreateCaveMesh();
 		CreatePlayerSpawn();
 		CreateZombieSpawns();
-		CreateTreasureSpawn();
-		CreateFogOfWar();
 	}
 
 	void GenerateTiles()
@@ -81,13 +77,6 @@ public class TileGenerator : MonoBehaviour
 		var width = currentDungeon.tiles.GetLength(0) * tileSize / 10;
 		var height = currentDungeon.tiles.GetLength(1) * tileSize / 10;
 		floorObject.transform.localScale = new Vector3(width, 1.0f, height);
-	}
-
-	void CreateFogOfWar()
-	{
-		var width = currentDungeon.tiles.GetLength(0) * tileSize / 10;
-		var height = currentDungeon.tiles.GetLength(1) * tileSize / 10;
-		fogOfWarObject.transform.localScale = new Vector3(width, 1.0f, height);
 	}
 
 	void CreateCaveMesh()
@@ -492,13 +481,6 @@ public class TileGenerator : MonoBehaviour
 		}
 	}
 
-	void CreateTreasureSpawn()
-	{
-		var spawn = new GameObject("Spawn");
-		spawn.transform.parent = treasureSpawnObject.transform;
-		spawn.transform.position = GetTileCenter(currentDungeon.treasureSpawn.x, currentDungeon.treasureSpawn.y);
-	}
-
 	public GameObject GetPlayerSpawn()
 	{
 		return playerSpawnObject.transform.GetChild(0).gameObject;
@@ -513,10 +495,5 @@ public class TileGenerator : MonoBehaviour
 		}
 
 		return spawns;
-	}
-
-	public GameObject GetTreasureSpawn()
-	{
-		return treasureSpawnObject.transform.GetChild(0).gameObject;
 	}
 }

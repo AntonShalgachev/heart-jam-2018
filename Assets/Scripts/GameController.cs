@@ -7,9 +7,7 @@ public class GameController : MonoBehaviour
 	public GameObject dungeon;
 	public GameObject playerPrefab;
 	public GameObject zombiePrefab;
-	public GameObject treasurePrefab;
 	public HealthBar healthBar;
-	public MeshRenderer fogOfWar;
 
 	public HudController hud;
 
@@ -18,8 +16,6 @@ public class GameController : MonoBehaviour
 	PlayerController playerController;
 
 	DungeonGenerator.DungeonData dungeonData;
-
-	bool treasureCollected;
 
 	public static GameController instance;
 
@@ -38,11 +34,7 @@ public class GameController : MonoBehaviour
 
 	private void Update()
 	{
-		if (playerController)
-		{
-			fogOfWar.material.SetVector("_PlayerPos", playerController.transform.position);
-			fogOfWar.material.SetVector("_PlayerDir", playerController.transform.rotation * Vector2.right);
-		}
+
 	}
 
 	void SetupGame()
@@ -56,7 +48,6 @@ public class GameController : MonoBehaviour
 
 		SpawnPlayer();
 		SpawnZombies();
-		SpawnTreasure();
 
 		hud.InitObjectives();
 	}
@@ -71,7 +62,6 @@ public class GameController : MonoBehaviour
 
 		playerController = player.GetComponent<PlayerController>();
 		Debug.Assert(playerController);
-		SetupPlayer();
 	}
 
 	void SpawnZombies()
@@ -85,33 +75,5 @@ public class GameController : MonoBehaviour
 			var zombie = Instantiate(zombiePrefab, pos, Quaternion.identity, zombies.transform);
 			zombie.name = "Zombie";
 		}
-	}
-
-	void SpawnTreasure()
-	{
-		var pos = tileGenerator.GetTreasureSpawn().transform.position;
-		var player = Instantiate(treasurePrefab, pos, Quaternion.identity);
-	}
-
-	void SetupPlayer()
-	{
-		playerController.onTreasureCollected += OnTreasureCollected;
-		playerController.onSpawnReached += OnSpawnReached;
-	}
-
-	void OnTreasureCollected()
-	{
-		Debug.Log("Treasure collected");
-		treasureCollected = true;
-		hud.OnTreasureCollected();
-	}
-
-	void OnSpawnReached()
-	{
-		if (!treasureCollected)
-			return;
-
-		Debug.Log("Spawn reached");
-		hud.OnSpawnReached();
 	}
 }

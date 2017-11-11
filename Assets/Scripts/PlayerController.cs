@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-	public event Action onTreasureCollected;
 	public event Action onSpawnReached;
 
 	Movement movement;
@@ -65,13 +64,6 @@ public class PlayerController : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.layer == LayerMask.NameToLayer("Treasure"))
-		{
-			Destroy(collision.gameObject);
-			if (onTreasureCollected != null)
-				onTreasureCollected.Invoke();
-		}
-		
 		if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerSpawn"))
 		{
 			if (onSpawnReached != null)
