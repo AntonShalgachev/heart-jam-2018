@@ -24,8 +24,8 @@ GameObject:
   - component: {fileID: 58085313328137162}
   - component: {fileID: 114601999165966620}
   - component: {fileID: 114842125889650136}
-  - component: {fileID: 114518056358650860}
   - component: {fileID: 114770811078710478}
+  - component: {fileID: 114417570227358934}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -90,7 +90,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 1
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
@@ -127,7 +127,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.9
---- !u!114 &114518056358650860
+--- !u!114 &114417570227358934
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -135,9 +135,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1198894597222264}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e1ef499b11a64f4abe6fa2cd8bff19d, type: 3}
+  m_Script: {fileID: 11500000, guid: 40c44712134b5a04c87d407079f6dc1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxVelocity: 270
 --- !u!114 &114601999165966620
 MonoBehaviour:
   m_ObjectHideFlags: 1
