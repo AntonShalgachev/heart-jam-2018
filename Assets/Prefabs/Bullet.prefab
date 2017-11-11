@@ -114,6 +114,7 @@ MonoBehaviour:
   damage: 40
   continuous: 0
   period: 0
+  mode: 1
 --- !u!212 &212607170799462420
 SpriteRenderer:
   m_ObjectHideFlags: 1

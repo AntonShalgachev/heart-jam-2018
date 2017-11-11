@@ -18,6 +18,14 @@ public class Enemy : MonoBehaviour
 		Debug.LogFormat("{0} is converted", gameObject.name);
 
 		converted = true;
+		OnConverted();
+	}
+
+	public void OnConverted()
+	{
+#warning antonsh temp
+		var sprite = GetComponent<SpriteRenderer>();
+		sprite.color = Color.green;
 
 		if (onConverted != null)
 			onConverted();

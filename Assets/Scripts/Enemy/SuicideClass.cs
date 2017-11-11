@@ -4,22 +4,26 @@ using UnityEngine;
 
 public class SuicideClass : MonoBehaviour
 {
+	public float meleeDistance;
+
 	GameObject playerInRange;
 	List<GameObject> zombiesInRange = new List<GameObject>();
 
-	GameObject movementTarget;
+	GameObject target;
 	Movement movement;
 	Enemy enemy;
+	Attack attack;
 
 	private void Awake()
 	{
 		movement = GetComponent<Movement>();
 		enemy = GetComponent<Enemy>();
+		attack = GetComponent<Attack>();
 	}
 
 	private void Update()
 	{
-		movementTarget = null;
+		target = null;
 
 		var converted = enemy.IsConverted();
 
@@ -30,18 +34,21 @@ public class SuicideClass : MonoBehaviour
 			var layerMask = 1 << LayerMask.NameToLayer("Wall");
 			var wallHit = Physics2D.Raycast(transform.position, direction.normalized, dist, layerMask);
 			if (wallHit.collider == null)
-				movementTarget = playerInRange;
+				target = playerInRange;
 		}
 		else if (converted)
 		{
-			movementTarget = GetClosestZombie();
+			target = GetClosestZombie();
 		}
 
 		var dir = Vector2.zero;
-		if (movementTarget)
-			dir = movementTarget.transform.position - transform.position;
+		if (target)
+			dir = target.transform.position - transform.position;
 
 		movement.SetDirection(dir);
+
+		if (target && DistanceTo(target) < meleeDistance)
+			Attack(target);
 	}
 
 	GameObject GetClosestZombie()
@@ -51,6 +58,10 @@ public class SuicideClass : MonoBehaviour
 		foreach (var zombie in zombiesInRange)
 		{
 			if (zombie == null)
+				continue;
+
+			var enemy = zombie.GetComponent<Enemy>();
+			if (!enemy || enemy.IsConverted())
 				continue;
 
 			var dir = zombie.transform.position - transform.position;
@@ -73,6 +84,17 @@ public class SuicideClass : MonoBehaviour
 		}
 
 		return closestZombie;
+	}
+
+	float DistanceTo(GameObject obj)
+	{
+		return (obj.transform.position - transform.position).magnitude;
+	}
+
+	void Attack(GameObject obj)
+	{
+		if (attack)
+			attack.TryDealDamage(obj);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collider)
