@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f740936e2ddffaa4e9f7b63251110ae8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootingSpread: 0
+  shootingSpread: 5
   reloadingTime: 0
   bulletSpeed: 50
   bulletPrefab: {fileID: 1299371444396520, guid: 9f46738ba1a8c634d906ee4b780e4c7e,
