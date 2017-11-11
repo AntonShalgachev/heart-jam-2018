@@ -17,7 +17,7 @@ public class Movement : MonoBehaviour
 		rigidBody = GetComponent<Rigidbody2D>();
 	}
 
-	private void Update()
+	private void FixedUpdate()
 	{
 		var velocity = rigidBody.velocity;
 		var newVelocity = dir * maxSpeed;
