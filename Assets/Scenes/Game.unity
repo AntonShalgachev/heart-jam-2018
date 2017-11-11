@@ -1233,11 +1233,6 @@ MonoBehaviour:
       x: 50
       y: 50
     range: 40
-  treasureSpawnRange:
-    center:
-      x: 149
-      y: 149
-    range: 40
   noZombieRange:
     center:
       x: 50
@@ -1283,7 +1278,6 @@ MonoBehaviour:
   playerSpawnPrefab: {fileID: 1562513856302732, guid: ca9766009e8a1e241a902bcbed58cda8,
     type: 2}
   zombieSpawnsObject: {fileID: 576703299}
-  treasureSpawnObject: {fileID: 0}
 --- !u!1 &1272367500
 GameObject:
   m_ObjectHideFlags: 0

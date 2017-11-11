@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 	public event Action onSpawnReached;
+	public Converter converter;
 
 	Movement movement;
 
@@ -25,6 +26,9 @@ public class PlayerController : MonoBehaviour
 
 		var dir = GetCurrentDirection();
 		movement.SetDirection(dir);
+
+		if (Input.GetMouseButtonDown(1))
+			converter.TryShoot();
 	}
 
 	Vector2 GetCurrentDirection()
