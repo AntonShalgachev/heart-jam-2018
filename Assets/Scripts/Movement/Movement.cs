@@ -36,4 +36,9 @@ public class Movement : MonoBehaviour
 	{
 		return rigidBody.velocity.magnitude;
 	}
+
+	public Vector2 GetDirection()
+	{
+		return dir;
+	}
 }

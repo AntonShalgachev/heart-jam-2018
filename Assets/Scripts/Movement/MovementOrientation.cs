@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Movement))]
 public class MovementOrientation : MonoBehaviour
 {
-	private Rigidbody2D body;
+	private Movement movement;
 
 	private void Awake()
 	{
-		body = GetComponent<Rigidbody2D>();
+		movement = GetComponent<Movement>();
 	}
 
 	private void Update()
 	{
-		if (body.velocity.magnitude > 0.1f)
-			transform.rotation = Quaternion.FromToRotation(Vector2.right, body.velocity);
-		body.angularVelocity = 0.0f;
+		var dir = movement.GetDirection();
+		if (dir.magnitude > 1e-3)
+			transform.rotation = Quaternion.FromToRotation(Vector2.right, dir);
 	}
 }
