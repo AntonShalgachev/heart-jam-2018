@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SuicideClass : MonoBehaviour
+public class AgentClass : MonoBehaviour
 {
-	public float meleeDistance;
+	public float triggerDistance;
 
 	GameObject playerInRange;
 	List<GameObject> zombiesInRange = new List<GameObject>();
@@ -28,20 +28,22 @@ public class SuicideClass : MonoBehaviour
 		var converted = enemy.IsConverted();
 		var agressive = enemy.IsAgressive();
 
-#warning antonsh extract this repetitive code
-		if (agressive && playerInRange)
-		{
-			var direction = playerInRange.transform.position - transform.position;
-			var dist = direction.magnitude;
-			var layerMask = 1 << LayerMask.NameToLayer("Wall");
-			var wallHit = Physics2D.Raycast(transform.position, direction.normalized, dist, layerMask);
-			if (wallHit.collider == null)
-				target = playerInRange;
-		}
-		else if (converted || (agressive && playerInRange == null))
-		{
-			target = GetClosestZombie();
-		}
+		//#warning antonsh extract this repetitive code
+		//		if (agressive && playerInRange)
+		//		{
+		//			var direction = playerInRange.transform.position - transform.position;
+		//			var dist = direction.magnitude;
+		//			var layerMask = 1 << LayerMask.NameToLayer("Wall");
+		//			var wallHit = Physics2D.Raycast(transform.position, direction.normalized, dist, layerMask);
+		//			if (wallHit.collider == null)
+		//				target = playerInRange;
+		//		}
+		//		else if (converted)
+		//		{
+		//			target = GetClosestZombie();
+		//		}
+
+		target = GetClosestNonAgnetEnemy();
 
 		var dir = Vector2.zero;
 		if (target)
@@ -49,11 +51,11 @@ public class SuicideClass : MonoBehaviour
 
 		movement.SetDirection(dir);
 
-		if (target && DistanceTo(target) < meleeDistance)
-			Attack(target);
+		if (target && DistanceTo(target) < triggerDistance)
+			MakeAgressive(target);
 	}
 
-	GameObject GetClosestZombie()
+	GameObject GetClosestNonAgnetEnemy()
 	{
 		GameObject closestZombie = null;
 
@@ -62,21 +64,12 @@ public class SuicideClass : MonoBehaviour
 			if (zombie == null)
 				continue;
 
-			var otherEnemy = zombie.GetComponent<Enemy>();
-			if (!otherEnemy)
+			var enemy = zombie.GetComponent<Enemy>();
+			if (!enemy || enemy.IsConverted() || enemy.IsAgressive() || !enemy.canBeAgressive || !enemy.isConvertible)
 				continue;
 
-			var selfConverted = enemy.IsConverted();
-			var selfAgressive = enemy.IsAgressive();
-			var otherConverted = otherEnemy.IsConverted();
-			var otherAgressive = otherEnemy.IsAgressive();
-
-			if (selfAgressive && otherAgressive) // if we are agressive, skip other agressive
-				continue;
-			if (selfConverted && otherConverted) // if we are converted, skip other converted
-				continue;
-			if (!otherConverted && !otherAgressive) // skip passive NPC
-				continue;
+			//if (zombie.GetComponent<AgentClass>())
+			//	continue;
 
 			var dir = zombie.transform.position - transform.position;
 			var dist = dir.magnitude;
@@ -105,10 +98,11 @@ public class SuicideClass : MonoBehaviour
 		return (obj.transform.position - transform.position).magnitude;
 	}
 
-	void Attack(GameObject obj)
+	void MakeAgressive(GameObject obj)
 	{
-		if (attack)
-			attack.TryDealDamage(obj);
+		var objEnemy = obj.GetComponent<Enemy>();
+		if (objEnemy)
+			objEnemy.TryMakeAgressive();
 	}
 
 	private void OnTriggerEnter2D(Collider2D collider)

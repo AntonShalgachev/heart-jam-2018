@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 114627298809208426}
   - component: {fileID: 114844841587152408}
   - component: {fileID: 114927936333445602}
-  - component: {fileID: 114942228831432496}
+  - component: {fileID: 114201212422739140}
   m_Layer: 9
-  m_Name: Zombie
+  m_Name: Agent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,6 +128,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.93
+--- !u!114 &114201212422739140
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1711905891153286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6677f50421597548a4990962fba5a22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  triggerDistance: 2
 --- !u!114 &114480957611497014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -153,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ff1068b174a67444b098f28b3c5057e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 0
   continuous: 1
   period: 1
   mode: 0
@@ -193,20 +205,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7fb1045cd7d1d741914bf65070cbbf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isConvertible: 1
-  canBeAgressive: 1
---- !u!114 &114942228831432496
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1711905891153286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ec91af1ceabadf4f9df99cdc59c5baf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  meleeDistance: 2
+  isConvertible: 0
+  canBeAgressive: 0
 --- !u!212 &212994202949287360
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -241,7 +241,7 @@ SpriteRenderer:
   m_SortingLayerID: 1114541535
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4a21a716a8ad4074885fab25db33b6b2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e87d7f3c35d3fb147bf76902f6fe04e1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

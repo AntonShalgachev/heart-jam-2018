@@ -7,9 +7,12 @@ public class GameController : MonoBehaviour
 	public GameObject dungeon;
 	public GameObject playerPrefab;
 	public GameObject zombiePrefab;
+	public GameObject agentPrefab;
 	public HealthBar healthBar;
 
 	public HudController hud;
+
+	public float agentPercent;
 
 	DungeonGenerator dungeonGenerator;
 	TileGenerator tileGenerator;
@@ -72,8 +75,12 @@ public class GameController : MonoBehaviour
 		foreach (var spawn in spawns)
 		{
 			var pos = spawn.transform.position;
-			var zombie = Instantiate(zombiePrefab, pos, Quaternion.identity, zombies.transform);
-			zombie.name = "Zombie";
+			var prefab = zombiePrefab;
+			if (Random.Range(0.0f, 1.0f) < agentPercent)
+				prefab = agentPrefab;
+
+			var zombie = Instantiate(prefab, pos, Quaternion.identity, zombies.transform);
+			zombie.name = prefab.name;
 		}
 	}
 }
