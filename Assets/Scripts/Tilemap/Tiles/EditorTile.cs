@@ -19,13 +19,22 @@ namespace UnityEngine.Tilemaps
 		public override void GetTileData(Vector3Int location, ITilemap tileMap, ref TileData tileData)
 		{
 			tileData.transform = Matrix4x4.identity;
-            tileData.transform.SetRow(0, new Vector4(-0.5f, -0.5f));
-            tileData.transform.SetRow(1, new Vector4(-0.5f, -0.5f));
-            tileData.transform.SetRow(2, new Vector4(-0.5f, -0.5f));
 
             tileData.color = Color.white;
 			if (prefab != null)
 			{
+                var name = tileMap.ToString();
+
+                /*if (name == "UnityEditor.EditorPreviewTilemap")
+                {
+                    var _sprite = prefab.GetComponent<SpriteRenderer>().sprite;
+                    tileData.sprite = _sprite;
+                }
+                else
+                {
+                    tileData.sprite = null;
+                }*/
+
                 var _sprite = prefab.GetComponent<SpriteRenderer>().sprite;
                 tileData.sprite = _sprite;
                 tileData.gameObject = prefab;
