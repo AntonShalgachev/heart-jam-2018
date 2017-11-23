@@ -19,22 +19,10 @@ namespace UnityEngine.Tilemaps
 		public override void GetTileData(Vector3Int location, ITilemap tileMap, ref TileData tileData)
 		{
 			tileData.transform = Matrix4x4.identity;
-
+            tileData.transform.SetTRS(Vector3.zero,Quaternion.Euler(0,0, m_Rot),Vector3.one);
             tileData.color = Color.white;
 			if (prefab != null)
 			{
-                var name = tileMap.ToString();
-
-                /*if (name == "UnityEditor.EditorPreviewTilemap")
-                {
-                    var _sprite = prefab.GetComponent<SpriteRenderer>().sprite;
-                    tileData.sprite = _sprite;
-                }
-                else
-                {
-                    tileData.sprite = null;
-                }*/
-
                 var _sprite = prefab.GetComponent<SpriteRenderer>().sprite;
                 tileData.sprite = _sprite;
                 tileData.gameObject = prefab;
@@ -43,9 +31,9 @@ namespace UnityEngine.Tilemaps
 
 #if UNITY_EDITOR
 		[MenuItem("Assets/Create/Tiles/Editor Tile")]
-		public static void CreateAnimatedTile()
+		public static void CreateEditorTile()
 		{
-			string path = EditorUtility.SaveFilePanelInProject("Save Animated Tile", "New Animated Tile", "asset", "Save Animated Tile", "Assets");
+			string path = EditorUtility.SaveFilePanelInProject("Save Editor Tile", "New Editor Tile", "asset", "Save Editor Tile", "Assets");
 			if (path == "")
 				return;
 

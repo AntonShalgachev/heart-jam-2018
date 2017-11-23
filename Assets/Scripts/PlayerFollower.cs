@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class PlayerFollower : MonoBehaviour
 {
-	GameObject player;
+	private GameObject player;
 
 	public void SetPlayer(GameObject player)
 	{
 		this.player = player;
 	}
 
-	private void Update()
+    private void Start()
+    {
+        var _player = GameObject.FindWithTag("Player");
+        if(_player != null)
+        {
+            player = _player;
+        }
+    }
+
+
+    private void Update()
 	{
 		if (player != null)
 		{
