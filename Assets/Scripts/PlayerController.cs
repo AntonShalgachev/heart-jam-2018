@@ -6,9 +6,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 	public event Action onSpawnReached;
-	public Converter converter;
+    public Converter converter;
+    public Firearm firearm;
 
-	Movement movement;
+    Movement movement;
 
 	private void Awake()
 	{
@@ -20,9 +21,11 @@ public class PlayerController : MonoBehaviour
 		var dir = GetCurrentDirection();
 		movement.SetDirection(dir);
 
-		if (Input.GetMouseButtonDown(1))
-			converter.TryShoot();
-	}
+        if (Input.GetMouseButtonDown(0))
+            firearm.TryShoot();
+        if (Input.GetMouseButtonDown(1))
+            converter.TryShoot();
+    }
 
 	Vector2 GetCurrentDirection()
 	{

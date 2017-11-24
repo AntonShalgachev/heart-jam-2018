@@ -14,7 +14,7 @@ public class Converter : MonoBehaviour
 
 	private void Awake()
 	{
-		bullets = new GameObject("Bullets");
+		bullets = new GameObject("Converter bullets");
 	}
 
 	private void Update()

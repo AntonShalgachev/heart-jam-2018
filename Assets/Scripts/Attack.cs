@@ -16,6 +16,7 @@ public class Attack : MonoBehaviour
 	public Mode mode;
 
 	float delay = 0.0f;
+    float multiplier = 1.0f;
 
 	private void Update()
 	{
@@ -40,7 +41,7 @@ public class Attack : MonoBehaviour
 		if (health)
 		{
 			Debug.Log(string.Format("Trying to deal {0} damage to '{1}'", damage, obj.name));
-			health.TakeDamage(damage);
+			health.TakeDamage(multiplier * damage);
 		}
 	}
 
@@ -56,4 +57,9 @@ public class Attack : MonoBehaviour
 			delay = period;
 		}
 	}
+
+    public void SetMultiplier(float val)
+    {
+        multiplier = val;
+    }
 }
