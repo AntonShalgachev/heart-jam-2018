@@ -8,12 +8,22 @@ public class Enemy : MonoBehaviour
 	public bool isConvertible;
 	public bool canBeAgressive;
 
-	public event Action onConverted;
+    public Color cInert;
+    public Color cAgressive;
+    public Color cAlly;
+
+    public event Action onConverted;
 
 	bool converted = false;
 	bool agressive = false;
 
-	public void TryConvert()
+    private void Start()
+    {
+        var sprite = GetComponent<SpriteRenderer>();
+        sprite.color = cInert;
+    }
+
+    public void TryConvert()
 	{
 		if (!isConvertible || agressive)
 			return;
@@ -28,7 +38,7 @@ public class Enemy : MonoBehaviour
 	{
 #warning antonsh temp
 		var sprite = GetComponent<SpriteRenderer>();
-		sprite.color = Color.green;
+		sprite.color = cAlly;
 
 		if (onConverted != null)
 			onConverted();
@@ -49,7 +59,7 @@ public class Enemy : MonoBehaviour
 	{
 #warning antonsh temp
 		var sprite = GetComponent<SpriteRenderer>();
-		sprite.color = Color.red;
+		sprite.color = cAgressive;
 	}
 
 	public bool IsConverted()
