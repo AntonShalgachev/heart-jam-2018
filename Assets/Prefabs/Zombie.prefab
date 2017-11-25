@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 114844841587152408}
   - component: {fileID: 114927936333445602}
   - component: {fileID: 114942228831432496}
+  - component: {fileID: 114549955640731706}
   m_Layer: 9
   m_Name: Zombie
   m_TagString: Untagged
@@ -142,6 +143,20 @@ MonoBehaviour:
   maxHealth: 50
   regen: 0
   regenRate: 0
+--- !u!114 &114549955640731706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1711905891153286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1c6c33a4239ce4cba80f58bde31001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drops:
+  - {fileID: 1223461531611086, guid: f96d8eb7d99bd04408f53833d6ee1852, type: 2}
+  probability: 0.5
 --- !u!114 &114599504369734838
 MonoBehaviour:
   m_ObjectHideFlags: 1
