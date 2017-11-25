@@ -207,9 +207,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isConvertible: 0
   canBeAgressive: 0
-  cInert: {r: 0, g: 0, b: 0, a: 0}
-  cAgressive: {r: 0, g: 0, b: 0, a: 0}
-  cAlly: {r: 0, g: 0, b: 0, a: 0}
+  cInert: {r: 1, g: 0, b: 0, a: 1}
+  cAgressive: {r: 0.16911763, g: 0.31237325, b: 1, a: 1}
+  cAlly: {r: 0, g: 1, b: 0.006896496, a: 1}
 --- !u!212 &212994202949287360
 SpriteRenderer:
   m_ObjectHideFlags: 1
