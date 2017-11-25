@@ -10,10 +10,12 @@ public class PlayerController : MonoBehaviour
     public Firearm firearm;
 
     Movement movement;
+    Inventory inventory;
 
-	private void Awake()
+    private void Awake()
 	{
 		movement = GetComponent<Movement>();
+        inventory = GetComponent<Inventory>();
 	}
 
 	private void Update()
@@ -52,10 +54,14 @@ public class PlayerController : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.gameObject.layer == LayerMask.NameToLayer("PlayerSpawn"))
+        var obj = collision.gameObject;
+
+		if (obj.layer == LayerMask.NameToLayer("PlayerSpawn"))
 		{
 			if (onSpawnReached != null)
 				onSpawnReached.Invoke();
 		}
+
+        inventory.TryAddItem(obj);
 	}
 }
