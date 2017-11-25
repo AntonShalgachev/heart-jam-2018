@@ -11,22 +11,17 @@ public class Inventory : MonoBehaviour
 
     public bool TryAddItem(Collectible item)
     {
+        if (!item)
+            return false;
+
         if (inventory.Count >= capacity)
             return false;
 
         inventory.Add(item);
         AttachObject(item.gameObject);
+        Debug.LogFormat("Item '{0}' added to inventory", item.name);
 
         return true;
-    }
-
-    public bool TryAddItem(GameObject obj)
-    {
-        var item = obj.GetComponent<Collectible>();
-        if (!item)
-            return false;
-
-        return TryAddItem(item);
     }
 
     public void AttachObject(GameObject obj)
@@ -38,5 +33,15 @@ public class Inventory : MonoBehaviour
         var renderer = obj.GetComponent<Renderer>();
         if (renderer)
             renderer.enabled = false;
+    }
+
+    public List<Collectible> GetItems()
+    {
+        return new List<Collectible>(inventory);
+    }
+
+    public void RemoveItem(Collectible item)
+    {
+        inventory.Remove(item);
     }
 }

@@ -62,6 +62,34 @@ public class PlayerController : MonoBehaviour
 				onSpawnReached.Invoke();
 		}
 
-        inventory.TryAddItem(obj);
+        inventory.TryAddItem(obj.GetComponent<Collectible>());
+
+        TryOpenChest(obj.GetComponent<Chest>());
 	}
+
+    bool TryOpenChest(Chest chest)
+    {
+        if (!chest)
+            return false;
+        if (!chest.IsLocked())
+            return false;
+
+        foreach (var item in inventory.GetItems())
+        {
+            chest.TryUnlock(item.gameObject);
+            if (!chest.IsLocked())
+            {
+                inventory.RemoveItem(item);
+
+                // Get come reward from the chest
+                Debug.Log("Chest opened!");
+
+                return true;
+            }
+        }
+
+        Debug.Log("Can't open chest now");
+
+        return false;
+    }
 }
