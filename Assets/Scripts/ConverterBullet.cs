@@ -18,18 +18,27 @@ public class ConverterBullet : MonoBehaviour
 		
 	}
 
-	private void OnCollisionEnter2D(Collision2D collision)
-	{
-		var obj = collision.gameObject;
-		if (obj.layer == zombieLayer || obj.layer == wallLayer)
-		{
-			var enemy = obj.GetComponent<Enemy>();
-			if (enemy != null)
-			{
-				enemy.TryConvert();
-			}
+    void OnCollided(GameObject obj)
+    {
+        if (obj.layer == zombieLayer || obj.layer == wallLayer)
+        {
+            var enemy = obj.GetComponent<Enemy>();
+            if (enemy != null)
+            {
+                enemy.TryConvert();
+            }
 
-			Destroy(gameObject);
-		}
-	}
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        OnCollided(collision.gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+	{
+        OnCollided(collision.gameObject);
+    }
 }

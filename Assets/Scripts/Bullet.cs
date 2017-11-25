@@ -18,12 +18,21 @@ public class Bullet : MonoBehaviour
 		
 	}
 
-	private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollided(GameObject obj)
+    {
+        if (obj.layer == zombieLayer || obj.layer == wallLayer)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        OnCollided(collision.gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
 	{
-		var obj = collision.gameObject;
-		if (obj.layer == zombieLayer || obj.layer == wallLayer)
-		{
-			Destroy(gameObject);
-		}
+        OnCollided(collision.gameObject);
 	}
 }

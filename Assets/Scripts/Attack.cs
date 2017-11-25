@@ -23,7 +23,19 @@ public class Attack : MonoBehaviour
 		delay -= Time.deltaTime;
 	}
 
-	private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (mode == Mode.UponCollision)
+            TryDealDamage(collision.gameObject);
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (mode == Mode.UponCollision)
+            TryDealDamage(collision.gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
 	{
 		if (mode == Mode.UponCollision)
 			TryDealDamage(collision.gameObject);
