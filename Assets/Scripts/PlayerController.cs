@@ -65,7 +65,14 @@ public class PlayerController : MonoBehaviour
         inventory.TryAddItem(obj.GetComponent<Collectible>());
 
         TryOpenChest(obj.GetComponent<Chest>());
-	}
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        var obj = collision.gameObject;
+
+        TryOpenDoor(obj.GetComponent<Door>());
+    }
 
     bool TryOpenChest(Chest chest)
     {
@@ -89,6 +96,31 @@ public class PlayerController : MonoBehaviour
         }
 
         Debug.Log("Can't open chest now");
+
+        return false;
+    }
+
+    bool TryOpenDoor(Door door)
+    {
+        if (!door)
+            return false;
+        if (!door.IsLocked())
+            return false;
+
+        foreach (var item in inventory.GetItems())
+        {
+            door.TryOpen(item.gameObject);
+            if (!door.IsLocked())
+            {
+                inventory.RemoveItem(item);
+                
+                Debug.Log("Door opened!");
+
+                return true;
+            }
+        }
+
+        Debug.Log("Can't open door now");
 
         return false;
     }

@@ -11,5 +11,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b29587852ff8572458e3387161ba3e5b, type: 3}
   m_Name: door_h
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1290770165009080, guid: 3e48da55be62ee742bee413756dfc519, type: 2}
+  prefab: {fileID: 1826557130905474, guid: 5dfc53d036001e74985a1aef8bfaaed8, type: 2}
   m_Rot: 0
