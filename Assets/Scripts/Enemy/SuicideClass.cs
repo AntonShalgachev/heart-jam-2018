@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts;
 
 public class SuicideClass : MonoBehaviour
 {
@@ -44,9 +45,15 @@ public class SuicideClass : MonoBehaviour
 		}
 
 		var dir = Vector2.zero;
-		if (target)
-			dir = target.transform.position - transform.position;
-
+        if (target)
+        {
+            dir = target.transform.position - transform.position;
+        }
+        else
+        {
+            if(WayPointManager.Instance.onTheWay(transform.position))
+                dir = WayPointManager.Instance.getNextPoint(transform.position, movement.GetDirection());
+        }
 		movement.SetDirection(dir);
 
 		if (target && DistanceTo(target) < meleeDistance)
