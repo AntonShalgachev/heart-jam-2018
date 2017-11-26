@@ -5,12 +5,6 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     bool locked = true;
-    HingeJoint2D doorJoint;
-
-    private void Awake()
-    {
-        doorJoint = GetComponent<HingeJoint2D>();
-    }
 
     public void TryOpen(GameObject item)
     {
@@ -27,10 +21,7 @@ public class Door : MonoBehaviour
     {
         locked = false;
 
-        doorJoint.useMotor = true;
-        var motor = doorJoint.motor;
-        motor.motorSpeed *= -1;
-        doorJoint.motor = motor;
+        gameObject.SetActive(false);
     }
 
     public bool IsLocked()
