@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.UI;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class Inventory : PropertyChanger
 {
     public int capacity;
     public GameObject inventoryHolder;
@@ -20,7 +21,7 @@ public class Inventory : MonoBehaviour
         inventory.Add(item);
         AttachObject(item.gameObject);
         Debug.LogFormat("Item '{0}' added to inventory", item.name);
-
+        OnPropertyChanged("Inventory");
         return true;
     }
 
@@ -43,5 +44,6 @@ public class Inventory : MonoBehaviour
     public void RemoveItem(Collectible item)
     {
         inventory.Remove(item);
+        OnPropertyChanged("Inventory");
     }
 }

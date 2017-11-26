@@ -1,14 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts.UI;
 using UnityEngine;
 
-public class Health : MonoBehaviour
+public class Health : PropertyChanger
 {
 	public float maxHealth;
 	public bool regen;
 	public float regenRate;
 
-	float health;
+    float health;
 
 	private void Awake()
 	{
@@ -24,8 +23,9 @@ public class Health : MonoBehaviour
 	public void TakeDamage(float damage)
 	{
 		health = Mathf.Clamp(health - damage, 0.0f, maxHealth);
+        OnPropertyChanged("Health");
 
-		if (Mathf.Abs(health) < Mathf.Epsilon)
+        if (Mathf.Abs(health) < Mathf.Epsilon)
 		{
 			Destroy(gameObject);
 		}
@@ -34,7 +34,8 @@ public class Health : MonoBehaviour
 	public void RegenerateHealth(float hp)
 	{
 		health = Mathf.Clamp(health + hp, 0.0f, maxHealth);
-	}
+        OnPropertyChanged("Health");
+    }
 
 	public float GetHealth()
 	{
