@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 114735776304223072}
   - component: {fileID: 212590789956083314}
   m_Layer: 0
-  m_Name: door
+  m_Name: free_door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e59a0e7d31e1645aac41aed7b6a942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needsKey: 1
+  needsKey: 0
 --- !u!212 &212590789956083314
 SpriteRenderer:
   m_ObjectHideFlags: 1

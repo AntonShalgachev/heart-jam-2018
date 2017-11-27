@@ -4,17 +4,26 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    public bool needsKey;
+
     bool locked = true;
 
     public void TryOpen(GameObject item)
     {
-        var key = item.GetComponent<Key>();
-        if (!key)
+        if (!ValidateKey(item))
             return;
+
+        OpenDoor();
+    }
+
+    public bool ValidateKey(GameObject item)
+    {
+        if (!needsKey)
+            return true;
 
         // Here we can check colors
 
-        OpenDoor();
+        return item && item.GetComponent<Key>();
     }
 
     void OpenDoor()

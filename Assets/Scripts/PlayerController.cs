@@ -118,21 +118,26 @@ public class PlayerController : MonoBehaviour
         if (!door.IsLocked())
             return false;
 
+        door.TryOpen(null);
+        if (!door.IsLocked())
+        {
+            Debug.Log("Door opened without the key!");
+            return true;
+        }
+
         foreach (var item in inventory.GetItems())
         {
             door.TryOpen(item.gameObject);
             if (!door.IsLocked())
             {
                 inventory.RemoveItem(item);
-                
-                Debug.Log("Door opened!");
 
+                Debug.Log("Door opened!");
                 return true;
             }
         }
 
         Debug.Log("Can't open door now");
-
         return false;
     }
 }
