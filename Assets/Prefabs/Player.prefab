@@ -292,6 +292,7 @@ MonoBehaviour:
     damageMultiplier: 1
     reloadingSpeed: 0
     spread: 2
+    energyConsumption: 5
 --- !u!114 &114396761468913738
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -397,6 +398,7 @@ MonoBehaviour:
     damageMultiplier: 0
     reloadingSpeed: 0
     spread: 0
+    energyConsumption: 0
 --- !u!114 &114842125889650136
 MonoBehaviour:
   m_ObjectHideFlags: 1

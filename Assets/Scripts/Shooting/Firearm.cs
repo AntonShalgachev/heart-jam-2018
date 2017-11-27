@@ -28,10 +28,10 @@ public class Firearm : MonoBehaviour
         shootingDelay -= Time.deltaTime;
     }
 
-    public void TryShoot()
+    public bool TryShoot()
     {
         if (shootingDelay > 0.0f)
-            return;
+            return false;
 
         var directions = directionController.getDirectionParams();
         var projectile = projectileController.GetBulletPrefab();
@@ -50,6 +50,8 @@ public class Firearm : MonoBehaviour
         }
 
         shootingDelay = propulsionParams.reloadingSpeed;
+
+        return true;
     }
 
     public void Shoot(GameObject bulletPrefab, Vector2 dir, float bulletSpeed, float multiplier)
@@ -67,5 +69,10 @@ public class Firearm : MonoBehaviour
         body.AddForce(dir * bulletSpeed, ForceMode2D.Force);
 
         bullet.transform.rotation = Quaternion.FromToRotation(Vector2.up, dir);
+    }
+
+    public float EnergyConsumption()
+    {
+        return propulsionController.propulsionParams.energyConsumption;
     }
 }

@@ -11,11 +11,13 @@ public class PlayerController : MonoBehaviour
 
     Movement movement;
     Inventory inventory;
+    Health health;
 
     private void Awake()
 	{
 		movement = GetComponent<Movement>();
         inventory = GetComponent<Inventory>();
+        health = GetComponent<Health>();
 	}
 
 	private void Update()
@@ -24,9 +26,18 @@ public class PlayerController : MonoBehaviour
 		movement.SetDirection(dir);
 
         if (Input.GetMouseButtonDown(0))
-            firearm.TryShoot();
+        {
+            var consumption = firearm.EnergyConsumption();
+            if (health.GetHealth() > consumption && firearm.TryShoot())
+            {
+                health.TakeDamage(consumption);
+            }
+        }
+
         if (Input.GetMouseButtonDown(1))
+        {
             converter.TryShoot();
+        }
     }
 
 	Vector2 GetCurrentDirection()

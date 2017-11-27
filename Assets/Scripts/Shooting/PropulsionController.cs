@@ -11,6 +11,7 @@ public class PropulsionController : MonoBehaviour
         public float damageMultiplier;
         public float reloadingSpeed;
         public float spread;
+        public float energyConsumption;
     }
 
     public PropulsionParams propulsionParams;
