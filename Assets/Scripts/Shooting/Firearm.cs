@@ -20,7 +20,11 @@ public class Firearm : MonoBehaviour
 
     private void Start()
     {
-        bulletsHolder = new GameObject("Firearm projectiles");
+        var bulletsHolderName = "Firearm projectiles";
+        bulletsHolder = GameObject.Find(bulletsHolderName);
+
+        if (!bulletsHolder)
+            bulletsHolder = new GameObject(bulletsHolderName);
     }
 
     private void Update()

@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class DeathDrop : MonoBehaviour
 {
+    public enum Mode
+    {
+        OnDeath,
+        Manual,
+    }
+
+    public Mode mode;
     public List<GameObject> drops;
     public float probability;
 
@@ -12,13 +19,19 @@ public class DeathDrop : MonoBehaviour
         return RandomHelper.Instance().GetItem(drops);
     }
 
-    private void OnDestroy()
+    public void Drop()
     {
-#warning antonsh fix me pleeease (OnDestroy is called when exiting game)
         if (RandomHelper.Instance().GetBool(probability))
         {
             var drop = GetRandomDrop();
             Instantiate(drop, transform.position, Quaternion.identity);
         }
+    }
+
+    private void OnDestroy()
+    {
+#warning antonsh fix me pleeease (OnDestroy is called when exiting game)
+        if (mode == Mode.OnDeath)
+            Drop();
     }
 }

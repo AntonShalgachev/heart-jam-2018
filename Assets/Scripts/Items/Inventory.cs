@@ -29,6 +29,7 @@ public class Inventory : PropertyChanger
     {
         obj.transform.parent = inventoryHolder.transform;
         obj.transform.localPosition = Vector2.zero;
+        obj.transform.localRotation = Quaternion.identity;
 
 #warning antonsh do we need this?
         var renderer = obj.GetComponent<Renderer>();

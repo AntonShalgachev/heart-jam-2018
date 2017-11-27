@@ -7,7 +7,13 @@ public class PlayerController : MonoBehaviour
 {
 	public event Action onSpawnReached;
     public Converter converter;
-    public Firearm firearm;
+    public GameObject firearmsHolder;
+
+    public Firearm[] defaultFirearms;
+
+    List<Firearm> equippedFirearms = new List<Firearm>();
+    Firearm currentFirearm;
+    int currentFirearmIndex = -1;
 
     Movement movement;
     Inventory inventory;
@@ -20,17 +26,32 @@ public class PlayerController : MonoBehaviour
         health = GetComponent<Health>();
 	}
 
-	private void Update()
+    private void Start()
+    {
+        foreach (var prefab in defaultFirearms)
+        {
+            var item = Instantiate(prefab.gameObject, transform.position, Quaternion.identity);
+            TryAddWeapon(item.GetComponent<Firearm>());
+        }
+
+        if (defaultFirearms.Length > 0)
+            SelectWeapon(0);
+    }
+
+    private void Update()
 	{
 		var dir = GetCurrentDirection();
 		movement.SetDirection(dir);
 
         if (Input.GetMouseButtonDown(0))
         {
-            var consumption = firearm.EnergyConsumption();
-            if (health.GetHealth() > consumption && firearm.TryShoot())
+            if (currentFirearm)
             {
-                health.TakeDamage(consumption);
+                var consumption = currentFirearm.EnergyConsumption();
+                if (health.GetHealth() > consumption && currentFirearm.TryShoot())
+                {
+                    health.TakeDamage(consumption);
+                }
             }
         }
 
@@ -38,6 +59,55 @@ public class PlayerController : MonoBehaviour
         {
             converter.TryShoot();
         }
+
+        if (Input.GetMouseButtonDown(2))
+            NextWeapon();
+    }
+
+    void TryAddWeapon(Firearm item, bool select = false)
+    {
+        if (!item)
+            return;
+
+        equippedFirearms.Add(item);
+
+        if (select)
+            SelectWeapon(NumberOfWeapons() - 1);
+
+        item.transform.parent = firearmsHolder.transform;
+        item.transform.localPosition = Vector2.zero;
+        item.transform.localRotation = Quaternion.identity;
+    }
+
+    void SelectWeapon(int index)
+    {
+        if (index < 0 || index >= equippedFirearms.Count)
+        {
+            Debug.LogError("Weapon index out of bounds");
+            return;
+        }
+
+        currentFirearmIndex = index;
+        currentFirearm = equippedFirearms[index];
+
+        foreach (var firearm in equippedFirearms)
+        {
+            firearm.gameObject.SetActive(firearm == currentFirearm);
+        }
+    }
+
+    int NumberOfWeapons()
+    {
+        return equippedFirearms.Count;
+    }
+
+    void NextWeapon()
+    {
+        if (NumberOfWeapons() == 0)
+            return;
+
+        var index = (currentFirearmIndex + 1) % NumberOfWeapons();
+        SelectWeapon(index);
     }
 
 	Vector2 GetCurrentDirection()
@@ -65,23 +135,21 @@ public class PlayerController : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-        var obj = collision.gameObject;
-
-		if (obj.layer == LayerMask.NameToLayer("PlayerSpawn"))
-		{
-			if (onSpawnReached != null)
-				onSpawnReached.Invoke();
-		}
-
-        inventory.TryAddItem(obj.GetComponent<Collectible>());
-
-        TryOpenChest(obj.GetComponent<Chest>());
+        OnEncounter(collision.gameObject, true);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        var obj = collision.gameObject;
+        OnEncounter(collision.gameObject, false);
 
+    }
+
+    void OnEncounter(GameObject obj, bool trigger)
+    {
+        inventory.TryAddItem(obj.GetComponent<Collectible>());
+        TryAddWeapon(obj.GetComponent<Firearm>(), true);
+
+        TryOpenChest(obj.GetComponent<Chest>());
         TryOpenDoor(obj.GetComponent<Door>());
     }
 

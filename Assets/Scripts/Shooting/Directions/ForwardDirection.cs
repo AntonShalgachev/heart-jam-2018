@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ForwardDirection : MonoBehaviour
 {
+    public int sideDirections;
     public float mainSpeed;
     public float sideSpeed;
     public float sideAngle;
@@ -17,10 +18,19 @@ public class ForwardDirection : MonoBehaviour
 
     private void Start()
     {
-        directionController.setDirectionParams(new List<DirectionController.DirectionParam> {
+        var dirParams = new List<DirectionController.DirectionParam>
+        {
             new DirectionController.DirectionParam(Vector2.right, mainSpeed),
-            new DirectionController.DirectionParam(Quaternion.Euler(0, 0, sideAngle) * Vector2.right, sideSpeed),
-            new DirectionController.DirectionParam(Quaternion.Euler(0, 0, -sideAngle) * Vector2.right, sideSpeed),
-        });
+        };
+
+        for (var i = 0; i < sideDirections; i++)
+        {
+            dirParams.AddRange(new List<DirectionController.DirectionParam>{
+                new DirectionController.DirectionParam(Quaternion.Euler(0, 0, (i+1)*sideAngle) * Vector2.right, sideSpeed),
+                new DirectionController.DirectionParam(Quaternion.Euler(0, 0, -(i+1)*sideAngle) * Vector2.right, sideSpeed),
+            });
+        }
+
+        directionController.setDirectionParams(dirParams);
     }
 }
