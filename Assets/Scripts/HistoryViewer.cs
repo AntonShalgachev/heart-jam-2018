@@ -18,12 +18,13 @@ public class HistoryViewer : SingletonMonoBehaviour<HistoryViewer>
     private int lastOpened;
     private int openedCount;
 
-    void Start()
+    void Awake()
     {
         bStoryOpen = new bool[story.Length];
         openedCount = story.Length;
         lastOpened = -1;
         count_text.GetComponent<Text>().text = "0";
+        gameObject.SetActive(false);
     }
 
     public void openHistory()

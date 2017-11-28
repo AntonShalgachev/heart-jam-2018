@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Items;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,13 +19,15 @@ public class PlayerController : MonoBehaviour
     Movement movement;
     Inventory inventory;
     Health health;
+    Targets targets;
 
     private void Awake()
 	{
 		movement = GetComponent<Movement>();
         inventory = GetComponent<Inventory>();
         health = GetComponent<Health>();
-	}
+        targets = GetComponent<Targets>();
+    }
 
     private void Start()
     {
@@ -151,6 +154,7 @@ public class PlayerController : MonoBehaviour
 
         TryOpenChest(obj.GetComponent<Chest>());
         TryOpenDoor(obj.GetComponent<Door>());
+        targets.TryAddTarget(obj.GetComponent<GameEvents>());
     }
 
     bool TryOpenChest(Chest chest)

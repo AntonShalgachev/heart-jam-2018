@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 114770811078710478}
   - component: {fileID: 114417570227358934}
   - component: {fileID: 114396761468913738}
+  - component: {fileID: 114885523895065264}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -284,6 +285,17 @@ MonoBehaviour:
   maxSpeed: 10
   maxForce: 100
   forceScale: 10
+--- !u!114 &114885523895065264
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1198894597222264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4dbae228e23cc34cba9ec8520429ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212631668260641510
 SpriteRenderer:
   m_ObjectHideFlags: 1

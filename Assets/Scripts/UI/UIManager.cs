@@ -1,5 +1,5 @@
 ﻿using Assets.Scripts.Common.Helpers;
-using Assets.Scripts.UI;
+using Assets.Scripts.Items;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +13,8 @@ namespace Assets.Scripts.UI
         public GameObject HPBar;
         public GameObject inventory;
         public Sprite emptySlot;
+        public GameObject targets;
+        public GameObject target_prefab;
 
         private GameObject player;
         private List<Image> slots;
@@ -25,6 +27,7 @@ namespace Assets.Scripts.UI
                 player = _player;
                 player.GetComponent<Health>().PropertyChanged += InstanceOnPropertyChanged;
                 player.GetComponent<Inventory>().PropertyChanged += InstanceOnPropertyChanged;
+                player.GetComponent<Targets>().PropertyChanged += InstanceOnPropertyChanged;
                 print("find player!");
             }
             slots = new List<Image>();
@@ -45,6 +48,7 @@ namespace Assets.Scripts.UI
             {
                 setHP(player.GetComponent<Health>().GetHealth(), player.GetComponent<Health>().GetMaxHealth());
                 updateInventory(player.GetComponent<Inventory>().GetItems());
+                updateTargets(player.GetComponent<Targets>().GetTargets());
             }
         }
 
@@ -75,6 +79,28 @@ namespace Assets.Scripts.UI
                     count++;
                 }
                 if (count > 3) break;
+            }
+        }
+
+        private void updateTargets(List<GameEvents> _list)
+        {
+            targets.transform.GetChild(0).gameObject.GetComponent<Text>().enabled = true;
+            for (int i = 1; i < targets.transform.childCount; i++)
+            {
+                Destroy(targets.transform.GetChild(i).gameObject);
+            }
+            foreach (GameEvents target in _list)
+            {
+                if(!target.end)
+                {
+                    var _target = Instantiate(target_prefab, targets.transform.position, Quaternion.identity);
+                    _target.transform.SetParent(targets.transform);
+                    _target.transform.GetChild(0).GetComponent<Text>().text = target.text;
+                }
+            }
+            if(targets.transform.childCount == 1)
+            {
+                targets.transform.GetChild(0).gameObject.GetComponent<Text>().enabled = false;
             }
         }
     }
