@@ -45,6 +45,7 @@ public class Inventory : PropertyChanger
     public void RemoveItem(Collectible item)
     {
         inventory.Remove(item);
+        Destroy(item.gameObject);
         OnPropertyChanged("Inventory");
     }
 }
