@@ -2,19 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefaultPropulsion : MonoBehaviour
+public class DefaultPropulsion : PropulsionController
 {
-    public PropulsionController.PropulsionParams propulsionParams;
+    public PropulsionParams propulsionParams;
 
-    PropulsionController controller;
-
-    private void Awake()
+    public override PropulsionParams GetParams()
     {
-        controller = GetComponent<PropulsionController>();
-    }
-
-    private void Start()
-    {
-        controller.propulsionParams = propulsionParams;
+        return propulsionParams;
     }
 }

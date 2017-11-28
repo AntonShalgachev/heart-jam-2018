@@ -6,13 +6,20 @@ using UnityEngine;
 public class PropulsionController : MonoBehaviour
 {
     [Serializable]
-    public struct PropulsionParams
+    public class PropulsionParams
     {
         public float damageMultiplier;
         public float reloadingSpeed;
         public float spread;
         public float energyConsumption;
+
+        public bool limitedAmmo;
+        public int maxAmmo;
+        public int initialAmmo;
     }
 
-    public PropulsionParams propulsionParams;
+    public virtual PropulsionParams GetParams()
+    {
+        return null;
+    }
 }

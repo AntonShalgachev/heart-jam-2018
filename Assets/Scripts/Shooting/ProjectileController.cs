@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class ProjectileController : MonoBehaviour
 {
-    private GameObject bulletPrefab;
-
-    public void SetBulletPrefab(GameObject bulletPrefab)
+    public virtual GameObject GetBulletPrefab()
     {
-        this.bulletPrefab = bulletPrefab;
-    }
-
-    public GameObject GetBulletPrefab()
-    {
-        return bulletPrefab;
+        return null;
     }
 }

@@ -16,15 +16,8 @@ public class DirectionController : MonoBehaviour
         public float speed;
     }
 
-    List<DirectionParam> directionParams;
-
-    public List<DirectionParam> getDirectionParams()
+    public virtual List<DirectionParam> GetDirectionParams()
     {
-        return directionParams;
-    }
-
-    public void setDirectionParams(List<DirectionParam> directionParams)
-    {
-        this.directionParams = directionParams;
+        return null;
     }
 }

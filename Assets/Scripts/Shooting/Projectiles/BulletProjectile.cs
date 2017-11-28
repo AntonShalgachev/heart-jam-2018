@@ -2,19 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletProjectile : MonoBehaviour
+public class BulletProjectile : ProjectileController
 {
     public GameObject bulletPrefab;
 
-    ProjectileController projectileController;
-
-    private void Awake()
+    public override GameObject GetBulletPrefab()
     {
-        projectileController = GetComponent<ProjectileController>();
-    }
-
-    private void Start()
-    {
-        projectileController.SetBulletPrefab(bulletPrefab);
+        return bulletPrefab;
     }
 }

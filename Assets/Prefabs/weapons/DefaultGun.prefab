@@ -19,9 +19,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4686695606177262}
-  - component: {fileID: 114206747665390998}
-  - component: {fileID: 114868410711770130}
-  - component: {fileID: 114699571187673760}
   - component: {fileID: 114518927567934816}
   - component: {fileID: 114647752467420646}
   - component: {fileID: 114524136778286192}
@@ -92,17 +89,6 @@ CircleCollider2D:
   m_Offset: {x: 0.6556282, y: -0.008012772}
   serializedVersion: 2
   m_Radius: 0.27854347
---- !u!114 &114206747665390998
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1732781301297022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f67f34efd088f324aad4d319b0095a44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114518927567934816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -114,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a1828181f8bffc48be7fbfd9a0377cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: default
 --- !u!114 &114524136778286192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb070a762147828429117eafbff980b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  directions: 0
+  sideDirections: 0
   mainSpeed: 60
   sideSpeed: 0
   sideAngle: 0
@@ -145,6 +132,9 @@ MonoBehaviour:
     reloadingSpeed: 0.2
     spread: 2
     energyConsumption: 2
+    limitedAmmo: 0
+    maxAmmo: 0
+    initialAmmo: 0
 --- !u!114 &114647752467420646
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -158,33 +148,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1299371444396520, guid: 321645feba1d3a74db62bc73c3db5fb4,
     type: 2}
---- !u!114 &114699571187673760
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1732781301297022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a11b8d707dd56c74cb531d1adb6b160a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  propulsionParams:
-    damageMultiplier: 0
-    reloadingSpeed: 0
-    spread: 0
-    energyConsumption: 0
---- !u!114 &114868410711770130
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1732781301297022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d183ca55bbe03247b76f6cbc078bad5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &212282039624677470
 SpriteRenderer:
   m_ObjectHideFlags: 1

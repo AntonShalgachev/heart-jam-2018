@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class Firearm : MonoBehaviour
 {
+    public string id;
+
     ProjectileController projectileController;
     PropulsionController propulsionController;
     DirectionController directionController;
 
     GameObject bulletsHolder;
     float shootingDelay = 0.0f;
+
+    bool limitedAmmo;
+    int ammo;
+    int maxAmmo;
 
     private void Awake()
     {
@@ -25,6 +31,10 @@ public class Firearm : MonoBehaviour
 
         if (!bulletsHolder)
             bulletsHolder = new GameObject(bulletsHolderName);
+
+        limitedAmmo = propulsionController.GetParams().limitedAmmo;
+        ammo = propulsionController.GetParams().initialAmmo;
+        maxAmmo = propulsionController.GetParams().maxAmmo;
     }
 
     private void Update()
@@ -32,14 +42,36 @@ public class Firearm : MonoBehaviour
         shootingDelay -= Time.deltaTime;
     }
 
+    public bool HasAmmo()
+    {
+        return !limitedAmmo || ammo > 0;
+    }
+
+    public void Merge(Firearm firearm)
+    {
+        if (id != firearm.id)
+            return;
+
+        if (limitedAmmo && firearm.limitedAmmo)
+            AddAmmo(firearm.ammo);
+    }
+
+    void AddAmmo(int amount)
+    {
+        ammo = Mathf.Min(ammo + amount, maxAmmo);
+    }
+
     public bool TryShoot()
     {
         if (shootingDelay > 0.0f)
             return false;
 
-        var directions = directionController.getDirectionParams();
+        if (!HasAmmo())
+            return false;
+
+        var directions = directionController.GetDirectionParams();
         var projectile = projectileController.GetBulletPrefab();
-        var propulsionParams = propulsionController.propulsionParams;
+        var propulsionParams = propulsionController.GetParams();
 
         foreach (var direction in directions)
         {
@@ -54,6 +86,9 @@ public class Firearm : MonoBehaviour
         }
 
         shootingDelay = propulsionParams.reloadingSpeed;
+
+        if (limitedAmmo)
+            ammo--;
 
         return true;
     }
@@ -77,6 +112,6 @@ public class Firearm : MonoBehaviour
 
     public float EnergyConsumption()
     {
-        return propulsionController.propulsionParams.energyConsumption;
+        return propulsionController.GetParams().energyConsumption;
     }
 }

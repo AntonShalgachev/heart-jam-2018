@@ -56,6 +56,13 @@ public class PlayerController : MonoBehaviour
                     health.TakeDamage(consumption);
                 }
             }
+
+            if (!currentFirearm.HasAmmo())
+            {
+                RemoveWeapon(currentFirearm);
+                currentFirearm = null;
+                SelectWeapon(0);
+            }
         }
 
         if (Input.GetMouseButtonDown(1))
@@ -67,19 +74,52 @@ public class PlayerController : MonoBehaviour
             NextWeapon();
     }
 
+    Firearm FindWeapon(string id)
+    {
+        foreach (var firearm in equippedFirearms)
+        {
+            if (firearm.id == id)
+                return firearm;
+        }
+
+        return null;
+    }
+
     void TryAddWeapon(Firearm item, bool select = false)
     {
         if (!item)
             return;
 
-        equippedFirearms.Add(item);
+        var firearm = FindWeapon(item.id);
 
-        if (select)
-            SelectWeapon(NumberOfWeapons() - 1);
+        if (firearm)
+        {
+            firearm.Merge(item);
 
-        item.transform.parent = firearmsHolder.transform;
-        item.transform.localPosition = Vector2.zero;
-        item.transform.localRotation = Quaternion.identity;
+            Destroy(item.gameObject);
+        }
+        else
+        {
+            AddNewWeapon(item);
+
+            if (select)
+                SelectWeapon(NumberOfWeapons() - 1);
+
+            item.transform.parent = firearmsHolder.transform;
+            item.transform.localPosition = Vector2.zero;
+            item.transform.localRotation = Quaternion.identity;
+        }
+    }
+
+    void AddNewWeapon(Firearm firearm)
+    {
+        equippedFirearms.Add(firearm);
+    }
+
+    void RemoveWeapon(Firearm firearm)
+    {
+        equippedFirearms.Remove(firearm);
+        Destroy(firearm.gameObject);
     }
 
     void SelectWeapon(int index)
