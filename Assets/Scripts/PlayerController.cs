@@ -1,10 +1,11 @@
 ﻿using Assets.Scripts.Items;
+using Assets.Scripts.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : PropertyChanger
 {
 	public event Action onSpawnReached;
     public Converter converter;
@@ -13,8 +14,8 @@ public class PlayerController : MonoBehaviour
     public Firearm[] defaultFirearms;
 
     List<Firearm> equippedFirearms = new List<Firearm>();
-    Firearm currentFirearm;
-    int currentFirearmIndex = -1;
+    public Firearm currentFirearm;
+    public int currentFirearmIndex = -1;
 
     Movement movement;
     Inventory inventory;
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            OnPropertyChanged("Shoot");
             if (currentFirearm)
             {
                 var consumption = currentFirearm.EnergyConsumption();

@@ -15,6 +15,7 @@ namespace Assets.Scripts.UI
         public Sprite emptySlot;
         public GameObject targets;
         public GameObject target_prefab;
+        public GameObject weapon;
 
         private GameObject player;
         private List<Image> slots;
@@ -28,6 +29,7 @@ namespace Assets.Scripts.UI
                 player.GetComponent<Health>().PropertyChanged += InstanceOnPropertyChanged;
                 player.GetComponent<Inventory>().PropertyChanged += InstanceOnPropertyChanged;
                 player.GetComponent<Targets>().PropertyChanged += InstanceOnPropertyChanged;
+                player.GetComponent<PlayerController>().PropertyChanged += InstanceOnPropertyChanged;
                 print("find player!");
             }
             slots = new List<Image>();
@@ -49,6 +51,8 @@ namespace Assets.Scripts.UI
                 setHP(player.GetComponent<Health>().GetHealth(), player.GetComponent<Health>().GetMaxHealth());
                 updateInventory(player.GetComponent<Inventory>().GetItems());
                 updateTargets(player.GetComponent<Targets>().GetTargets());
+                var _controller = player.GetComponent<PlayerController>();
+                updateWeapon(_controller.currentFirearm, _controller.currentFirearmIndex);
             }
         }
 
@@ -69,6 +73,7 @@ namespace Assets.Scripts.UI
             {
                 var _sprite = item.gameObject.GetComponent<SpriteRenderer>().sprite;
                 var _color = item.gameObject.GetComponent<SpriteRenderer>().color;
+                
                 if (_sprite != null)
                 {
                     slots[count].sprite = _sprite;
@@ -76,8 +81,12 @@ namespace Assets.Scripts.UI
                     {
                         slots[count].color = _color;
                     }
+                    //slots[count].transform.GetComponentInParent<ParticleSystem>().Emit(1);
                     count++;
                 }
+
+                
+
                 if (count > 3) break;
             }
         }
@@ -102,6 +111,21 @@ namespace Assets.Scripts.UI
             {
                 targets.transform.GetChild(0).gameObject.GetComponent<Text>().enabled = false;
             }
+        }
+
+        private void updateWeapon(Firearm _weapon, int _index)
+        {
+            if(_index == 0)
+            {
+                weapon.transform.GetChild(0).GetComponent<Text>().text = "--";
+            }
+            else
+            {
+                var _text = weapon.transform.GetChild(0).GetComponent<Text>().text = _weapon.ammo.ToString();
+            }
+
+            weapon.GetComponent<Image>().sprite = _weapon.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
+            weapon.GetComponent<Image>().color = _weapon.transform.GetChild(0).GetComponent<SpriteRenderer>().color;
         }
     }
 }

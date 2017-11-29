@@ -14,7 +14,7 @@ public class Firearm : MonoBehaviour
     float shootingDelay = 0.0f;
 
     bool limitedAmmo;
-    int ammo;
+    public int ammo;
     int maxAmmo;
 
     private void Awake()

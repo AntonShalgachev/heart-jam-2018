@@ -16,8 +16,11 @@ namespace Assets.Scripts.Items
 
             if (!findInTargets(target))
             {
-                targets.Add(target);
-                Debug.LogFormat("Target '{0}' added to targets", target.name);
+                if (target.index == 0)
+                {
+                    targets.Add(target);
+                    Debug.LogFormat("Target '{0}' added to targets", target.name);
+                }
             }
             OnPropertyChanged("targets");
             return true;
@@ -45,7 +48,7 @@ namespace Assets.Scripts.Items
             {
                 if (_target.id == target.id)
                 {
-                    if (_target.index < target.index)
+                    if (_target.index == target.index - 1)
                     {
                         targets.Add(target);
                         remove_it = _target;
