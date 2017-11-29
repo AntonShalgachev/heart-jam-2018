@@ -81,7 +81,7 @@ namespace Assets.Scripts.UI
                     {
                         slots[count].color = _color;
                     }
-                    //slots[count].transform.GetComponentInParent<ParticleSystem>().Emit(1);
+                    //slots[count].transform.GetComponentInParent<Animation>().Play();
                     count++;
                 }
 

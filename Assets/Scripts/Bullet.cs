@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-	private int zombieLayer;
+    public GameObject deathEfx_prefab;
+
+    private int zombieLayer;
 	private int wallLayer;
 
 	void Start ()
@@ -22,6 +24,8 @@ public class Bullet : MonoBehaviour
     {
         if (obj.layer == zombieLayer || obj.layer == wallLayer)
         {
+            Instantiate(deathEfx_prefab, transform.position, Quaternion.identity);
+            print("efx");
             Destroy(gameObject);
         }
     }
