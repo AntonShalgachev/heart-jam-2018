@@ -20,9 +20,11 @@ namespace Assets.Scripts.UI
 
         private GameObject player;
         private List<Image> slots;
+        //private ArrayList hpBars;
         // Use this for initialization
         void Start()
         {
+           // hpBars = new ArrayList();
             var _player = GameObject.FindWithTag("Player");
             if (_player != null)
             {
@@ -38,6 +40,7 @@ namespace Assets.Scripts.UI
             {
                 slots.Add(inventory.transform.GetChild(i).GetChild(0).GetComponent<Image>());
             }
+            UpdateView();
         }
 
         private void InstanceOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
@@ -128,5 +131,13 @@ namespace Assets.Scripts.UI
             weapon.GetComponent<Image>().sprite = _weapon.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite;
             weapon.GetComponent<Image>().color = _weapon.transform.GetChild(0).GetComponent<SpriteRenderer>().color;
         }
-    }
+        public void createHPBar(Transform _transform)
+        {
+            if(unitHpBar != null)
+            {
+                var _obj = Instantiate(unitHpBar, transform);
+                _obj.GetComponent<hpBarController>().followBy = _transform;
+            }
+        }
+    }   
 }

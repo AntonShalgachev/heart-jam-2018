@@ -6,9 +6,10 @@ public class Health : PropertyChanger
 	public float maxHealth;
 	public bool regen;
 	public float regenRate;
+    public bool needBar = true;
 
     float health;
-
+    bool bHsaHPbar;
 	private void Awake()
 	{
 		health = maxHealth;
@@ -24,6 +25,11 @@ public class Health : PropertyChanger
 	{
 		health = Mathf.Clamp(health - damage, 0.0f, maxHealth);
         OnPropertyChanged("Health");
+        if(health < maxHealth && !bHsaHPbar && needBar)
+        {
+            bHsaHPbar = true;
+            UIManager.Instance.createHPBar(transform);
+        }
 
         if (Mathf.Abs(health) < Mathf.Epsilon)
 		{

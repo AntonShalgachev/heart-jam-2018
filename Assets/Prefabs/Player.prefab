@@ -241,6 +241,8 @@ MonoBehaviour:
   firearmsHolder: {fileID: 1160271656208956}
   defaultFirearms:
   - {fileID: 114518927567934816, guid: 689702e6b8675f34ea98023582f1543c, type: 2}
+  currentFirearm: {fileID: 0}
+  currentFirearmIndex: -1
 --- !u!114 &114667193902089902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -269,8 +271,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 200
-  regen: 1
+  regen: 0
   regenRate: 5
+  needBar: 0
 --- !u!114 &114842125889650136
 MonoBehaviour:
   m_ObjectHideFlags: 1
