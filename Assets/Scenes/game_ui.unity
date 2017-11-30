@@ -127,7 +127,7 @@ Prefab:
     - target: {fileID: 224058640748801644, guid: f200d03c1f9202941b5a5858bbb7bddb,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.00012207031
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224058640748801644, guid: f200d03c1f9202941b5a5858bbb7bddb,
         type: 2}
@@ -371,7 +371,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 57985589}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -378, y: 199.87047, z: 0}
+  m_LocalPosition: {x: -378, y: 200.17241, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 412002426}
@@ -805,7 +805,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 375704054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 370, y: -194.87047, z: 0}
+  m_LocalPosition: {x: 370, y: -195.17241, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1678496671}
@@ -985,8 +985,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 412002422}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 579, y: 325.5, z: 0}
-  m_LocalScale: {x: 1.4475, y: 1.4475, z: 1.4475}
+  m_LocalPosition: {x: 580, y: 326.5, z: 0}
+  m_LocalScale: {x: 1.45, y: 1.45, z: 1.45}
   m_Children:
   - {fileID: 302277987}
   - {fileID: 1772896927}
@@ -1022,6 +1022,7 @@ MonoBehaviour:
     type: 2}
   weapon: {fileID: 1902415990}
   unitHpBar: {fileID: 1231815919667818, guid: b3112993ebde1554ea025c8e5124ac45, type: 2}
+  history: {fileID: 969930919}
 --- !u!1 &431652876
 GameObject:
   m_ObjectHideFlags: 0
@@ -1719,7 +1720,7 @@ Prefab:
     - target: {fileID: 224996827596335174, guid: fc1ef62c311792d4a894db2b25ce4e3b,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 40.000015
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 224996827596335174, guid: fc1ef62c311792d4a894db2b25ce4e3b,
         type: 2}
@@ -1826,7 +1827,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &969930920
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2551,7 +2552,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2052967644}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.47239438
+  m_Size: 0.47239447
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2696,7 +2697,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1544070820}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 332.68, y: 129.87047, z: 0}
+  m_LocalPosition: {x: 332.68, y: 130.17241, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 612448285}
@@ -2998,7 +2999,7 @@ Prefab:
     - target: {fileID: 224058640748801644, guid: f200d03c1f9202941b5a5858bbb7bddb,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.00012207031
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224058640748801644, guid: f200d03c1f9202941b5a5858bbb7bddb,
         type: 2}
@@ -3553,7 +3554,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1772896926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 189.87047, z: 0}
+  m_LocalPosition: {x: 0, y: 190.17241, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1916756260}
@@ -4015,7 +4016,7 @@ Prefab:
     - target: {fileID: 224058640748801644, guid: f200d03c1f9202941b5a5858bbb7bddb,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: -297.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224058640748801644, guid: f200d03c1f9202941b5a5858bbb7bddb,
         type: 2}
@@ -4144,7 +4145,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2052967643}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 36.93239, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 83802313}

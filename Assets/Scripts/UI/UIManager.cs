@@ -17,6 +17,7 @@ namespace Assets.Scripts.UI
         public GameObject target_prefab;
         public GameObject weapon;
         public GameObject unitHpBar;
+        public GameObject history;
 
         private GameObject player;
         private List<Image> slots;
@@ -32,6 +33,7 @@ namespace Assets.Scripts.UI
                 player.GetComponent<Health>().PropertyChanged += InstanceOnPropertyChanged;
                 player.GetComponent<Inventory>().PropertyChanged += InstanceOnPropertyChanged;
                 player.GetComponent<Targets>().PropertyChanged += InstanceOnPropertyChanged;
+                player.GetComponent<Stories>().PropertyChanged += InstanceOnPropertyChanged;
                 player.GetComponent<PlayerController>().PropertyChanged += InstanceOnPropertyChanged;
                 print("find player!");
             }
@@ -55,6 +57,7 @@ namespace Assets.Scripts.UI
                 setHP(player.GetComponent<Health>().GetHealth(), player.GetComponent<Health>().GetMaxHealth());
                 updateInventory(player.GetComponent<Inventory>().GetItems());
                 updateTargets(player.GetComponent<Targets>().GetTargets());
+                updateStories(player.GetComponent<Stories>().GetStories());
                 var _controller = player.GetComponent<PlayerController>();
                 updateWeapon(_controller.currentFirearm, _controller.currentFirearmIndex);
             }
@@ -117,6 +120,21 @@ namespace Assets.Scripts.UI
             }
         }
 
+        private void updateStories(List<StoryPart> _list)
+        {
+            var _history = history.GetComponent<HistoryViewer>();
+
+            if (!_history) return;
+
+            foreach (StoryPart story in _list)
+            {
+                if (!_history.bStoryOpen[story.index])
+                {
+                    _history.unlockStory(story.index);
+                }
+            }
+        }
+
         private void updateWeapon(Firearm _weapon, int _index)
         {
             if(_index == 0)
@@ -139,5 +157,6 @@ namespace Assets.Scripts.UI
                 _obj.GetComponent<hpBarController>().followBy = _transform;
             }
         }
+
     }   
 }

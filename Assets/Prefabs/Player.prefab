@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 114417570227358934}
   - component: {fileID: 114396761468913738}
   - component: {fileID: 114885523895065264}
+  - component: {fileID: 114718275501804768}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -259,6 +260,17 @@ MonoBehaviour:
   bulletSpeed: 50
   bulletPrefab: {fileID: 1299371444396520, guid: 9f46738ba1a8c634d906ee4b780e4c7e,
     type: 2}
+--- !u!114 &114718275501804768
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1198894597222264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec58e105472307a45bdb18871144ca3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114770811078710478
 MonoBehaviour:
   m_ObjectHideFlags: 1

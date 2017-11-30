@@ -21,6 +21,7 @@ public class PlayerController : PropertyChanger
     Inventory inventory;
     Health health;
     Targets targets;
+    Stories stories;
 
     private void Awake()
 	{
@@ -28,6 +29,7 @@ public class PlayerController : PropertyChanger
         inventory = GetComponent<Inventory>();
         health = GetComponent<Health>();
         targets = GetComponent<Targets>();
+        stories = GetComponent<Stories>();
     }
 
     private void Start()
@@ -197,6 +199,7 @@ public class PlayerController : PropertyChanger
         TryOpenChest(obj.GetComponent<Chest>());
         TryOpenDoor(obj.GetComponent<Door>());
         targets.TryAddTarget(obj.GetComponent<GameEvents>());
+        stories.TryAddStory(obj.GetComponent<StoryPart>());
     }
 
     bool TryOpenChest(Chest chest)

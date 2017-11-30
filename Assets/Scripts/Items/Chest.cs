@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour
 {
-    bool locked = true;
+    public bool locked = true;
 
     public void TryUnlock(GameObject item)
     {

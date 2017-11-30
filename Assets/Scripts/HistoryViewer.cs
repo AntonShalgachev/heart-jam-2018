@@ -21,7 +21,7 @@ public class HistoryViewer : SingletonMonoBehaviour<HistoryViewer>
     void Awake()
     {
         bStoryOpen = new bool[story.Length];
-        openedCount = story.Length;
+        openedCount = 0;
         lastOpened = -1;
         count_text.GetComponent<Text>().text = "0";
         gameObject.SetActive(false);
@@ -59,7 +59,7 @@ public class HistoryViewer : SingletonMonoBehaviour<HistoryViewer>
             storyIndex = _index;
             lastOpened = storyIndex;
             view_text.GetComponent<Text>().text = story[storyIndex].text;
-            index_text.GetComponent<Text>().text = storyIndex.ToString() + "/" + openedCount.ToString();
+            index_text.GetComponent<Text>().text = (getStoryNum(storyIndex)).ToString() + "/" + openedCount.ToString();
         }
     }
 
@@ -93,9 +93,24 @@ public class HistoryViewer : SingletonMonoBehaviour<HistoryViewer>
     {
         if(_index < story.Length && _index >= 0)
         {
+            print("Unlock story - " + _index.ToString());
             bStoryOpen[_index] = true;
+            lastOpened = _index;
             openedCount += 1;
             count_text.GetComponent<Text>().text = openedCount.ToString();
         }
+    }
+
+    private int getStoryNum(int _index)
+    {
+        int _res = 1;
+        for (int i = 0; i < bStoryOpen.Length; i ++)
+        {
+            if (i == _index) break;
+            if (bStoryOpen[i]) _res++;
+           
+        }
+
+        return _res;
     }
 }

@@ -13,6 +13,7 @@ public class DeathDrop : MonoBehaviour
     public Mode mode;
     public List<GameObject> drops;
     public float probability;
+    public bool randomDrop = false;
 
     GameObject GetRandomDrop()
     {
