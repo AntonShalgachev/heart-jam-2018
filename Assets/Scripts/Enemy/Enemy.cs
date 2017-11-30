@@ -28,15 +28,12 @@ public class Enemy : MonoBehaviour
 		if (!isConvertible || agressive)
 			return;
 
-		//Debug.LogFormat("{0} is converted", gameObject.name);
-
 		converted = true;
 		OnConverted();
 	}
 
 	void OnConverted()
 	{
-#warning antonsh temp
 		var sprite = GetComponent<SpriteRenderer>();
 		sprite.color = cAlly;
 
@@ -49,15 +46,12 @@ public class Enemy : MonoBehaviour
 		if (!canBeAgressive || converted)
 			return;
 
-		//Debug.LogFormat("{0} became agressive", gameObject.name);
-
 		agressive = true;
 		OnMadeAgressive();
 	}
 
 	void OnMadeAgressive()
 	{
-#warning antonsh temp
 		var sprite = GetComponent<SpriteRenderer>();
 		sprite.color = cAgressive;
 	}

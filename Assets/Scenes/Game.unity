@@ -426,7 +426,7 @@ MonoBehaviour:
     type: 2}
   healthBar: {fileID: 971529265}
   hud: {fileID: 1272367505}
-  agentPercent: 0.1
+  agentPercent: 0
 --- !u!1001 &396615385
 Prefab:
   m_ObjectHideFlags: 0
@@ -1547,27 +1547,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomSeed: 0
-  mapWidth: 200
-  mapHeight: 200
-  borderSize: 20
+  mapWidth: 50
+  mapHeight: 50
+  borderSize: 2
   fillChance: 0.534
   smoothingIterations: 5
   cellularThreshold: 4
   wallSizeThreshold: 50
   roomSizeThreshold: 50
   numberOfZombiesRange:
-    min: 0
-    max: 0
+    min: 10
+    max: 10
   playerSpawnRange:
     center:
-      x: 50
-      y: 50
+      x: 25
+      y: 25
     range: 40
   noZombieRange:
     center:
-      x: 50
-      y: 50
-    range: 60
+      x: 25
+      y: 25
+    range: 1
 --- !u!4 &1249941347
 Transform:
   m_ObjectHideFlags: 0

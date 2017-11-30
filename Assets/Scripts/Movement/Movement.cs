@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
 
 	Rigidbody2D rigidBody;
 	Vector2 dir;
+    float velocityMultiplier = 1.0f;
 
 	private void Awake()
 	{
@@ -20,7 +21,7 @@ public class Movement : MonoBehaviour
 	private void FixedUpdate()
 	{
 		var velocity = rigidBody.velocity;
-		var newVelocity = dir * maxSpeed;
+		var newVelocity = dir * maxSpeed * velocityMultiplier;
 		var force = (newVelocity - velocity) * forceScale;
 		force = Vector2.ClampMagnitude(force, maxForce);
 
@@ -32,12 +33,22 @@ public class Movement : MonoBehaviour
 		this.dir = dir.normalized;
 	}
 
-	public float GetVelocity()
-	{
-		return rigidBody.velocity.magnitude;
-	}
+    public void SetVelocityMultiplier(float val)
+    {
+        velocityMultiplier = val;
+    }
 
-	public Vector2 GetDirection()
+    public float GetSpeed()
+    {
+        return rigidBody.velocity.magnitude;
+    }
+
+    public Vector2 GetVelocity()
+    {
+        return rigidBody.velocity;
+    }
+
+    public Vector2 GetDirection()
 	{
 		return dir;
 	}

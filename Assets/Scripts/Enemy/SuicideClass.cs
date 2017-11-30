@@ -8,19 +8,22 @@ public class SuicideClass : MonoBehaviour
 	public float meleeDistance;
 
 	GameObject playerInRange;
-	List<GameObject> zombiesInRange = new List<GameObject>();
+	List<Enemy> enemiesInRange = new List<Enemy>();
 
 	GameObject target;
 	Movement movement;
 	Enemy enemy;
 	Attack attack;
+    Follow followBehaviour;
 
 	private void Awake()
 	{
 		movement = GetComponent<Movement>();
 		enemy = GetComponent<Enemy>();
 		attack = GetComponent<Attack>();
-	}
+        followBehaviour = GetComponent<Follow>();
+
+    }
 
 	private void Update()
 	{
@@ -41,35 +44,49 @@ public class SuicideClass : MonoBehaviour
 		}
 		else if (converted || (agressive && playerInRange == null))
 		{
-			target = GetClosestZombie();
+			target = GetClosestEnemy();
 		}
 
-		var dir = Vector2.zero;
-        if (target)
+        bool follow = false;
+        if (!target && converted)
         {
-            dir = target.transform.position - transform.position;
+            target = playerInRange;
+            follow = true;
+        }
+
+        if (follow)
+        {
+            followBehaviour.enabled = true;
+            movement.enabled = false;
+            followBehaviour.SetLeader(target);
         }
         else
         {
-            if(WayPointManager.Instance.onTheWay(transform.position))
-                dir = WayPointManager.Instance.getNextPoint(transform.position, movement.GetDirection());
+            var dir = Vector2.zero;
+            if (target)
+            {
+                dir = target.transform.position - transform.position;
+            }
+            else
+            {
+                if (WayPointManager.Instance.onTheWay(transform.position))
+                    dir = WayPointManager.Instance.getNextPoint(transform.position, movement.GetDirection());
+            }
+            followBehaviour.enabled = false;
+            movement.enabled = true;
+            movement.SetDirection(dir);
+
+            if (target && DistanceTo(target) < meleeDistance)
+                Attack(target);
         }
-		movement.SetDirection(dir);
+    }
 
-		if (target && DistanceTo(target) < meleeDistance)
-			Attack(target);
-	}
-
-	GameObject GetClosestZombie()
+	GameObject GetClosestEnemy()
 	{
-		GameObject closestZombie = null;
+		Enemy closestEnemy = null;
 
-		foreach (var zombie in zombiesInRange)
+		foreach (var otherEnemy in enemiesInRange)
 		{
-			if (zombie == null)
-				continue;
-
-			var otherEnemy = zombie.GetComponent<Enemy>();
 			if (!otherEnemy)
 				continue;
 
@@ -85,26 +102,26 @@ public class SuicideClass : MonoBehaviour
 			if (!otherConverted && !otherAgressive) // skip passive NPC
 				continue;
 
-			var dir = zombie.transform.position - transform.position;
+			var dir = otherEnemy.transform.position - transform.position;
 			var dist = dir.magnitude;
 			var layerMask = 1 << LayerMask.NameToLayer("Wall");
 			var wallHit = Physics2D.Raycast(transform.position, dir.normalized, dist, layerMask);
 			if (wallHit.collider != null)
 				continue;
 
-			if (closestZombie == null)
+			if (closestEnemy == null)
 			{
-				closestZombie = zombie;
+				closestEnemy = otherEnemy;
 			}
 			else
 			{
-				var closestDist = (transform.position - closestZombie.transform.position).magnitude;
+				var closestDist = (transform.position - closestEnemy.transform.position).magnitude;
 				if (dist < closestDist)
-					closestZombie = zombie;
+					closestEnemy = otherEnemy;
 			}
 		}
 
-		return closestZombie;
+		return closestEnemy ? closestEnemy.gameObject : null;
 	}
 
 	float DistanceTo(GameObject obj)
@@ -126,12 +143,13 @@ public class SuicideClass : MonoBehaviour
 		{
 			playerInRange = obj;
 		}
-
-		if (obj.layer == LayerMask.NameToLayer("Zombie"))
-		{
-			zombiesInRange.Add(obj);
-		}
-	}
+        
+        var enemy = obj.GetComponent<Enemy>();
+        if (enemy)
+        {
+            enemiesInRange.Add(enemy);
+        }
+    }
 
 	private void OnTriggerExit2D(Collider2D collider)
 	{
@@ -142,9 +160,10 @@ public class SuicideClass : MonoBehaviour
 			playerInRange = null;
 		}
 
-		if (obj.layer == LayerMask.NameToLayer("Zombie"))
+        var enemy = obj.GetComponent<Enemy>();
+        if (enemy)
 		{
-			zombiesInRange.Remove(obj);
+			enemiesInRange.Remove(enemy);
 		}
 	}
 }
