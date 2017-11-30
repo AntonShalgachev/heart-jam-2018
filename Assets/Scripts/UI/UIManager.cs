@@ -16,6 +16,7 @@ namespace Assets.Scripts.UI
         public GameObject targets;
         public GameObject target_prefab;
         public GameObject weapon;
+        public GameObject unitHpBar;
 
         private GameObject player;
         private List<Image> slots;
