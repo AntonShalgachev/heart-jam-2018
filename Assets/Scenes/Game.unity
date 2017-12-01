@@ -1618,7 +1618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a3e82cea3c09646a2d5abdc0c529a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesPerWave: 03000000
+  enemiesPerWave: 03000000040000000500000006000000070000000800000009000000090000000a0000000a000000
   enemySpawnInterval: 1
   wavesInterval: 10
 --- !u!4 &1441216457
