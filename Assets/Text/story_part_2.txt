@@ -1,1 +1,4 @@
-part 2
+Part 2...
+
+Jam theme is throwback, so we added reverse power that throw npc on our side.
+Use it by right mouse button ;)

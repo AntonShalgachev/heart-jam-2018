@@ -1,1 +1,8 @@
-part 3
+Part 3...
+
+We tried to use new features of unity 2017.02, so
+ - tilemaps
+	- way points
+	- objects
+	- terrain 
+allow you to build levels faster, but has much work to adjust it.
