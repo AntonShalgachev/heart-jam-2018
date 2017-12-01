@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     public Color cAlly;
 
     public event Action onConverted;
+    public event Action OnDeath;
 
 	bool converted = false;
 	bool agressive = false;
@@ -65,4 +66,10 @@ public class Enemy : MonoBehaviour
 	{
 		return agressive;
 	}
+
+    private void OnDestroy()
+    {
+        if (OnDeath != null)
+            OnDeath();
+    }
 }

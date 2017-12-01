@@ -6,10 +6,10 @@ public class Spawn : MonoBehaviour
 {
     public GameObject[] objects;
 
-    public void Trigger()
+    public GameObject Trigger()
     {
         var prefab = RandomHelper.Instance().GetItem(objects);
 
-        Instantiate(prefab, transform.position, Quaternion.identity);
+        return Instantiate(prefab, transform.position, Quaternion.identity);
     }
 }

@@ -121,11 +121,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4197706515493600, guid: 34236f169b58f094480c27d72ec09562, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -25.5
+      value: -0.04000002
       objectReference: {fileID: 0}
     - target: {fileID: 4197706515493600, guid: 34236f169b58f094480c27d72ec09562, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -60.4
+      value: -2.5500035
       objectReference: {fileID: 0}
     - target: {fileID: 4197706515493600, guid: 34236f169b58f094480c27d72ec09562, type: 2}
       propertyPath: m_LocalPosition.z
@@ -568,11 +568,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4872080716810752, guid: ed64a312101e10e4d864da3091be831a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -25.5
+      value: -0.04
       objectReference: {fileID: 0}
     - target: {fileID: 4872080716810752, guid: ed64a312101e10e4d864da3091be831a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -58.03
+      value: -0.18
       objectReference: {fileID: 0}
     - target: {fileID: 4872080716810752, guid: ed64a312101e10e4d864da3091be831a, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1289,11 +1289,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4998636662903942, guid: 26aa8e28374d97842aacc1604f58fca6, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -25.5
+      value: -0.04000002
       objectReference: {fileID: 0}
     - target: {fileID: 4998636662903942, guid: 26aa8e28374d97842aacc1604f58fca6, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -62.64
+      value: -4.7900014
       objectReference: {fileID: 0}
     - target: {fileID: 4998636662903942, guid: 26aa8e28374d97842aacc1604f58fca6, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1360,8 +1360,8 @@ MonoBehaviour:
   wallSizeThreshold: 50
   roomSizeThreshold: 50
   numberOfZombiesRange:
-    min: 10
-    max: 10
+    min: 0
+    max: 0
   playerSpawnRange:
     center:
       x: 25
@@ -1618,6 +1618,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85a3e82cea3c09646a2d5abdc0c529a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemiesPerWave: 03000000
+  enemySpawnInterval: 1
+  wavesInterval: 10
 --- !u!4 &1441216457
 Transform:
   m_ObjectHideFlags: 0
