@@ -147,7 +147,7 @@ MonoBehaviour:
   jerkiness: 10
   behindDistance: 3
   forwardDistance: 3
-  evadeRadius: 3
+  evadeRadius: 2.5
 --- !u!114 &114480957611497014
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -26,6 +26,13 @@ public class RandomHelper
         return items[ind];
     }
 
+    public T GetItem<T>(T[] items)
+    {
+        var size = items.Length;
+        var ind = GetInt(0, size);
+        return items[ind];
+    }
+
     public bool GetBool(float p = 0.5f)
     {
         return rng.NextDouble() < p;
