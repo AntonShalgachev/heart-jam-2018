@@ -6,8 +6,9 @@ public class ConverterBullet : MonoBehaviour
 {
 	private int zombieLayer;
 	private int wallLayer;
+    public GameObject deathEfx_prefab;
 
-	void Start ()
+    void Start ()
 	{
 		zombieLayer = LayerMask.NameToLayer("Zombie");
 		wallLayer = LayerMask.NameToLayer("Wall");
@@ -27,7 +28,7 @@ public class ConverterBullet : MonoBehaviour
             {
                 enemy.TryConvert();
             }
-
+            Instantiate(deathEfx_prefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

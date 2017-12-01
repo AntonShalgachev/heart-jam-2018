@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerFollower : MonoBehaviour
 {
-	private GameObject player;
-
+    private GameObject player;
+    
 	public void SetPlayer(GameObject player)
 	{
 		this.player = player;
@@ -18,6 +19,7 @@ public class PlayerFollower : MonoBehaviour
         {
             player = _player;
         }
+        SceneManager.LoadScene("game_ui", LoadSceneMode.Additive);
     }
 
 

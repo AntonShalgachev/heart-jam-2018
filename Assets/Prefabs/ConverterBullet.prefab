@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7220210c23bb6ed4aa8cdc18b2fbfac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathEfx_prefab: {fileID: 1798528256442846, guid: 9cdcb06bdc3019d4f95cb85443af6c2b,
+    type: 2}
 --- !u!212 &212607170799462420
 SpriteRenderer:
   m_ObjectHideFlags: 1
