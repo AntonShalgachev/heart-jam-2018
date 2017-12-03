@@ -38,7 +38,7 @@ public class SteeringBehaviour : MonoBehaviour
         force = Vector2.zero;
     }
 
-    static public Vector2 GetDirection(GameObject obj)
+    static public Vector2 GetVelocityDirection(GameObject obj)
     {
         return GetVelocity(obj).normalized;
     }
@@ -53,13 +53,45 @@ public class SteeringBehaviour : MonoBehaviour
         return obj.GetComponent<Rigidbody2D>().velocity;
     }
 
-    public Vector2 Direction
+    static public Vector2 GetOrientationDirection(GameObject obj)
+    {
+        return obj.transform.right;
+    }
+
+    static public Vector2 GetVelocityOrOrientationDirection(GameObject obj)
+    {
+        var dir = GetVelocityDirection(obj);
+        if (dir.magnitude < Mathf.Epsilon)
+            dir = GetOrientationDirection(obj);
+
+        return dir;
+    }
+
+    public Vector2 VelocityDirection
     {
         get
         {
             return Velocity.normalized;
         }
     }
+
+    public Vector2 OrientationDirection
+    {
+        get
+        {
+            return transform.right;
+        }
+    }
+
+    //public Vector2 VelocityOrDirection
+    //{
+    //    get
+    //    {
+    //        var val = Velocity;
+
+    //        return val;
+    //    }
+    //}
 
     public float Speed
     {

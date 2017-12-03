@@ -6,7 +6,9 @@ using UnityEngine;
 public class Follow : MonoBehaviour
 {
     public float maxSpeed;
+    public float maxEvadeSpeed;
     public float jerkiness;
+    public float evadeJerkiness;
     public float behindDistance;
     public float forwardDistance;
     public float evadeRadius;
@@ -26,8 +28,8 @@ public class Follow : MonoBehaviour
         arrival.jerkiness = jerkiness;
 
         evade = gameObject.AddComponent<Evade>();
-        evade.maxSpeed = maxSpeed;
-        evade.jerkiness = jerkiness;
+        evade.maxSpeed = maxEvadeSpeed;
+        evade.jerkiness = evadeJerkiness;
     }
 
     public void FixedUpdate()
@@ -42,29 +44,63 @@ public class Follow : MonoBehaviour
         UpdateEvade();
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(EvadeTarget, evadeRadius);
+        Gizmos.DrawLine(LeaderPos, ArrivalTarget);
+    }
+
+    Vector2 LeaderPos
+    {
+        get
+        {
+            return leader.transform.position;
+        }
+    }
+
+    Vector2 LeaderDir
+    {
+        get
+        {
+            return SteeringBehaviour.GetVelocityOrOrientationDirection(leader);
+        }
+    }
+
+    Vector2 ArrivalTarget
+    {
+        get
+        {
+            return LeaderPos - LeaderDir * behindDistance;
+        }
+    }
+
+    Vector2 EvadeTarget
+    {
+        get
+        {
+            return LeaderPos + LeaderDir * forwardDistance;
+        }
+    }
+
+    Vector2 Position
+    {
+        get
+        {
+            return transform.position;
+        }
+    }
+
     void UpdateArrival()
     {
-        var leaderPos = (Vector2)leader.transform.position;
-
-        var leaderDir = SteeringBehaviour.GetDirection(leader);
-
-        var arrivalTarget = leaderPos - leaderDir * behindDistance;
-
         arrival.enabled = true;
-        arrival.SetTarget(arrivalTarget);
+        arrival.SetTarget(ArrivalTarget);
     }
 
     void UpdateEvade()
     {
-        var leaderPos = (Vector2)leader.transform.position;
-
-        var leaderDir = SteeringBehaviour.GetDirection(leader);
-
-        var evadeTarget = leaderPos + leaderDir * forwardDistance;
-        var position = (Vector2)transform.position;
-
-        evade.enabled = (position - evadeTarget).magnitude < evadeRadius;
-        evade.SetTarget(evadeTarget);
+        evade.enabled = (Position - EvadeTarget).magnitude < evadeRadius;
+        evade.SetTarget(LeaderPos);
     }
 
     public void SetLeader(GameObject leader)

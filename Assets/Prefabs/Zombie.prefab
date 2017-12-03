@@ -46,7 +46,6 @@ GameObject:
   - component: {fileID: 114942228831432496}
   - component: {fileID: 114549955640731706}
   - component: {fileID: 114899282116340550}
-  - component: {fileID: 114603083610851696}
   - component: {fileID: 114329106827217240}
   m_Layer: 9
   m_Name: Zombie
@@ -144,10 +143,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 5
+  maxEvadeSpeed: 7
   jerkiness: 10
+  evadeJerkiness: 10
   behindDistance: 3
   forwardDistance: 3
-  evadeRadius: 2.5
+  evadeRadius: 3
 --- !u!114 &114480957611497014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -196,19 +197,6 @@ MonoBehaviour:
   continuous: 1
   period: 1
   mode: 0
---- !u!114 &114603083610851696
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1711905891153286}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d9563fff8191c64e917177b3ef10db8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 5
-  jerkiness: 10
 --- !u!114 &114627298809208426
 MonoBehaviour:
   m_ObjectHideFlags: 1

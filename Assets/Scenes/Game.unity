@@ -422,7 +422,7 @@ MonoBehaviour:
     type: 2}
   healthBar: {fileID: 971529265}
   hud: {fileID: 1272367505}
-  agentPercent: 0.1
+  agentPercent: 0
 --- !u!1 &476698519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1360,8 +1360,8 @@ MonoBehaviour:
   wallSizeThreshold: 50
   roomSizeThreshold: 50
   numberOfZombiesRange:
-    min: 0
-    max: 0
+    min: 10
+    max: 10
   playerSpawnRange:
     center:
       x: 25
@@ -1606,7 +1606,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1441216456
 MonoBehaviour:
   m_ObjectHideFlags: 0
