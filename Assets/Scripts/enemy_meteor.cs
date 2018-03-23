@@ -4,13 +4,34 @@ using UnityEngine;
 
 public class enemy_meteor : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    public int health = 2;
+    public int damage = 2;
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
+
+    public void healthHit(int _damage)
+    {
+        health -= _damage;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        var _ship = col.gameObject.GetComponent<ship>();
+        if (_ship != null)
+        {
+            _ship.healthHit(damage);
+            Destroy(gameObject);
+        }
+    }
 }
