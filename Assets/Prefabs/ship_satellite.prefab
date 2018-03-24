@@ -52,6 +52,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 370b8699c797abc46b90957a8f97dc68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  work: 0
+  owner: {fileID: 0}
+  ship: {fileID: 0}
+  speed: 2
+  minDistance: 0.01
+  maxDistance: 3
+  defDistance: 1
+  defRotateSpeed: 40
 --- !u!212 &212490114092845404
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -85,7 +93,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -5
   m_Sprite: {fileID: 21300000, guid: 58ddfbdc36b6c084498f644d28168de0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

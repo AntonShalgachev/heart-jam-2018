@@ -78,6 +78,14 @@ public class GameHandler : MonoBehaviour {
                     _img.fillAmount = ship.getHealthAmount();
                 }
             }
+            if (gui_energy_bar != null)
+            {
+                var _img = gui_energy_bar.GetComponent<Image>();
+                if (_img != null)
+                {
+                    _img.fillAmount = ship.getEnergyAmount();
+                }
+            }
         }
     }
 
@@ -186,6 +194,7 @@ public class GameHandler : MonoBehaviour {
             yield return new WaitForSeconds(Time.deltaTime);
         }
     }
+
     public void createExplode()
     {
         if(explosionPrefub != null)
@@ -194,4 +203,5 @@ public class GameHandler : MonoBehaviour {
             _inst.transform.position = ship.transform.position;
         }
     }
+
 }
