@@ -23,6 +23,11 @@ public class EnemyMeteorMovement : MonoBehaviour
 
         // maybe better to use physics here
         transform.position = Vector3.MoveTowards(transform.position, target, path.speed * Time.deltaTime);
+
+        const float Epsilon = 0.1f;
+
+        if (DistanceToTarget() < Epsilon)
+            Destroy(gameObject);
     }
 
     private float DistanceToTarget()
