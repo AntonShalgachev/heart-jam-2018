@@ -24,8 +24,9 @@ public class GameHandler : MonoBehaviour {
     private GameObject gui_hp_bar;
     private GameObject gui_energy_bar;
     private GameObject gui_distance;
+    private GameObject gui_money;
     // Use this for initialization
-    void Start () {
+    void Awake () {
         if(hud != null)
         {
             gui_hud = hud.transform.GetChild(0).gameObject;
@@ -36,14 +37,20 @@ public class GameHandler : MonoBehaviour {
                 gui_hp_bar = gui_hud.transform.GetChild(4).gameObject;
                 gui_energy_bar = gui_hud.transform.GetChild(5).gameObject;
                 gui_distance = gui_hud.transform.GetChild(6).gameObject;
+                gui_money = gui_hud.transform.GetChild(7).gameObject;
             }
         }
-        
+
+        ship.OnCurrencyChanged += OnMoneyChanged;
+    }
+
+    private void Start()
+    {
         StartCoroutine(StartAddDistance());
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -216,4 +223,15 @@ public class GameHandler : MonoBehaviour {
         }
     }
 
+    public void OnMoneyChanged(int value)
+    {
+        if (gui_money != null)
+        {
+            var _text = gui_money.GetComponent<Text>();
+            if (_text != null)
+            {
+                _text.text = "Money: " + value.ToString();
+            }
+        }
+    }
 }

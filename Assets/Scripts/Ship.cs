@@ -2,6 +2,7 @@
 using UnityEngine;
 using Assets.Scripts.ShipSatellite;
 using System.Collections.Generic;
+using System;
 
 public class Ship : MonoBehaviour {
 
@@ -29,8 +30,10 @@ public class Ship : MonoBehaviour {
 
     private Money currencyManager;
 
+    public event Action<int> OnCurrencyChanged;
+
     // Use this for initialization
-    void Start () {
+    void Awake () {
         workers = new List<ship_satellite>();
         satellites = new List<ship_satellite>();
         health_max = health;
@@ -40,6 +43,7 @@ public class Ship : MonoBehaviour {
         spriteRenderer = main_engine.GetComponent<SpriteRenderer>();
 
         currencyManager = GetComponent<Money>();
+        currencyManager.OnCurrencyChanged += OnMoneyChanged;
         Debug.Assert(currencyManager);
     }
 	
@@ -222,5 +226,11 @@ public class Ship : MonoBehaviour {
     public void onMeteorDestroyedByMouse()
     {
         currencyManager.Gain(moneyPerDestroyedMeteor);
+    }
+
+    private void OnMoneyChanged(int value)
+    {
+        if (OnCurrencyChanged != null)
+            OnCurrencyChanged(value);
     }
 }

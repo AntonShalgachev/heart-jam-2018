@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,12 +8,24 @@ public class Money : MonoBehaviour
     [SerializeField]
     private int startingBalance;
 
-    private int balance = 0;
+    private int balance;
     private float partialBalance = 0.0f;
+
+    public event Action<int> OnCurrencyChanged;
 
     private void Start()
     {
         balance = startingBalance;
+
+        UpdateBalance(0);
+    }
+
+    private void UpdateBalance(int delta)
+    {
+        balance += delta;
+
+        if (OnCurrencyChanged != null)
+            OnCurrencyChanged(balance);
     }
 
     public bool HasFunds(int amount)
@@ -23,7 +36,8 @@ public class Money : MonoBehaviour
     public void Gain(int amount)
     {
         Debug.Assert(amount >= 0, "amount should not be negative");
-        balance += amount;
+
+        UpdateBalance(amount);
     }
 
     public void Gain(float amount)
@@ -53,7 +67,7 @@ public class Money : MonoBehaviour
     {
         if (HasFunds(amount))
         {
-            balance -= amount;
+            UpdateBalance(-amount);
             return true;
         }
 
