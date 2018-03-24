@@ -19,7 +19,9 @@ public class mine_meteor : MonoBehaviour {
         MineSpeed = mineSpeedRange.GetRandom();
 
         workers = new List<ship_satellite>();
-        var _scale = MineSpeed / ((mineSpeedRange.to - mineSpeedRange.from) / 2);
+
+        var _scale = MineSpeed / ((mineSpeedRange.to - mineSpeedRange.from));
+        _scale *= transform.localScale.x;
 
         transform.localScale = new Vector3(_scale, _scale);
 

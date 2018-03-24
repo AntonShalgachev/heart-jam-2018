@@ -111,6 +111,11 @@ namespace Assets.Scripts.ShipSatellite
                                 if (Vector2.Distance(transform.position, ship.transform.position) <= minDistance)
                                 {
                                     isMining = false;
+                                    var _ship = ship.GetComponent<Ship>();
+                                    if (_ship != null)
+                                    {
+                                        _ship.addEnergy(mine_amount);
+                                    }
                                 }
                             }
                             else
@@ -129,12 +134,6 @@ namespace Assets.Scripts.ShipSatellite
                             {
                                 isMining = true;
                                 workTimeMine_amount = workTimeMine;
-
-                                var _ship = ship.GetComponent<Ship>();
-                                if (_ship != null)
-                                {
-                                    _ship.addEnergy(mine_amount);
-                                }
                                 mine_amount = 0;
                                 setEye(false);
                             }
