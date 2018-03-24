@@ -18,6 +18,7 @@ public class ship : MonoBehaviour {
 
     private List<ship_satellite> satellites;
     private GameObject main_engine;
+    private GameObject fuel;
 
     private bool engine_anim_dir = true;
     private SpriteRenderer spriteRenderer;
@@ -29,6 +30,7 @@ public class ship : MonoBehaviour {
         health_max = health;
         energy_max = energy;
         main_engine = transform.GetChild(2).gameObject;
+        fuel = transform.GetChild(1).gameObject;
         spriteRenderer = main_engine.GetComponent<SpriteRenderer>();
     }
 	
@@ -58,7 +60,7 @@ public class ship : MonoBehaviour {
             health -= _damage;
             if (health <= 0)
             {
-                Destroy(gameObject);
+                wrapDestroy();
             }
         }
     }
@@ -167,8 +169,22 @@ public class ship : MonoBehaviour {
         while (true)
         {
             energy -= energySpeed;
-            if (energy < 0) energy = 0;
+            if(fuel != null)
+            {
+                float y_scale = 0.1f + 1.6f * (energy / energy_max);
+                fuel.transform.localScale = new Vector3(1f, y_scale);
+            }
+            if (energy < 0)
+            {
+                energy = 0;
+                wrapDestroy();
+            }
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    void wrapDestroy()
+    {
+        Destroy(gameObject);
     }
 }
