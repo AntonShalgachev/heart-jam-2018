@@ -15,14 +15,30 @@ public class MeteorSpawner : MonoBehaviour
         public RandomHelper.Range speed;
         public RandomHelper.Range holdDuration;
     }
+    [Serializable]
+    public class EnemyMeteorPathParams
+    {
+        public List<GameObject> spawnPoints;
+        public List<GameObject> destinationPoints;
+
+        public RandomHelper.Range speed;
+    }
 
     [SerializeField]
     private List<MineMeteorPathParams> mineMeteorPaths;
     [SerializeField]
     private float mineMeteorSpawnPeriod;
+    [SerializeField]
+    private List<EnemyMeteorPathParams> enemyMeteorPaths;
+    [SerializeField]
+    private float enemyMeteorSpawnPeriod;
+    [SerializeField]
+    private float enemyMeteorSpawnGroupSize;
 
     [SerializeField]
     private GameObject minerMeteorPrefab;
+    [SerializeField]
+    private GameObject enemyMeteorPrefab;
 
     private GameObject meteorHolder;
 
@@ -31,6 +47,7 @@ public class MeteorSpawner : MonoBehaviour
         meteorHolder = new GameObject("Meteors");
 
         StartCoroutine(StartSpawningMineMeteors());
+        StartCoroutine(StartSpawningEnemyMeteors());
     }
 
     private void Update()
@@ -56,6 +73,22 @@ public class MeteorSpawner : MonoBehaviour
         return path;
     }
 
+    private EnemyMeteorMovement.Path getRandomEnemyMeteorPath()
+    {
+        Debug.Assert(enemyMeteorPaths.Count > 0);
+
+        var random = RandomHelper.Instance();
+        var pathParams = random.GetItem(enemyMeteorPaths);
+
+        var path = new EnemyMeteorMovement.Path();
+        path.spawnPoint = random.GetItem(pathParams.spawnPoints);
+        path.destinationPoint = random.GetItem(pathParams.destinationPoints);
+
+        path.speed = pathParams.speed.GetRandom();
+
+        return path;
+    }
+
     private void SpawnMineMeteor(MineMeteorMovement.Path path)
     {
         var meteor = Instantiate(minerMeteorPrefab, path.spawnPoint.transform.position, Quaternion.identity, meteorHolder.transform);
@@ -65,13 +98,32 @@ public class MeteorSpawner : MonoBehaviour
         meteorMovement.SetPath(path);
     }
 
+    private void SpawnEnemyMeteor(EnemyMeteorMovement.Path path)
+    {
+        var meteor = Instantiate(enemyMeteorPrefab, path.spawnPoint.transform.position, Quaternion.identity, meteorHolder.transform);
+        var meteorMovement = meteor.GetComponent<EnemyMeteorMovement>();
+        Debug.Assert(meteorMovement);
+
+        meteorMovement.SetPath(path);
+    }
+
     private IEnumerator StartSpawningMineMeteors()
     {
         while (true)
         {
-            var path = getRandomMineMeteorPath();
-            SpawnMineMeteor(path);
+            SpawnMineMeteor(getRandomMineMeteorPath());
             yield return new WaitForSeconds(mineMeteorSpawnPeriod);
+        }
+    }
+
+    private IEnumerator StartSpawningEnemyMeteors()
+    {
+        while (true)
+        {
+            for (var i = 0; i < enemyMeteorSpawnGroupSize; i++)
+                SpawnEnemyMeteor(getRandomEnemyMeteorPath());
+
+            yield return new WaitForSeconds(enemyMeteorSpawnPeriod);
         }
     }
 }
