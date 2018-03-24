@@ -103,6 +103,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   workers: []
+  mineSpeedRange:
+    from: 0.05
+    to: 1
 --- !u!114 &114578577844840560
 MonoBehaviour:
   m_ObjectHideFlags: 1

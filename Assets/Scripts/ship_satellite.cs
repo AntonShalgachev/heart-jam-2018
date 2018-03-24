@@ -103,7 +103,7 @@ namespace Assets.Scripts.ShipSatellite
                                 var _mine = owner.GetComponent<mine_meteor>();
                                 if (_mine != null)
                                 {
-                                    mine_amount += _mine.mine_params.mineSpeed; 
+                                    mine_amount += _mine.MineSpeed;
                                 }
                             }
                         }
