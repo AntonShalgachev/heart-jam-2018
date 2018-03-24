@@ -54,6 +54,7 @@ public class GameHandler : MonoBehaviour {
                 check_mine(hit.collider.gameObject);
                 check_ship(hit.collider.gameObject);
                 check_enemy(hit.collider.gameObject);
+                check_worker(hit.collider.gameObject);
             }
         }
         if(ship == null)
@@ -111,6 +112,15 @@ public class GameHandler : MonoBehaviour {
         if (_cmp != null)
         {
             _cmp.healthHit(mouse_damage);
+        }
+    }
+
+    private void check_worker(GameObject hit)
+    {
+        var _cmp = hit.transform.gameObject.GetComponent<ship_satellite>();
+        if (_cmp != null)
+        {
+            _cmp.stopWork();
         }
     }
 

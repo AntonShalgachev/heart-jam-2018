@@ -17,12 +17,16 @@ namespace Assets.Scripts.ShipSatellite
         public float defDistance = 1f;
         public float defRotateSpeed = 40f;
 
+        public float workTimeMine = 1f;
+
         private bool isMining = false;
         private bool loseConnect = false;
         private bool isDefing = false;
-
+        private LineRenderer lineRenderer;
+		
+        private float workTimeMine_amount = 5f;
+        private float mine_amount = 0;
         private MeteorShooter shooter;
-
         // Use this for initialization
         void Start()
         {
@@ -30,6 +34,12 @@ namespace Assets.Scripts.ShipSatellite
             Debug.Assert(shooter);
 
             work = workType.idle;
+            lineRenderer = GetComponent<LineRenderer>();
+            if(lineRenderer != null)
+            {
+                lineRenderer.endColor = new Color(0, 0, 0, 0.2f);
+            }
+            workTimeMine_amount = workTimeMine;
         }
 
         // Update is called once per frame
@@ -39,6 +49,14 @@ namespace Assets.Scripts.ShipSatellite
             {
                 Destroy(gameObject);
                 return;
+            }
+
+            if (lineRenderer != null)
+            {
+                lineRenderer.SetPosition(0, transform.position);
+                lineRenderer.SetPosition(1, ship.transform.position);
+                float _dist = Vector2.Distance(transform.position, ship.transform.position) / maxDistance;
+                lineRenderer.startColor = new Color(_dist, 0, 0, _dist);
             }
 
             float step = speed * Time.deltaTime;
@@ -70,10 +88,23 @@ namespace Assets.Scripts.ShipSatellite
                     {
                         if (isMining)
                         {
-                            transform.position = Vector3.MoveTowards(transform.position, ship.transform.position, step);
-                            if (Vector2.Distance(transform.position, ship.transform.position) <= minDistance)
+
+                            workTimeMine_amount -= Time.deltaTime;
+                            if (workTimeMine_amount <= 0)
                             {
-                                isMining = false;
+                                transform.position = Vector3.MoveTowards(transform.position, ship.transform.position, step);
+                                if (Vector2.Distance(transform.position, ship.transform.position) <= minDistance)
+                                {
+                                    isMining = false;
+                                }
+                            }
+                            else
+                            {
+                                var _mine = owner.GetComponent<mine_meteor>();
+                                if (_mine != null)
+                                {
+                                    mine_amount += _mine.mine_params.mineSpeed; 
+                                }
                             }
                         }
                         else
@@ -82,6 +113,14 @@ namespace Assets.Scripts.ShipSatellite
                             if (Vector2.Distance(transform.position, owner.transform.position) <= minDistance)
                             {
                                 isMining = true;
+                                workTimeMine_amount = workTimeMine;
+
+                                var _ship = ship.GetComponent<ship>();
+                                if (_ship != null)
+                                {
+                                    _ship.addEnergy(mine_amount);
+                                }
+                                mine_amount = 0;
                             }
                         }
                     }
@@ -90,10 +129,24 @@ namespace Assets.Scripts.ShipSatellite
             if(Vector2.Distance(transform.position, ship.transform.position) > maxDistance)
             {
                 loseConnect = true;
+                wrapDestroy();
+
             }
             else
             {
                 loseConnect = false;
+            }
+
+        }
+        void wrapDestroy()
+        {
+            Destroy(gameObject);
+        }
+        public void stopWork()
+        {
+            if(work != workType.idle)
+            {
+                work = workType.idle;
             }
         }
     }

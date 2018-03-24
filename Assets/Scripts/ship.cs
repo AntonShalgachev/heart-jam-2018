@@ -44,10 +44,13 @@ public class ship : MonoBehaviour {
 
         foreach(ship_satellite s in satellites)
         {
-            if(s.work == workType.idle)
+            if (s != null)
             {
-                _res = s;
-                break;
+                if (s.work == workType.idle)
+                {
+                    _res = s;
+                    break;
+                }
             }
         }
 
@@ -186,5 +189,14 @@ public class ship : MonoBehaviour {
     void wrapDestroy()
     {
         Destroy(gameObject);
+    }
+
+    public void addEnergy(float _amount)
+    {
+        energy += _amount;
+        if(energy >= energy_max)
+        {
+            energy = energy_max;
+        }
     }
 }
