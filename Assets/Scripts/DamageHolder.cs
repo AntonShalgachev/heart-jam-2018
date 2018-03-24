@@ -13,7 +13,6 @@ public class DamageHolder : MonoBehaviour
 
         if (meteor)
         {
-            Debug.Log("Sending damage to " + meteor);
             meteor.healthHit(damage);
             Destroy(gameObject);
         }
