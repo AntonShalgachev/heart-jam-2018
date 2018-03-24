@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4553313188234918}
   - component: {fileID: 212490114092845404}
   - component: {fileID: 114726417689753508}
+  - component: {fileID: 114326883843924832}
   m_Layer: 0
   m_Name: ship_satellite
   m_TagString: Untagged
@@ -41,6 +42,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114326883843924832
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1418698650848280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baf44db55e4c1fb428e7705cbea7b2fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootingPeriod: 0.5
+  shootingRadius: 50
+  targetLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  closestDistanceMode: 1
+  bulletPrefab: {fileID: 1088074295421352, guid: 51acc8276f4e01545929543758772822,
+    type: 2}
 --- !u!114 &114726417689753508
 MonoBehaviour:
   m_ObjectHideFlags: 1

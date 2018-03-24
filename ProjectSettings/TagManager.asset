@@ -13,16 +13,16 @@ TagManager:
   - UI
   - 
   - 
-  - Wall
-  - Zombie
-  - Player
+  - EnemyMeteor
+  - MineMeteor
+  - 
   - Bullet
-  - Weapon
-  - Treasure
-  - PlayerSpawn
-  - Key
-  - Chest
-  - Door
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

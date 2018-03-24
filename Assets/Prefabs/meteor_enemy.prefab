@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 58783716801761490}
   - component: {fileID: 50976523257263620}
   - component: {fileID: 114211507408366320}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: meteor_enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

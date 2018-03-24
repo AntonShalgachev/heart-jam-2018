@@ -20,9 +20,15 @@ namespace Assets.Scripts.ShipSatellite
         private bool isMining = false;
         private bool loseConnect = false;
         private bool isDefing = false;
+
+        private MeteorShooter shooter;
+
         // Use this for initialization
         void Start()
         {
+            shooter = GetComponent<MeteorShooter>();
+            Debug.Assert(shooter);
+
             work = workType.idle;
         }
 
@@ -54,6 +60,7 @@ namespace Assets.Scripts.ShipSatellite
                             if (Vector2.Distance(transform.position, ship.transform.position) >= defDistance)
                             {
                                 isDefing = true;
+                                shooter.SetActive(true);
                             }
                         }
                     }
