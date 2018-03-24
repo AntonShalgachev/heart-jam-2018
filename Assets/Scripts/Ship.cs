@@ -13,6 +13,9 @@ public class Ship : MonoBehaviour {
     public bool godMode = true;
     public int satellites_count = 3;
 
+    public float energyToMoneyConversionRatio;
+    public int moneyPerDestroyedMeteor;
+
     private float health_max;
     private float energy_max;
 
@@ -23,6 +26,9 @@ public class Ship : MonoBehaviour {
     private bool engine_anim_dir = true;
     private SpriteRenderer spriteRenderer;
     private int engineStrength = 2;
+
+    private Money currencyManager;
+
     // Use this for initialization
     void Start () {
         workers = new List<ship_satellite>();
@@ -32,6 +38,9 @@ public class Ship : MonoBehaviour {
         main_engine = transform.GetChild(2).gameObject;
         fuel = transform.GetChild(1).gameObject;
         spriteRenderer = main_engine.GetComponent<SpriteRenderer>();
+
+        currencyManager = GetComponent<Money>();
+        Debug.Assert(currencyManager);
     }
 	
 	// Update is called once per frame
@@ -199,12 +208,19 @@ public class Ship : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    public void addEnergy(float _amount)
+    public void addEnergy(float amount)
     {
-        energy += _amount;
-        if(energy >= energy_max)
+        energy += amount;
+        if(energy > energy_max)
         {
+            var excess = energy - energy_max;
+            currencyManager.Gain(excess * energyToMoneyConversionRatio);
             energy = energy_max;
         }
+    }
+
+    public void onMeteorDestroyedByMouse()
+    {
+        currencyManager.Gain(moneyPerDestroyedMeteor);
     }
 }

@@ -112,6 +112,8 @@ public class GameHandler : MonoBehaviour {
         if (_cmp != null)
         {
             _cmp.healthHit(mouse_damage);
+            if (!_cmp.IsAlive())
+                ship.onMeteorDestroyedByMouse();
         }
     }
 

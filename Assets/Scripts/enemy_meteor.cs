@@ -25,6 +25,11 @@ public class enemy_meteor : MonoBehaviour {
         }
     }
 
+    public bool IsAlive()
+    {
+        return health > 0;
+    }
+
     void OnCollisionEnter2D(Collision2D col)
     {
         var _ship = col.gameObject.GetComponent<Ship>();

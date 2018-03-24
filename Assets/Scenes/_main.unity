@@ -256,6 +256,16 @@ Prefab:
       propertyPath: energySpeed
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114710258388481572, guid: 901c7b49189c8f2459a6bf4a9bd70a87,
+        type: 2}
+      propertyPath: energyToMoneyConversionRatio
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114710258388481572, guid: 901c7b49189c8f2459a6bf4a9bd70a87,
+        type: 2}
+      propertyPath: moneyPerDestroyedMeteor
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 901c7b49189c8f2459a6bf4a9bd70a87, type: 2}
   m_IsPrefabParent: 0
@@ -718,6 +728,23 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 166561345}
+--- !u!1 &188127930 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1926923431713730, guid: 901c7b49189c8f2459a6bf4a9bd70a87,
+    type: 2}
+  m_PrefabInternal: {fileID: 120350888}
+--- !u!114 &188127931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 188127930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cafad632dd9ef14a83a296bbe6cdd8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingBalance: 0
 --- !u!1 &194225926
 GameObject:
   m_ObjectHideFlags: 0
