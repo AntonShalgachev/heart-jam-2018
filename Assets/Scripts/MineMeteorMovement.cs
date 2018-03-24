@@ -7,7 +7,7 @@ public class MineMeteorMovement : MonoBehaviour
     public class Path
     {
         public GameObject spawnPoint;
-        public GameObject holdPoint;
+        public OccupiablePoint holdPoint;
         public GameObject destinationPoint;
 
         public float speed;
@@ -57,6 +57,8 @@ public class MineMeteorMovement : MonoBehaviour
     {
         this.path = path;
 
+        path.holdPoint.IsOccupied = true;
+
         target = path.holdPoint.transform.position;
         state = State.MovingIn;
     }
@@ -74,6 +76,7 @@ public class MineMeteorMovement : MonoBehaviour
                 state = State.MovingOut;
                 target = path.destinationPoint.transform.position;
                 delay = 0.0f;
+                path.holdPoint.IsOccupied = false;
                 break;
             case State.MovingOut:
                 Destroy(gameObject);

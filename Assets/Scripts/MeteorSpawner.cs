@@ -9,7 +9,7 @@ public class MeteorSpawner : MonoBehaviour
     public class MineMeteorPathParams
     {
         public List<GameObject> spawnPoints;
-        public List<GameObject> holdPoints;
+        public List<OccupiablePoint> holdPoints;
         public List<GameObject> destinationPoints;
 
         public RandomHelper.Range speed;
@@ -64,7 +64,13 @@ public class MeteorSpawner : MonoBehaviour
 
         var path = new MineMeteorMovement.Path();
         path.spawnPoint = random.GetItem(pathParams.spawnPoints);
-        path.holdPoint = random.GetItem(pathParams.holdPoints);
+
+        do
+        {
+            path.holdPoint = random.GetItem(pathParams.holdPoints);
+        }
+        while (path.holdPoint.IsOccupied);
+
         path.destinationPoint = random.GetItem(pathParams.destinationPoints);
 
         path.speed = pathParams.speed.GetRandom();
