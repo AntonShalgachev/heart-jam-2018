@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour {
 
-    public ship ship;
+    public Ship ship;
     public int mouse_damage = 1;
     public GameObject hud;
     public GameObject explosionPrefub;
@@ -100,7 +100,7 @@ public class GameHandler : MonoBehaviour {
     }
     private void check_ship(GameObject hit)
     {
-        var _cmp = hit.transform.gameObject.GetComponent<ship>();
+        var _cmp = hit.transform.gameObject.GetComponent<Ship>();
         if (_cmp != null)
         {
             addWorker(ship.try_to_get_satellite(), _cmp.workers, workType.defer, _cmp.gameObject);

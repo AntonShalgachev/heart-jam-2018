@@ -3,7 +3,7 @@ using UnityEngine;
 using Assets.Scripts.ShipSatellite;
 using System.Collections.Generic;
 
-public class ship : MonoBehaviour {
+public class Ship : MonoBehaviour {
 
     public float health = 10;
     public float energy = 100;
@@ -104,16 +104,24 @@ public class ship : MonoBehaviour {
 
     private void engineAnim(int strength)
     {
+        if(main_engine != null)
+        {
+            engine_anim_dir = engineAnim_ext(strength, spriteRenderer, main_engine.transform, engine_anim_dir);
+        }
+    }
+    public static bool engineAnim_ext(int strength, SpriteRenderer _render, Transform _trans, bool _dir)
+    {
         float alpha_speed = 1f;
         float alpha_min = 0.90f;
         float alpha_max = 1f;
+        bool _res = _dir;
 
-        switch(strength)
+        switch (strength)
         {
             case 0:
-                alpha_min = 0.7f;
-                alpha_max = 0.90f;
-                alpha_speed = 1.5f;
+                alpha_min = 0.17f;
+                alpha_max = 0.22f;
+                alpha_speed = 0.5f;
                 break;
             case 2:
                 alpha_min = 1.2f;
@@ -122,31 +130,31 @@ public class ship : MonoBehaviour {
                 break;
         }
 
-        if (main_engine != null && spriteRenderer != null)
+
+        if (_dir)
         {
-            if(engine_anim_dir)
+            var _col = _render.color;
+            if (twinkValue(out _col.a, _col.a, alpha_max, alpha_speed * Time.deltaTime))
             {
-                var _col = spriteRenderer.color;
-                if (twinkValue(out _col.a, _col.a, alpha_max, alpha_speed * Time.deltaTime))
-                {
-                    engine_anim_dir = false;
-                }
-                main_engine.transform.localScale = new Vector3(_col.a, _col.a);
-                spriteRenderer.color = _col;
+                _res = false;
             }
-            else
-            {
-                var _col = spriteRenderer.color;
-                if (twinkValue(out _col.a, _col.a, alpha_min, -alpha_speed * Time.deltaTime))
-                {
-                    engine_anim_dir = true;
-                }
-                main_engine.transform.localScale = new Vector3(_col.a, _col.a);
-                spriteRenderer.color = _col;
-            }
+            _trans.localScale = new Vector3(_col.a, _col.a);
+            _render.color = _col;
         }
+        else
+        {
+            var _col = _render.color;
+            if (twinkValue(out _col.a, _col.a, alpha_min, -alpha_speed * Time.deltaTime))
+            {
+                _res = true;
+            }
+            _trans.localScale = new Vector3(_col.a, _col.a);
+            _render.color = _col;
+        }
+        return _res;
     }
-    bool twinkValue(out float _val, float from, float to, float delta)
+
+    static bool twinkValue(out float _val, float from, float to, float delta)
     {
         bool _res = false;
         _val = from + delta;

@@ -27,7 +27,7 @@ public class enemy_meteor : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        var _ship = col.gameObject.GetComponent<ship>();
+        var _ship = col.gameObject.GetComponent<Ship>();
         
         if (_ship != null)
         {

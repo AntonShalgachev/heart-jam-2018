@@ -18,15 +18,22 @@ namespace Assets.Scripts.ShipSatellite
         public float defRotateSpeed = 40f;
 
         public float workTimeMine = 1f;
+        public Sprite eyeLight_green;
+        public Sprite eyeLight_red;
 
         private bool isMining = false;
-        private bool loseConnect = false;
         private bool isDefing = false;
         private LineRenderer lineRenderer;
 		
         private float workTimeMine_amount = 5f;
         private float mine_amount = 0;
         private MeteorShooter shooter;
+        private GameObject eye;
+        private bool eyeState;
+        private GameObject engine_left;
+        private GameObject engine_right;
+        private bool engine_dir_left;
+        private bool engine_dir_right;
         // Use this for initialization
         void Start()
         {
@@ -40,6 +47,10 @@ namespace Assets.Scripts.ShipSatellite
                 lineRenderer.endColor = new Color(0, 0, 0, 0.2f);
             }
             workTimeMine_amount = workTimeMine;
+            eye = transform.GetChild(0).gameObject;
+            engine_left = transform.GetChild(1).gameObject;
+            engine_right = transform.GetChild(2).gameObject;
+            eyeState = false;
         }
 
         // Update is called once per frame
@@ -64,6 +75,8 @@ namespace Assets.Scripts.ShipSatellite
             {
                 case workType.idle:
                     transform.position = Vector3.MoveTowards(transform.position, ship.transform.position, step);
+                    setEye(true);
+                    shooter.SetActive(false);
                     break;
                 case workType.defer:
                     if (ship != null)
@@ -71,6 +84,7 @@ namespace Assets.Scripts.ShipSatellite
                         if (isDefing)
                         {
                             transform.RotateAround(ship.transform.position, Vector3.forward, defRotateSpeed * Time.deltaTime);
+                            transform.rotation = Quaternion.identity;
                         }
                         else
                         {
@@ -79,6 +93,7 @@ namespace Assets.Scripts.ShipSatellite
                             {
                                 isDefing = true;
                                 shooter.SetActive(true);
+                                setEye(false);
                             }
                         }
                     }
@@ -88,10 +103,10 @@ namespace Assets.Scripts.ShipSatellite
                     {
                         if (isMining)
                         {
-
                             workTimeMine_amount -= Time.deltaTime;
                             if (workTimeMine_amount <= 0)
                             {
+                                setEye(true);
                                 transform.position = Vector3.MoveTowards(transform.position, ship.transform.position, step);
                                 if (Vector2.Distance(transform.position, ship.transform.position) <= minDistance)
                                 {
@@ -115,12 +130,13 @@ namespace Assets.Scripts.ShipSatellite
                                 isMining = true;
                                 workTimeMine_amount = workTimeMine;
 
-                                var _ship = ship.GetComponent<ship>();
+                                var _ship = ship.GetComponent<Ship>();
                                 if (_ship != null)
                                 {
                                     _ship.addEnergy(mine_amount);
                                 }
                                 mine_amount = 0;
+                                setEye(false);
                             }
                         }
                     }
@@ -128,15 +144,20 @@ namespace Assets.Scripts.ShipSatellite
             }
             if(Vector2.Distance(transform.position, ship.transform.position) > maxDistance)
             {
-                loseConnect = true;
                 wrapDestroy();
 
             }
-            else
+            /// engine anim
+            if(engine_left != null)
             {
-                loseConnect = false;
+                var _spr = engine_left.GetComponent<SpriteRenderer>();
+                engine_dir_left = Ship.engineAnim_ext(0, _spr, engine_left.transform, engine_dir_left);
             }
-
+            if (engine_right != null)
+            {
+                var _spr = engine_right.GetComponent<SpriteRenderer>();
+                engine_dir_right = Ship.engineAnim_ext(0, _spr, engine_right.transform, engine_dir_right);
+            }
         }
         void wrapDestroy()
         {
@@ -147,6 +168,31 @@ namespace Assets.Scripts.ShipSatellite
             if(work != workType.idle)
             {
                 work = workType.idle;
+            }
+        }
+
+        void setEye(bool _val)
+        {
+            if (eyeState != _val)
+            {
+                eyeState = _val;
+                if (eye != null)
+                {
+                    var _sprite = eye.GetComponent<SpriteRenderer>();
+                    if (_sprite != null)
+                    {
+                        if (_val)
+                        {
+                            if (eyeLight_green != null)
+                                _sprite.sprite = eyeLight_green;
+                        }
+                        else
+                        {
+                            if (eyeLight_red != null)
+                                _sprite.sprite = eyeLight_red;
+                        }
+                    }
+                }
             }
         }
     }
