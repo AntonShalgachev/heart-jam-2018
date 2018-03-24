@@ -25,9 +25,10 @@ public class enemy_meteor : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter(Collision col)
+    void OnCollisionEnter2D(Collision2D col)
     {
         var _ship = col.gameObject.GetComponent<ship>();
+        
         if (_ship != null)
         {
             _ship.healthHit(damage);

@@ -5,23 +5,21 @@ using System.Collections.Generic;
 
 public class ship : MonoBehaviour {
 
-    public int health = 10;
+    public float health = 10;
     public int energy = 100;
     public GameObject satellitePrefub;
-    private List<ship_satellite> satellites;
     public List<ship_satellite> workers;
+    public bool godMode = true;
+    public int satellites_count = 3;
+
+    private float health_max;
+    private List<ship_satellite> satellites;
     // Use this for initialization
     void Start () {
         workers = new List<ship_satellite>();
         satellites = new List<ship_satellite>();
-        if (satellitePrefub != null)
-        {
-            ship_satellite _inst = Instantiate(satellitePrefub).GetComponent<ship_satellite>();
-            satellites.Add(_inst);
-            _inst.GetComponent<ship_satellite>().ship = gameObject;
-            _inst.transform.position = transform.position;
-        }
-	}
+        health_max = health;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -44,11 +42,39 @@ public class ship : MonoBehaviour {
     }
     public void healthHit(int _damage)
     {
-        health -= _damage;
-        if (health <= 0)
+        if (!godMode)
         {
-            Destroy(gameObject);
-            // lose game
+            health -= _damage;
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
+    }
+
+    public void godModeSwitch(bool _val)
+    {
+        if (godMode != _val)
+        {
+            godMode = _val;
+            if (_val == false)
+            {
+                if (satellitePrefub != null)
+                {
+                    for (var i = 0; i < satellites_count; i++)
+                    {
+                        ship_satellite _inst = Instantiate(satellitePrefub).GetComponent<ship_satellite>();
+                        satellites.Add(_inst);
+                        _inst.GetComponent<ship_satellite>().ship = gameObject;
+                        _inst.transform.position = transform.position;
+                    }
+                }
+            }
+        }
+    }
+
+    public float getHealthAmount()
+    {
+        return health / health_max;
     }
 }

@@ -29,6 +29,12 @@ namespace Assets.Scripts.ShipSatellite
         // Update is called once per frame
         void Update()
         {
+            if(ship == null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
             float step = speed * Time.deltaTime;
             switch (work)
             {
@@ -36,35 +42,40 @@ namespace Assets.Scripts.ShipSatellite
                     transform.position = Vector3.MoveTowards(transform.position, ship.transform.position, step);
                     break;
                 case workType.defer:
-                    if (isDefing)
+                    if (ship != null)
                     {
-                        transform.RotateAround(ship.transform.position, Vector3.forward, defRotateSpeed * Time.deltaTime);
-                    }
-                    else
-                    {
-                        transform.position = Vector3.MoveTowards(transform.position, ship.transform.position + Vector3.up * 10, step);
-                        if (Vector2.Distance(transform.position, ship.transform.position) >= defDistance)
+                        if (isDefing)
                         {
-                            isDefing = true;
+                            transform.RotateAround(ship.transform.position, Vector3.forward, defRotateSpeed * Time.deltaTime);
+                        }
+                        else
+                        {
+                            transform.position = Vector3.MoveTowards(transform.position, ship.transform.position + Vector3.up * 10, step);
+                            if (Vector2.Distance(transform.position, ship.transform.position) >= defDistance)
+                            {
+                                isDefing = true;
+                            }
                         }
                     }
-                    
                     break;
                 case workType.miner:
-                    if(isMining)
+                    if (owner != null && ship != null)
                     {
-                        transform.position = Vector3.MoveTowards(transform.position, ship.transform.position, step);
-                        if(Vector2.Distance(transform.position, ship.transform.position) <= minDistance)
+                        if (isMining)
                         {
-                            isMining = false;
+                            transform.position = Vector3.MoveTowards(transform.position, ship.transform.position, step);
+                            if (Vector2.Distance(transform.position, ship.transform.position) <= minDistance)
+                            {
+                                isMining = false;
+                            }
                         }
-                    }
-                    else
-                    {
-                        transform.position = Vector3.MoveTowards(transform.position, owner.transform.position, step);
-                        if (Vector2.Distance(transform.position, owner.transform.position) <= minDistance)
+                        else
                         {
-                            isMining = true;
+                            transform.position = Vector3.MoveTowards(transform.position, owner.transform.position, step);
+                            if (Vector2.Distance(transform.position, owner.transform.position) <= minDistance)
+                            {
+                                isMining = true;
+                            }
                         }
                     }
                 break;
