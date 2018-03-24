@@ -223,7 +223,7 @@ public class Ship : MonoBehaviour {
         }
     }
 
-    public void onMeteorDestroyedByMouse()
+    public void OnMeteorDestroyedByMouse()
     {
         currencyManager.Gain(moneyPerDestroyedMeteor);
     }
