@@ -84,4 +84,10 @@ public class MineMeteorMovement : MonoBehaviour
                 break;
         }
     }
+
+    public void Abort()
+    {
+        state = State.Holding;
+        delay = 0.0f;
+    }
 }

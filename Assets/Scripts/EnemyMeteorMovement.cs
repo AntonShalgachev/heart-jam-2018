@@ -16,9 +16,19 @@ public class EnemyMeteorMovement : MonoBehaviour
 
     Vector3 target;
 
+    public bool Paused { get; set; }
+
+    private void Awake()
+    {
+        Paused = false;
+    }
+
     private void Update()
     {
         if (path == null)
+            return;
+
+        if (Paused)
             return;
         
         var newPos = Vector2.MoveTowards(transform.position, target, path.speed * Time.deltaTime);

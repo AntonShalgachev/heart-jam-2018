@@ -21,11 +21,15 @@ public class GameHandler : MonoBehaviour {
     [SerializeField]
     private RandomHelper.Range backTimeRange;
 
+    [SerializeField]
+    private MeteorSpawner meteorSpawner;
+
     public Transform shipGamePoint;
 
     private GameObject gui_hud;
     private GameObject gui_lose;
     private GameObject gui_start;
+    private GameObject gui_tutorial;
 
     private GameObject gui_hp_bar;
     private GameObject gui_energy_bar;
@@ -41,6 +45,7 @@ public class GameHandler : MonoBehaviour {
             gui_lose = hud.transform.GetChild(3).gameObject;
             gui_start = hud.transform.GetChild(0).gameObject;
             gui_helpOverlay = hud.transform.GetChild(1).gameObject;
+            gui_tutorial = hud.transform.GetChild(4).gameObject;
             if (gui_hud != null)
             {
                 gui_hp_bar = gui_hud.transform.GetChild(4).GetChild(0).gameObject;
@@ -114,6 +119,7 @@ public class GameHandler : MonoBehaviour {
         if (_cmp != null)
         {
             addWorker(ship.try_to_get_satellite(), _cmp.workers, workType.miner, _cmp.gameObject);
+            TryCompleteStep(TutorialController.Step.MineMeteor);
         }
     }
     private void check_ship(GameObject hit)
@@ -131,16 +137,23 @@ public class GameHandler : MonoBehaviour {
         {
             _cmp.healthHit(mouse_damage);
             if (!_cmp.IsAlive())
+            {
                 ship.OnMeteorDestroyedByMouse();
+
+                EnemyMeteorMovement movement = hit.GetComponent<EnemyMeteorMovement>();
+                if (TutorialController.Instance.OnEnemyMeteorDestroyed(movement))
+                    TryCompleteStep(TutorialController.Step.DestroyEnemiesWithFinger);
+            }
         }
     }
 
     private void check_worker(GameObject hit)
     {
         var _cmp = hit.transform.gameObject.GetComponent<ship_satellite>();
-        if (_cmp != null)
+        if (_cmp != null && !IsStepActive(TutorialController.Step.DelayBeforeCancel))
         {
             _cmp.stopWork();
+            TryCompleteStep(TutorialController.Step.CancelMining);
         }
     }
 
@@ -216,13 +229,24 @@ public class GameHandler : MonoBehaviour {
 
     public void btn_start_game()
     {
-        if(gui_start != null)
+        if(gui_start && gui_tutorial)
         {
             gui_start.SetActive(false);
+            gui_tutorial.SetActive(false);
             StartCoroutine(StartGameAnim());
             StartCoroutine(StartAddDistance());
         }
         gameDistance = 0;
+    }
+
+    public void StartTutorial()
+    {
+        TutorialController.Instance.SetTutorialEnabled(true);
+        meteorSpawner.OnTutorialStarted();
+        btn_start_game();
+        ProcessNextTutorialStep();
+
+        TutorialController.Instance.OnStepCompleted += ProcessNextTutorialStep;
     }
 
     private IEnumerator StartGameAnim()
@@ -289,12 +313,148 @@ public class GameHandler : MonoBehaviour {
     {
         return gameDistance;
     }
-
+    
     public void helpOverlaySetActive(bool _val)
     {
         if(gui_helpOverlay != null)
         {
             gui_helpOverlay.SetActive(_val);
         }
+    }
+
+    private void TryCompleteStep(TutorialController.Step step)
+    {
+        var controller = TutorialController.Instance;
+        if (controller.IsEnabled() && controller.GetStep() == step)
+        {
+            controller.CompleteStep(step);
+        }
+    }
+
+    private bool IsStepActive(TutorialController.Step step)
+    {
+        var controller = TutorialController.Instance;
+        if (controller.IsEnabled())
+            return controller.GetStep() == step;
+
+        return false;
+    }
+
+    public void ProcessNextTutorialStep()
+    {
+        var controller = TutorialController.Instance;
+
+        if (!controller.IsEnabled())
+            return;
+
+        if (controller.IsCompleted())
+        {
+            Debug.Log("Tutorial completed");
+            return;
+        }
+
+        var step = controller.GetStep();
+
+        switch(step)
+        {
+            case TutorialController.Step.InitialDelay:
+                StartCoroutine(
+                    WaitTutorialDelay(TutorialController.Step.InitialDelay,
+                    TutorialController.Instance.initialDelay));
+                break;
+            case TutorialController.Step.MineMeteor:
+                ProcessSpawnMiner();
+                break;
+            case TutorialController.Step.DelayBeforeCancel:
+                StartCoroutine(
+                    WaitTutorialDelay(TutorialController.Step.DelayBeforeCancel,
+                    TutorialController.Instance.delayBeforeCancel));
+                break;
+            case TutorialController.Step.CancelMining:
+                // nothing
+                break;
+            case TutorialController.Step.RemoveMineMeteor:
+                ProcessRemoveMineMeteor();
+                break;
+
+            case TutorialController.Step.SpawnEnemies1:
+                ProcessSpawnEnemies1();
+                break;
+            case TutorialController.Step.DelayBeforePause1:
+                StartCoroutine(
+                    WaitTutorialDelay(TutorialController.Step.DelayBeforePause1,
+                    TutorialController.Instance.delayBeforePause1));
+                break;
+            case TutorialController.Step.PauseEnemies1:
+                ProcessPauseEnemies1();
+                break;
+            case TutorialController.Step.DestroyEnemiesWithFinger:
+                // nothing
+                break;
+
+            case TutorialController.Step.SpawnEnemies2:
+                ProcessSpawnEnemies2();
+                break;
+            case TutorialController.Step.DelayBeforePause2:
+                StartCoroutine(
+                    WaitTutorialDelay(TutorialController.Step.DelayBeforePause2,
+                    TutorialController.Instance.delayBeforePause2));
+                break;
+            case TutorialController.Step.PauseEnemies2:
+                ProcessPauseEnemies2();
+                break;
+            case TutorialController.Step.DestroyEnemiesWithSatellite:
+                // nothing
+                break;
+
+            default:
+                Debug.Assert(false, "Unknown tutorial step: " + step.ToString());
+                break;
+        }
+    }
+
+    private IEnumerator WaitTutorialDelay(TutorialController.Step step, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        TutorialController.Instance.CompleteStep(step);
+    }
+
+    public void ProcessSpawnMiner()
+    {
+        meteorSpawner.SpawnTutorialMinerMeteor();
+    }
+
+    public void ProcessRemoveMineMeteor()
+    {
+        TutorialController.Instance.TutorialMineMeteor.Abort();
+        TutorialController.Instance.CompleteStep(TutorialController.Step.RemoveMineMeteor);
+    }
+
+    public void ProcessSpawnEnemies1()
+    {
+        meteorSpawner.SpawnTutorialEnemyMeteors();
+        TutorialController.Instance.CompleteStep(TutorialController.Step.SpawnEnemies1);
+    }
+
+    public void ProcessPauseEnemies1()
+    {
+        foreach (var meteor in TutorialController.Instance.TutorialEnemyMeteors)
+            meteor.Paused = true;
+
+        TutorialController.Instance.CompleteStep(TutorialController.Step.PauseEnemies1);
+    }
+
+    public void ProcessSpawnEnemies2()
+    {
+        meteorSpawner.SpawnTutorialEnemyMeteors();
+        TutorialController.Instance.CompleteStep(TutorialController.Step.SpawnEnemies2);
+    }
+
+    public void ProcessPauseEnemies2()
+    {
+        foreach (var meteor in TutorialController.Instance.TutorialEnemyMeteors)
+            meteor.Paused = true;
+
+        TutorialController.Instance.CompleteStep(TutorialController.Step.PauseEnemies2);
     }
 }

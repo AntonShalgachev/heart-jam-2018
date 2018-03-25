@@ -36,6 +36,13 @@ public class MeteorSpawner : MonoBehaviour
     private RandomHelper.IntRange enemyMeteorSpawnGroupSize;
 
     [SerializeField]
+    private List<MineMeteorPathParams> tutorialMineMeteorPaths;
+    [SerializeField]
+    private List<EnemyMeteorPathParams> tutorialEnemyMeteorPaths;
+    [SerializeField]
+    private int tutorialEnemyMeteorSpawnGroupSize;
+
+    [SerializeField]
     private GameObject minerMeteorPrefab;
     [SerializeField]
     private GameObject enemyMeteorPrefab;
@@ -62,6 +69,18 @@ public class MeteorSpawner : MonoBehaviour
         StartCoroutine(StartSpawningEnemyMeteors());
     }
 
+    public void OnTutorialStarted()
+    {
+        StopAllCoroutines();
+
+        for (int i = 0; i < meteorHolder.transform.GetChildCount(); i++)
+        {
+            var child = meteorHolder.transform.GetChild(i).gameObject;
+            if (child)
+                Destroy(child);
+        }
+    }
+
     public float GetDifficultyCoefficient()
     {
         var dist = gameHandler.GetDistance();
@@ -78,12 +97,13 @@ public class MeteorSpawner : MonoBehaviour
         return k / Mathf.Log10(dist + p) + min;
     }
 
-    private MineMeteorMovement.Path getRandomMineMeteorPath()
+    private MineMeteorMovement.Path getRandomMineMeteorPath(bool tutorial = false)
     {
-        Debug.Assert(mineMeteorPaths.Count > 0);
+        var paths = tutorial ? tutorialMineMeteorPaths : mineMeteorPaths;
+        Debug.Assert(paths.Count > 0);
 
         var random = RandomHelper.Instance();
-        var pathParams = random.GetItem(mineMeteorPaths);
+        var pathParams = random.GetItem(paths);
 
         var path = new MineMeteorMovement.Path();
         path.spawnPoint = random.GetItem(pathParams.spawnPoints);
@@ -102,12 +122,13 @@ public class MeteorSpawner : MonoBehaviour
         return path;
     }
 
-    private EnemyMeteorMovement.Path getRandomEnemyMeteorPath()
+    private EnemyMeteorMovement.Path getRandomEnemyMeteorPath(bool tutorial = false)
     {
-        Debug.Assert(enemyMeteorPaths.Count > 0);
+        var paths = tutorial ? tutorialEnemyMeteorPaths : enemyMeteorPaths;
+        Debug.Assert(paths.Count > 0);
 
         var random = RandomHelper.Instance();
-        var pathParams = random.GetItem(enemyMeteorPaths);
+        var pathParams = random.GetItem(paths);
 
         var path = new EnemyMeteorMovement.Path();
         path.spawnPoint = random.GetItem(pathParams.spawnPoints);
@@ -118,7 +139,7 @@ public class MeteorSpawner : MonoBehaviour
         return path;
     }
 
-    private void SpawnMineMeteor(MineMeteorMovement.Path path)
+    private MineMeteorMovement SpawnMineMeteor(MineMeteorMovement.Path path)
     {
         var pos = path.spawnPoint.transform.position;
         pos.z = minerMeteorPrefab.transform.position.z;
@@ -134,9 +155,11 @@ public class MeteorSpawner : MonoBehaviour
         var mul = GetReverseDifficultyCoefficient(miningCapacityMulMin, miningCapacityMulMax, miningCapacityDifficultyCoeff);
         Debug.Log(String.Format("Distance {0}, mult {1}", gameHandler.GetDistance(), mul));
         mineMeteor.SetMineMultiplier(mul);
+
+        return meteorMovement;
     }
 
-    private void SpawnEnemyMeteor(EnemyMeteorMovement.Path path)
+    private EnemyMeteorMovement SpawnEnemyMeteor(EnemyMeteorMovement.Path path)
     {
         var pos = path.spawnPoint.transform.position;
         pos.z = enemyMeteorPrefab.transform.position.z;
@@ -145,6 +168,8 @@ public class MeteorSpawner : MonoBehaviour
         Debug.Assert(meteorMovement);
 
         meteorMovement.SetPath(path);
+
+        return meteorMovement;
     }
 
     private IEnumerator StartSpawningMineMeteors()
@@ -166,6 +191,21 @@ public class MeteorSpawner : MonoBehaviour
                 SpawnEnemyMeteor(getRandomEnemyMeteorPath());
 
             yield return new WaitForSeconds(enemyMeteorSpawnPeriod);
+        }
+    }
+
+    public void SpawnTutorialMinerMeteor()
+    {
+        TutorialController.Instance.TutorialMineMeteor = SpawnMineMeteor(getRandomMineMeteorPath(true));
+    }
+
+    public void SpawnTutorialEnemyMeteors()
+    {
+        var groupSize = tutorialEnemyMeteorSpawnGroupSize;
+        for (var i = 0; i < groupSize; i++)
+        {
+            var meteor = SpawnEnemyMeteor(getRandomEnemyMeteorPath(true));
+            TutorialController.Instance.AddEnemyMeteor(meteor);
         }
     }
 }
