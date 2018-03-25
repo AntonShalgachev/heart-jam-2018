@@ -18,10 +18,11 @@ public class DamageHolder : MonoBehaviour
 
             var tutorial = TutorialController.Instance;
 
-            var movement = collision.gameObject.GetComponent<EnemyMeteorMovement>();
-            if (tutorial.OnEnemyMeteorDestroyed(movement))
+            if (tutorial.IsEnabled() && tutorial.GetStep() == TutorialController.Step.DestroyEnemiesWithSatellite)
             {
-                tutorial.CompleteStep(TutorialController.Step.DestroyEnemiesWithSatellite);
+                var movement = collision.gameObject.GetComponent<EnemyMeteorMovement>();
+                if (tutorial.OnEnemyMeteorDestroyed(movement))
+                    tutorial.CompleteStep(TutorialController.Step.DestroyEnemiesWithSatellite);
             }
         }
     }

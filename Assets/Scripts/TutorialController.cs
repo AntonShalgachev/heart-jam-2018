@@ -89,7 +89,7 @@ public class TutorialController : MonoBehaviour
 
     public void CompleteStep(Step step)
     {
-        Debug.Assert(step == this.step, "Wrong tutorial step");
+        Debug.Assert(step == this.step, "Wrong tutorial step: " + step);
         Debug.Assert(step != Step.Completed, "Can't complete 'Completed' step");
 
         Debug.Log("Tutorial completed: " + step.ToString());
