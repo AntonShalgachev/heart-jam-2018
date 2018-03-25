@@ -5,11 +5,13 @@ using UnityEngine;
 public class Explosion : MonoBehaviour {
 
     public float scale_speed = 1;
+    public AudioClip sndExplosion;
     private bool isExploded = false;
     private GameObject efx;
     // Use this for initialization
 	void Start () {
         efx = transform.GetChild(0).gameObject;
+        SoundController.playSound(GetComponent<AudioSource>(), sndExplosion);
     }
 	
 	// Update is called once per frame

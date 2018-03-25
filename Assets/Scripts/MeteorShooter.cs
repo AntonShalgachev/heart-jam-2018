@@ -10,6 +10,7 @@ public class MeteorShooter : MonoBehaviour
         ToSelf,
         ToShip,
     }
+    public AudioClip sndFire;
 
     [SerializeField]
     private float shootingPeriod;
@@ -78,6 +79,7 @@ public class MeteorShooter : MonoBehaviour
             var bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity, bulletHolder.transform);
 
             bullet.GetComponent<TargetFollower>().SetTarget(closestCollider.gameObject);
+            SoundController.playSound(GetComponent<AudioSource>(), sndFire);
         }
     }
 

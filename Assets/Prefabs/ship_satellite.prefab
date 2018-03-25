@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 120944276393582722}
   - component: {fileID: 114326883843924832}
   - component: {fileID: 61391406965423774}
+  - component: {fileID: 82128038605743620}
   m_Layer: 0
   m_Name: ship_satellite
   m_TagString: Untagged
@@ -159,6 +160,86 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.57, y: 1.74}
   m_EdgeRadius: 0
+--- !u!82 &82128038605743620
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1418698650848280}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114326883843924832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -170,6 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf44db55e4c1fb428e7705cbea7b2fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sndFire: {fileID: 8300000, guid: 69d52dd7fe78847429157d0c524964e2, type: 3}
   shootingPeriod: 1
   shootingRadius: 2
   targetLayerMask:
@@ -200,6 +282,8 @@ MonoBehaviour:
   workTimeMine: 2
   eyeLight_green: {fileID: 21300002, guid: a7df0427ca7e04c4b8c517fdb7fa336d, type: 3}
   eyeLight_red: {fileID: 21300000, guid: a7df0427ca7e04c4b8c517fdb7fa336d, type: 3}
+  sndDeath: {fileID: 8300000, guid: 78d473d57d34d2447a5b6b33d5fc2f80, type: 3}
+  sndGetEnergy: {fileID: 8300000, guid: 22c5cf42567cb174380bfc254eba3e42, type: 3}
 --- !u!120 &120944276393582722
 LineRenderer:
   m_ObjectHideFlags: 1

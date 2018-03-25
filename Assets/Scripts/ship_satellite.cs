@@ -21,7 +21,6 @@ namespace Assets.Scripts.ShipSatellite
         public Sprite eyeLight_green;
         public Sprite eyeLight_red;
 
-        public AudioClip sndFire;
         public AudioClip sndDeath;
         public AudioClip sndGetEnergy;
 
@@ -90,6 +89,7 @@ namespace Assets.Scripts.ShipSatellite
                         {
                             _ship.addEnergy(mine_amount);
                             mine_amount = 0;
+                            SoundController.playSound(GetComponent<AudioSource>(), sndGetEnergy);
                         }
                     }
                     isDefing = false;
@@ -135,6 +135,7 @@ namespace Assets.Scripts.ShipSatellite
                                     {
                                         _ship.addEnergy(mine_amount);
                                     }
+                                    SoundController.playSound(GetComponent<AudioSource>(), sndGetEnergy);
                                 }
                             }
                             else
@@ -194,6 +195,7 @@ namespace Assets.Scripts.ShipSatellite
 
         void wrapDestroy()
         {
+            SoundController.playSound(GetComponent<AudioSource>(), sndDeath);
             Destroy(gameObject);
         }
         public void stopWork()

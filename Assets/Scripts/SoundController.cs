@@ -43,4 +43,12 @@ public class SoundController : MonoBehaviour {
     {
         return soundState;
     }
+    public static void playSound(AudioSource _src, AudioClip _clip)
+    {
+        if(_src != null && !soundState && _clip != null)
+        {
+            _src.clip = _clip;
+            _src.Play();
+        }
+    }
 }
