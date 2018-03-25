@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 46845418}
   m_Layer: 0
-  m_Name: Destination3
+  m_Name: Destination2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135,11 +135,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 46845417}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.07, y: -7.46, z: 0}
+  m_LocalPosition: {x: -0.01, y: -7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1202878476}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &63915213
 GameObject:
@@ -203,7 +203,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 89152834}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.04, y: 6.66, z: 0}
+  m_LocalPosition: {x: 0.02, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1202878476}
@@ -325,7 +325,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -161.15, y: -45.296}
+  m_AnchoredPosition: {x: -161.15, y: -45.2959}
   m_SizeDelta: {x: 152, y: 168}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &129688496
@@ -811,7 +811,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 199883050}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.56, y: 6.91, z: 0}
+  m_LocalPosition: {x: 1.33, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1202878476}
@@ -947,7 +947,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -33.899994, y: -44.679993}
+  m_AnchoredPosition: {x: -33.899994, y: -44.680176}
   m_SizeDelta: {x: 663, y: 167}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &242635256
@@ -1029,34 +1029,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &276668279
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 276668280}
-  m_Layer: 0
-  m_Name: Destination1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &276668280
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 276668279}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.77, y: -7.61, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1202878476}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &283242706
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,7 +1038,7 @@ GameObject:
   m_Component:
   - component: {fileID: 283242707}
   m_Layer: 0
-  m_Name: Destination2
+  m_Name: Destination3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1079,7 +1051,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 283242706}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.56, y: -7.29, z: 0}
+  m_LocalPosition: {x: 0.9, y: -7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1202878476}
@@ -1550,34 +1522,6 @@ Transform:
   m_Father: {fileID: 451465507}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &505973249
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 505973250}
-  m_Layer: 0
-  m_Name: Spawn4
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &505973250
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 505973249}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.04, y: 6.89, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1202878476}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &511847635
 GameObject:
   m_ObjectHideFlags: 0
@@ -1678,12 +1622,10 @@ MonoBehaviour:
     - {fileID: 1361195998}
     - {fileID: 89152834}
     - {fileID: 199883050}
-    - {fileID: 505973249}
     destinationPoints:
-    - {fileID: 276668279}
-    - {fileID: 283242706}
-    - {fileID: 46845417}
     - {fileID: 1990688291}
+    - {fileID: 46845417}
+    - {fileID: 283242706}
     speed:
       from: 2
       to: 2
@@ -2120,7 +2062,7 @@ MonoBehaviour:
   delayBeforeCancel: 5
   delayBeforeEnemies: 2.5
   delayBeforePause1: 2.5
-  delayBeforePause2: 2.85
+  delayBeforePause2: 2.5
   UIText1: Flying requires fuel, which can be found on green asteroids. Tap on it
     to send your drone there
   UIText2: You have gained fuel. If your tank is full, mined fuel gets converted to
@@ -2995,7 +2937,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 118.64, y: -89.11}
+  m_AnchoredPosition: {x: 118.64, y: -89.10986}
   m_SizeDelta: {x: 154.19, y: 33.34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1145890203
@@ -3065,11 +3007,9 @@ Transform:
   - {fileID: 1361195999}
   - {fileID: 89152835}
   - {fileID: 199883051}
-  - {fileID: 505973250}
-  - {fileID: 276668280}
-  - {fileID: 283242707}
-  - {fileID: 46845418}
   - {fileID: 1990688292}
+  - {fileID: 46845418}
+  - {fileID: 283242707}
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3323,7 +3263,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1361195998}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.52, y: 6.94, z: 0}
+  m_LocalPosition: {x: -1.55, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1202878476}
@@ -4674,7 +4614,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1990688292}
   m_Layer: 0
-  m_Name: Destination4
+  m_Name: Destination1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4687,11 +4627,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1990688291}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.54, y: -7.28, z: 0}
+  m_LocalPosition: {x: -0.85, y: -7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1202878476}
-  m_RootOrder: 7
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1998392483
 GameObject:
@@ -4923,7 +4863,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 131.56, y: -43.95}
+  m_AnchoredPosition: {x: 131.56, y: -43.950195}
   m_SizeDelta: {x: 128.36, y: 27.53}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2137901389
