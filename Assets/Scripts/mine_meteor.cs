@@ -14,17 +14,26 @@ public class mine_meteor : MonoBehaviour {
 
     public float MineSpeed { get; private set; }
 
-    // Use this for initialization
-    void Start () {
-        MineSpeed = mineSpeedRange.GetRandom();
+    public void SetMineMultiplier(float m)
+    {
+        MineSpeed *= m;
+        UpdateScale();
+    }
 
-        workers = new List<ship_satellite>();
-
+    private void UpdateScale()
+    {
         var _scale = MineSpeed / ((mineSpeedRange.to - mineSpeedRange.from));
-        _scale *= transform.localScale.x/1.5f;
+        _scale *= transform.localScale.x / 1.5f;
 
         transform.localScale = new Vector3(_scale, _scale);
+    }
 
+    // Use this for initialization
+    void Awake () {
+        MineSpeed = mineSpeedRange.GetRandom();
+        UpdateScale();
+
+        workers = new List<ship_satellite>();
     }
 	
 	// Update is called once per frame

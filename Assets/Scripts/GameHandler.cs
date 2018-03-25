@@ -268,4 +268,9 @@ public class GameHandler : MonoBehaviour {
             }
         }
     }
+
+    public float GetDistance()
+    {
+        return gameDistance;
+    }
 }

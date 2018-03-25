@@ -40,6 +40,18 @@ public class MeteorSpawner : MonoBehaviour
     [SerializeField]
     private GameObject enemyMeteorPrefab;
 
+    [SerializeField]
+    private GameHandler gameHandler;
+
+    [SerializeField]
+    private float miningCapacityMulMax;
+    [SerializeField]
+    private float miningCapacityMulMin;
+    [SerializeField]
+    private float miningCapacityDifficultyCoeff;
+    [SerializeField]
+    private float groupSizeDifficultyCoeff;
+
     private GameObject meteorHolder;
 
     private void Start()
@@ -50,9 +62,20 @@ public class MeteorSpawner : MonoBehaviour
         StartCoroutine(StartSpawningEnemyMeteors());
     }
 
-    private void Update()
+    public float GetDifficultyCoefficient()
     {
+        var dist = gameHandler.GetDistance();
 
+        return Mathf.Log10(Mathf.Max(dist, 10.0f));
+    }
+
+    public float GetReverseDifficultyCoefficient(float min, float max, float k)
+    {
+        var dist = gameHandler.GetDistance();
+
+        var p = Mathf.Pow(10.0f, k / (max - min));
+
+        return k / Mathf.Log10(dist + p) + min;
     }
 
     private MineMeteorMovement.Path getRandomMineMeteorPath()
@@ -102,6 +125,13 @@ public class MeteorSpawner : MonoBehaviour
         Debug.Assert(meteorMovement);
 
         meteorMovement.SetPath(path);
+
+        var mineMeteor = meteor.GetComponent<mine_meteor>();
+        Debug.Assert(mineMeteor);
+
+        var mul = GetReverseDifficultyCoefficient(miningCapacityMulMin, miningCapacityMulMax, miningCapacityDifficultyCoeff);
+        Debug.Log(String.Format("Distance {0}, mult {1}", gameHandler.GetDistance(), mul));
+        mineMeteor.SetMineMultiplier(mul);
     }
 
     private void SpawnEnemyMeteor(EnemyMeteorMovement.Path path)
@@ -127,6 +157,7 @@ public class MeteorSpawner : MonoBehaviour
         while (true)
         {
             var groupSize = enemyMeteorSpawnGroupSize.GetRandom();
+            groupSize = (int)(groupSize * groupSizeDifficultyCoeff * GetDifficultyCoefficient());
             for (var i = 0; i < groupSize; i++)
                 SpawnEnemyMeteor(getRandomEnemyMeteorPath());
 

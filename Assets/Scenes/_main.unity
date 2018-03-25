@@ -1500,6 +1500,11 @@ MonoBehaviour:
     type: 2}
   enemyMeteorPrefab: {fileID: 1211204198030824, guid: f24ee5a7663cedc42acd5b93fdb10d6c,
     type: 2}
+  gameHandler: {fileID: 1012763017}
+  miningCapacityMulMax: 1
+  miningCapacityMulMin: 0.5
+  miningCapacityDifficultyCoeff: 1
+  groupSizeDifficultyCoeff: 1
 --- !u!4 &511847637
 Transform:
   m_ObjectHideFlags: 0
