@@ -248,6 +248,41 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114710258388481572, guid: 901c7b49189c8f2459a6bf4a9bd70a87,
+        type: 2}
+      propertyPath: health
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114710258388481572, guid: 901c7b49189c8f2459a6bf4a9bd70a87,
+        type: 2}
+      propertyPath: energy
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 114710258388481572, guid: 901c7b49189c8f2459a6bf4a9bd70a87,
+        type: 2}
+      propertyPath: hpPurchaseAmount
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114710258388481572, guid: 901c7b49189c8f2459a6bf4a9bd70a87,
+        type: 2}
+      propertyPath: hpPurchasePrice
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 114710258388481572, guid: 901c7b49189c8f2459a6bf4a9bd70a87,
+        type: 2}
+      propertyPath: shieldPurchaseDuration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114710258388481572, guid: 901c7b49189c8f2459a6bf4a9bd70a87,
+        type: 2}
+      propertyPath: shieldPurchasePrice
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 114710258388481572, guid: 901c7b49189c8f2459a6bf4a9bd70a87,
+        type: 2}
+      propertyPath: satellitePurchasePrice
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 901c7b49189c8f2459a6bf4a9bd70a87, type: 2}
   m_IsPrefabParent: 0
@@ -1107,7 +1142,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 382067911}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1012763018}
@@ -2718,7 +2753,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 90d471fff7c57204da0d1626b2355874, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 60d800131a2deb743b393b5e944299fe, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
