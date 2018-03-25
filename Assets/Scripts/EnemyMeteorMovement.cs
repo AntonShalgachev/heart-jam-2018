@@ -20,9 +20,9 @@ public class EnemyMeteorMovement : MonoBehaviour
     {
         if (path == null)
             return;
-
-        // maybe better to use physics here
-        transform.position = Vector3.MoveTowards(transform.position, target, path.speed * Time.deltaTime);
+        
+        var newPos = Vector2.MoveTowards(transform.position, target, path.speed * Time.deltaTime);
+        transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
 
         const float Epsilon = 0.1f;
 
@@ -32,7 +32,7 @@ public class EnemyMeteorMovement : MonoBehaviour
 
     private float DistanceToTarget()
     {
-        return (transform.position - target).magnitude;
+        return ((Vector2)transform.position - (Vector2)target).magnitude;
     }
 
     public void SetPath(Path path)

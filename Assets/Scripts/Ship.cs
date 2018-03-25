@@ -109,7 +109,10 @@ public class Ship : MonoBehaviour {
         ship_satellite _inst = Instantiate(satellitePrefub).GetComponent<ship_satellite>();
         satellites.Add(_inst);
         _inst.GetComponent<ship_satellite>().ship = gameObject;
-        _inst.transform.position = transform.position;
+
+        var pos = transform.position;
+        pos.z = satellitePrefub.transform.position.z;
+        _inst.transform.position = pos;
     }
 
     public void godModeSwitch(bool _val)

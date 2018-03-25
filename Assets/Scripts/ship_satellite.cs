@@ -34,9 +34,13 @@ namespace Assets.Scripts.ShipSatellite
         private GameObject engine_right;
         private bool engine_dir_left;
         private bool engine_dir_right;
+
+        private float zCoord;
         // Use this for initialization
         void Start()
         {
+            zCoord = transform.position.z;
+
             shooter = GetComponent<MeteorShooter>();
             Debug.Assert(shooter);
 
@@ -74,7 +78,7 @@ namespace Assets.Scripts.ShipSatellite
             switch (work)
             {
                 case workType.idle:
-                    transform.position = Vector3.MoveTowards(transform.position, ship.transform.position, step);
+                    transform.position = Vector2.MoveTowards(transform.position, ship.transform.position, step);
                     if (Vector2.Distance(transform.position, ship.transform.position) <= minDistance)
                     {
                         var _ship = ship.GetComponent<Ship>();
@@ -99,7 +103,7 @@ namespace Assets.Scripts.ShipSatellite
                         }
                         else
                         {
-                            transform.position = Vector3.MoveTowards(transform.position, ship.transform.position + Vector3.up * 10, step);
+                            transform.position = Vector2.MoveTowards(transform.position, ship.transform.position + Vector3.up * 10, step);
                             if (Vector2.Distance(transform.position, ship.transform.position) >= defDistance)
                             {
                                 isDefing = true;
@@ -118,7 +122,7 @@ namespace Assets.Scripts.ShipSatellite
                             if (workTimeMine_amount <= 0)
                             {
                                 setEye(true);
-                                transform.position = Vector3.MoveTowards(transform.position, ship.transform.position, step);
+                                transform.position = Vector2.MoveTowards(transform.position, ship.transform.position, step);
                                 if (Vector2.Distance(transform.position, ship.transform.position) <= minDistance)
                                 {
                                     isMining = false;
@@ -136,12 +140,12 @@ namespace Assets.Scripts.ShipSatellite
                                 {
                                     mine_amount += _mine.MineSpeed;
                                 }
-                                transform.position = Vector3.MoveTowards(transform.position, owner.transform.position, step);
+                                transform.position = Vector2.MoveTowards(transform.position, owner.transform.position, step);
                             }
                         }
                         else
                         {
-                            transform.position = Vector3.MoveTowards(transform.position, owner.transform.position, step);
+                            transform.position = Vector2.MoveTowards(transform.position, owner.transform.position, step);
                             if (Vector2.Distance(transform.position, owner.transform.position) <= minDistance)
                             {
                                 isMining = true;
@@ -173,7 +177,17 @@ namespace Assets.Scripts.ShipSatellite
                 var _spr = engine_right.GetComponent<SpriteRenderer>();
                 engine_dir_right = Ship.engineAnim_ext(0, _spr, engine_right.transform, engine_dir_right);
             }
+
+            ResetZCoord();
         }
+
+        private void ResetZCoord()
+        {
+            var pos = transform.position;
+            pos.z = zCoord;
+            transform.position = pos;
+        }
+
         void wrapDestroy()
         {
             Destroy(gameObject);

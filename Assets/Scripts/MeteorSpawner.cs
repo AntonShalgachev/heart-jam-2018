@@ -120,7 +120,9 @@ public class MeteorSpawner : MonoBehaviour
 
     private void SpawnMineMeteor(MineMeteorMovement.Path path)
     {
-        var meteor = Instantiate(minerMeteorPrefab, path.spawnPoint.transform.position, Quaternion.identity, meteorHolder.transform);
+        var pos = path.spawnPoint.transform.position;
+        pos.z = minerMeteorPrefab.transform.position.z;
+        var meteor = Instantiate(minerMeteorPrefab, pos, Quaternion.identity, meteorHolder.transform);
         var meteorMovement = meteor.GetComponent<MineMeteorMovement>();
         Debug.Assert(meteorMovement);
 
@@ -136,7 +138,9 @@ public class MeteorSpawner : MonoBehaviour
 
     private void SpawnEnemyMeteor(EnemyMeteorMovement.Path path)
     {
-        var meteor = Instantiate(enemyMeteorPrefab, path.spawnPoint.transform.position, Quaternion.identity, meteorHolder.transform);
+        var pos = path.spawnPoint.transform.position;
+        pos.z = enemyMeteorPrefab.transform.position.z;
+        var meteor = Instantiate(enemyMeteorPrefab, pos, Quaternion.identity, meteorHolder.transform);
         var meteorMovement = meteor.GetComponent<EnemyMeteorMovement>();
         Debug.Assert(meteorMovement);
 

@@ -39,7 +39,8 @@ public class MineMeteorMovement : MonoBehaviour
             // adds some sort of easing
             var speed = path.speed * DistanceToTarget();
 
-            transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+            var newPos = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+            transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
 
             const float Epsilon = 0.1f;
 
@@ -50,7 +51,7 @@ public class MineMeteorMovement : MonoBehaviour
 
     private float DistanceToTarget()
     {
-        return (transform.position - target).magnitude;
+        return ((Vector2)transform.position - (Vector2)target).magnitude;
     }
 
     public void SetPath(Path path)
