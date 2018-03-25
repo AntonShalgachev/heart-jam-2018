@@ -19,6 +19,7 @@ public class TutorialController : MonoBehaviour
     public string UIText3;
     public string UIText4;
     public string UIText5;
+    public string UIText6;
 
     public event Action OnStepCompleted;
 
@@ -51,6 +52,8 @@ public class TutorialController : MonoBehaviour
         PauseEnemies2,
         ShowUI5, // Tap on the ship to send your drone to protect it. For that you will gain no money
         DestroyEnemiesWithSatellite,
+
+        ShowUI6, // Tap on the ship to send your drone to protect it. For that you will gain no money
 
         Completed,
     }
@@ -137,6 +140,8 @@ public class TutorialController : MonoBehaviour
                 return UIText4;
             case Step.ShowUI5:
                 return UIText5;
+            case Step.ShowUI6:
+                return UIText6;
         }
 
         Debug.Assert(false, "Can't find description for step " + step.ToString());

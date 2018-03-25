@@ -1629,8 +1629,8 @@ MonoBehaviour:
     - {fileID: 46845417}
     - {fileID: 1990688291}
     speed:
-      from: 1.5
-      to: 1.5
+      from: 2
+      to: 2
   tutorialEnemyMeteorSpawnGroupSize: 3
   minerMeteorPrefab: {fileID: 1944365504202604, guid: 37708942f778d3b42ba14140b59ed675,
     type: 2}
@@ -2064,7 +2064,7 @@ MonoBehaviour:
   delayBeforeCancel: 5
   delayBeforeEnemies: 2.5
   delayBeforePause1: 2.5
-  delayBeforePause2: 3.5
+  delayBeforePause2: 2.85
   UIText1: Flying requires fuel, which can be found on green asteroids. Tap on it
     to send your drone there
   UIText2: You have gained fuel. If your tank is full, mined fuel gets converted to
@@ -2075,6 +2075,7 @@ MonoBehaviour:
     which could be spent to buy drones, shield or to heal your ship
   UIText5: Tap on the ship to send your drone to protect it. For that you will gain
     no money
+  UIText6: Congratulations, you have learned how to play!
   descriptionText: {fileID: 1964200551}
   tutorialOverlay: {fileID: 429759876}
 --- !u!4 &753479038
