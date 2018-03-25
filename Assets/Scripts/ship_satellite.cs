@@ -21,6 +21,10 @@ namespace Assets.Scripts.ShipSatellite
         public Sprite eyeLight_green;
         public Sprite eyeLight_red;
 
+        public AudioClip sndFire;
+        public AudioClip sndDeath;
+        public AudioClip sndGetEnergy;
+
         private bool isMining = false;
         private bool isDefing = false;
         private LineRenderer lineRenderer;

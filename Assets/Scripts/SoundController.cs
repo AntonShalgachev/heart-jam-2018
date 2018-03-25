@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SoundController : MonoBehaviour {
 
     public List<AudioSource> sources;
-    private bool soundState = false;
+    private static bool soundState = false;
     public Image image;
     public Sprite sndOff;
     public Sprite sndOn;
@@ -37,5 +37,10 @@ public class SoundController : MonoBehaviour {
                 image.sprite = sndOff;
             }
         }
+    }
+
+    public static bool getSoundState()
+    {
+        return soundState;
     }
 }

@@ -218,11 +218,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4958085731811294, guid: 901c7b49189c8f2459a6bf4a9bd70a87, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.006
       objectReference: {fileID: 0}
     - target: {fileID: 4958085731811294, guid: 901c7b49189c8f2459a6bf4a9bd70a87, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.5
+      value: -2.589
       objectReference: {fileID: 0}
     - target: {fileID: 4958085731811294, guid: 901c7b49189c8f2459a6bf4a9bd70a87, type: 2}
       propertyPath: m_LocalPosition.z
@@ -283,7 +283,13 @@ Prefab:
       propertyPath: satellitePurchasePrice
       value: 100
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 61374769748247738, guid: 901c7b49189c8f2459a6bf4a9bd70a87,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 61374769748247738, guid: 901c7b49189c8f2459a6bf4a9bd70a87, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 901c7b49189c8f2459a6bf4a9bd70a87, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &129688494
@@ -663,6 +669,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingBalance: 0
+--- !u!70 &188127932
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 188127930}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.009894967, y: -0.059369404}
+  m_Size: {x: 1.8274502, y: 5.6612616}
+  m_Direction: 0
 --- !u!1 &192992121
 GameObject:
   m_ObjectHideFlags: 0
