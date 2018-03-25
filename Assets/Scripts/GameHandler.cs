@@ -36,7 +36,6 @@ public class GameHandler : MonoBehaviour {
     private GameObject gui_distance;
     private GameObject gui_money;
     private GameObject gui_helpOverlay;
-    private GameObject gui_help;
     private static bool restartScene = false;
     // Use this for initialization
     void Awake () {
@@ -46,7 +45,6 @@ public class GameHandler : MonoBehaviour {
             gui_lose = hud.transform.GetChild(3).gameObject;
             gui_start = hud.transform.GetChild(0).gameObject;
             gui_helpOverlay = hud.transform.GetChild(1).gameObject;
-            gui_help = hud.transform.GetChild(4).gameObject;
             gui_tutorial = hud.transform.GetChild(4).gameObject;
             if (gui_hud != null)
             {
@@ -240,10 +238,6 @@ public class GameHandler : MonoBehaviour {
             gui_tutorial.SetActive(false);
             StartCoroutine(StartGameAnim());
             StartCoroutine(StartAddDistance());
-        }
-        if(gui_help != null)
-        {
-            gui_help.SetActive(false);
         }
         gameDistance = 0;
     }
