@@ -220,16 +220,19 @@ public class Ship : MonoBehaviour {
     {
         while (true)
         {
-            energy -= energySpeed;
-            if(fuel != null)
+            if (!TutorialController.Instance.IsEnabled())
             {
-                float y_scale = 0.1f + 1.6f * (energy / energy_max);
-                fuel.transform.localScale = new Vector3(1f, y_scale);
-            }
-            if (energy < 0)
-            {
-                energy = 0;
-                wrapDestroy();
+                energy -= energySpeed;
+                if (fuel != null)
+                {
+                    float y_scale = 0.1f + 1.6f * (energy / energy_max);
+                    fuel.transform.localScale = new Vector3(1f, y_scale);
+                }
+                if (energy < 0)
+                {
+                    energy = 0;
+                    wrapDestroy();
+                }
             }
             yield return new WaitForSeconds(0.1f);
         }
