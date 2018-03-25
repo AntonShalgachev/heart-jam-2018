@@ -11,11 +11,15 @@ public class GameHandler : MonoBehaviour {
     public int mouse_damage = 1;
     public GameObject hud;
     public GameObject explosionPrefub;
+    public GameObject backPrefub;
 
     public float gameDistance = 0;
     public float gameSpeed = 10;
     public float gameSpeedDelta = 1;
     public float gameDistanceAddPeriod = 0.1f;
+
+    [SerializeField]
+    private RandomHelper.Range backTimeRange;
 
     private GameObject gui_hud;
     private GameObject gui_lose;
@@ -40,13 +44,14 @@ public class GameHandler : MonoBehaviour {
                 gui_money = gui_hud.transform.GetChild(7).gameObject;
             }
         }
-
+        gameDistance = 0;
+        updateDistance(0);
         ship.OnCurrencyChanged += OnMoneyChanged;
     }
 
     private void Start()
     {
-        StartCoroutine(StartAddDistance());
+        StartCoroutine(StartBackAdd());
     }
 
     // Update is called once per frame
@@ -146,22 +151,44 @@ public class GameHandler : MonoBehaviour {
         return _res;
     }
 
+    private void updateDistance(float _value)
+    {
+        gameDistance += _value;
+        if (gui_distance != null)
+        {
+            var _text = gui_distance.GetComponent<Text>();
+            if (_text != null)
+            {
+                _text.text = "Distance : " + gameDistance.ToString();
+            }
+        }
+    }
+
     private IEnumerator StartAddDistance()
     {
         while (true)
         {
             if (ship != null)
             {
-                gameDistance += gameSpeed;
-                if (gui_distance != null)
-                {
-                    var _text = gui_distance.GetComponent<Text>();
-                    if (_text != null)
-                    {
-                        _text.text = "Distance : " + gameDistance.ToString();
-                    }
-                }
+                updateDistance(gameSpeed);
                 yield return new WaitForSeconds(gameDistanceAddPeriod);
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+    private IEnumerator StartBackAdd()
+    {
+        while (true)
+        {
+            if (backPrefub != null)
+            {
+                var _time = backTimeRange.GetRandom();
+                var _inst = Instantiate(backPrefub).GetComponent<ScrollBackground>();
+                _inst.smooth = true;
+                yield return new WaitForSeconds(_time);
             }
             else
             {
@@ -172,6 +199,11 @@ public class GameHandler : MonoBehaviour {
 
     public void btn_restart()
     {
+        /*var _objs = GameObject.FindObjectsOfType<MonoBehaviour>();
+        foreach(MonoBehaviour m in _objs)
+        {
+            m.StopAllCoroutines();
+        }*/
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -181,7 +213,9 @@ public class GameHandler : MonoBehaviour {
         {
             gui_start.SetActive(false);
             StartCoroutine(StartGameAnim());
+            StartCoroutine(StartAddDistance());
         }
+        gameDistance = 0;
     }
 
     private IEnumerator StartGameAnim()

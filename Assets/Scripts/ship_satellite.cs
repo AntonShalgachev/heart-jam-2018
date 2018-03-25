@@ -75,6 +75,17 @@ namespace Assets.Scripts.ShipSatellite
             {
                 case workType.idle:
                     transform.position = Vector3.MoveTowards(transform.position, ship.transform.position, step);
+                    if (Vector2.Distance(transform.position, ship.transform.position) <= minDistance)
+                    {
+                        var _ship = ship.GetComponent<Ship>();
+                        if (_ship != null && mine_amount > 0)
+                        {
+                            _ship.addEnergy(mine_amount);
+                            mine_amount = 0;
+                        }
+                    }
+                    isDefing = false;
+                    isMining = false;
                     setEye(true);
                     shooter.SetActive(false);
                     break;
@@ -125,6 +136,7 @@ namespace Assets.Scripts.ShipSatellite
                                 {
                                     mine_amount += _mine.MineSpeed;
                                 }
+                                transform.position = Vector3.MoveTowards(transform.position, owner.transform.position, step);
                             }
                         }
                         else
@@ -138,6 +150,10 @@ namespace Assets.Scripts.ShipSatellite
                                 setEye(false);
                             }
                         }
+                    }
+                    else
+                    {
+                        work = workType.idle;
                     }
                 break;
             }

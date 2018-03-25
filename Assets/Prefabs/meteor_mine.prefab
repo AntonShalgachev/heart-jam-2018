@@ -105,7 +105,7 @@ MonoBehaviour:
   workers: []
   mineSpeedRange:
     from: 0.05
-    to: 0.1
+    to: 0.14
 --- !u!114 &114578577844840560
 MonoBehaviour:
   m_ObjectHideFlags: 1

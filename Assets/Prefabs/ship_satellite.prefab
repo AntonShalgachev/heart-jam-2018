@@ -100,7 +100,7 @@ Transform:
   m_GameObject: {fileID: 1418698650848280}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_LocalScale: {x: 0.35, y: 0.35, z: 1}
   m_Children:
   - {fileID: 4787543985093124}
   - {fileID: 4286657692276716}
@@ -194,8 +194,8 @@ MonoBehaviour:
   ship: {fileID: 0}
   speed: 2
   minDistance: 0.01
-  maxDistance: 3
-  defDistance: 1
+  maxDistance: 5
+  defDistance: 1.3
   defRotateSpeed: 40
   workTimeMine: 1
   eyeLight_green: {fileID: 21300002, guid: a7df0427ca7e04c4b8c517fdb7fa336d, type: 3}

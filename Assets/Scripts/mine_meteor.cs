@@ -21,7 +21,7 @@ public class mine_meteor : MonoBehaviour {
         workers = new List<ship_satellite>();
 
         var _scale = MineSpeed / ((mineSpeedRange.to - mineSpeedRange.from));
-        _scale *= transform.localScale.x;
+        _scale *= transform.localScale.x/1.5f;
 
         transform.localScale = new Vector3(_scale, _scale);
 
