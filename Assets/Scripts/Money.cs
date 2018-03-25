@@ -63,13 +63,16 @@ public class Money : MonoBehaviour
         Debug.Assert(partialBalance >= 0.0f && partialBalance < 1.0f);
     }
 
-    public bool Purchase(int amount)
+    public bool TryPurchase(int amount)
     {
         if (HasFunds(amount))
         {
             UpdateBalance(-amount);
+            Debug.Log(String.Format("Purchase completed: amount {0}, balance {1}", amount, balance));
             return true;
         }
+
+        Debug.LogWarning(String.Format("No funds to make a purchase: amount {0}, balance {1}", amount, balance));
 
         return false;
     }

@@ -17,6 +17,12 @@ public class Ship : MonoBehaviour {
     public float energyToMoneyConversionRatio;
     public int moneyPerDestroyedMeteor;
 
+    public float hpPurchaseAmount;
+    public int hpPurchasePrice;
+    public float shieldPurchaseDuration;
+    public int shieldPurchasePrice;
+    public int satellitePurchasePrice;
+
     private float health_max;
     private float energy_max;
 
@@ -81,6 +87,13 @@ public class Ship : MonoBehaviour {
         }
     }
 
+    private void AddSatellite()
+    {
+        ship_satellite _inst = Instantiate(satellitePrefub).GetComponent<ship_satellite>();
+        satellites.Add(_inst);
+        _inst.GetComponent<ship_satellite>().ship = gameObject;
+        _inst.transform.position = transform.position;
+    }
 
     public void godModeSwitch(bool _val)
     {
@@ -92,12 +105,7 @@ public class Ship : MonoBehaviour {
                 if (satellitePrefub != null)
                 {
                     for (var i = 0; i < satellites_count; i++)
-                    {
-                        ship_satellite _inst = Instantiate(satellitePrefub).GetComponent<ship_satellite>();
-                        satellites.Add(_inst);
-                        _inst.GetComponent<ship_satellite>().ship = gameObject;
-                        _inst.transform.position = transform.position;
-                    }
+                        AddSatellite();
                 }
                 engineStrength = 1;
                 StartCoroutine(StartLoseEnergy());
@@ -232,5 +240,29 @@ public class Ship : MonoBehaviour {
     {
         if (OnCurrencyChanged != null)
             OnCurrencyChanged(value);
+    }
+
+    public void OnPurchaseShield()
+    {
+        if (currencyManager.TryPurchase(shieldPurchasePrice))
+        {
+            // todo
+        }
+    }
+
+    public void OnPurchaseHP()
+    {
+        if (currencyManager.TryPurchase(hpPurchasePrice))
+        {
+            health = Mathf.Clamp(health + hpPurchaseAmount, 0, health_max);
+        }
+    }
+
+    public void OnPurchaseSatellite()
+    {
+        if (currencyManager.TryPurchase(satellitePurchasePrice))
+        {
+            AddSatellite();
+        }
     }
 }
