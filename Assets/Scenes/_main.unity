@@ -266,6 +266,11 @@ Prefab:
       propertyPath: moneyPerDestroyedMeteor
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114710258388481572, guid: 901c7b49189c8f2459a6bf4a9bd70a87,
+        type: 2}
+      propertyPath: satellites_count
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 901c7b49189c8f2459a6bf4a9bd70a87, type: 2}
   m_IsPrefabParent: 0
@@ -1458,9 +1463,9 @@ MonoBehaviour:
       from: 0.5
       to: 1.5
     holdDuration:
-      from: 3
-      to: 8
-  mineMeteorSpawnPeriod: 5
+      from: 8
+      to: 16
+  mineMeteorSpawnPeriod: 10
   enemyMeteorPaths:
   - spawnPoints:
     - {fileID: 1998392483}
@@ -1487,10 +1492,10 @@ MonoBehaviour:
     speed:
       from: 1
       to: 2
-  enemyMeteorSpawnPeriod: 2
+  enemyMeteorSpawnPeriod: 4
   enemyMeteorSpawnGroupSize:
-    from: 3
-    to: 8
+    from: 2
+    to: 6
   minerMeteorPrefab: {fileID: 1944365504202604, guid: 37708942f778d3b42ba14140b59ed675,
     type: 2}
   enemyMeteorPrefab: {fileID: 1211204198030824, guid: f24ee5a7663cedc42acd5b93fdb10d6c,
@@ -3334,10 +3339,10 @@ RectTransform:
   m_Father: {fileID: 1932910756}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0000076294, y: 0.0012817}
-  m_SizeDelta: {x: 405, y: 718.76}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -0.0000076293945, y: 0.0012817383}
+  m_SizeDelta: {x: 1, y: -1.2399902}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1900591970
 GameObject:
