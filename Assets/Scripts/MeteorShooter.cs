@@ -92,8 +92,7 @@ public class MeteorShooter : MonoBehaviour
         }
 
         Debug.Assert(target);
-
-#warning antonsh use sqrMagnitude?
+        
         return (target.transform.position - transform.position).magnitude;
     }
 

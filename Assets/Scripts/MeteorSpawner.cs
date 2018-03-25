@@ -73,7 +73,7 @@ public class MeteorSpawner : MonoBehaviour
     {
         StopAllCoroutines();
 
-        for (int i = 0; i < meteorHolder.transform.GetChildCount(); i++)
+        for (int i = 0; i < meteorHolder.transform.childCount; i++)
         {
             var child = meteorHolder.transform.GetChild(i).gameObject;
             if (child)

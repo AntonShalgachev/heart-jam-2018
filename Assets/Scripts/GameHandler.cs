@@ -365,6 +365,9 @@ public class GameHandler : MonoBehaviour {
                     WaitTutorialDelay(TutorialController.Step.InitialDelay,
                     TutorialController.Instance.initialDelay));
                 break;
+            case TutorialController.Step.ShowUI1:
+                controller.ShowUIForStep(step);
+                break;
             case TutorialController.Step.MineMeteor:
                 ProcessSpawnMiner();
                 break;
@@ -373,6 +376,9 @@ public class GameHandler : MonoBehaviour {
                     WaitTutorialDelay(TutorialController.Step.DelayBeforeCancel,
                     TutorialController.Instance.delayBeforeCancel));
                 break;
+            case TutorialController.Step.ShowUI2:
+                controller.ShowUIForStep(step);
+                break;
             case TutorialController.Step.CancelMining:
                 // nothing
                 break;
@@ -380,6 +386,14 @@ public class GameHandler : MonoBehaviour {
                 ProcessRemoveMineMeteor();
                 break;
 
+            case TutorialController.Step.DelayBeforeEnemies:
+                StartCoroutine(
+                    WaitTutorialDelay(TutorialController.Step.DelayBeforeEnemies,
+                    TutorialController.Instance.delayBeforeEnemies));
+                break;
+            case TutorialController.Step.ShowUI3:
+                controller.ShowUIForStep(step);
+                break;
             case TutorialController.Step.SpawnEnemies1:
                 ProcessSpawnEnemies1();
                 break;
@@ -390,6 +404,9 @@ public class GameHandler : MonoBehaviour {
                 break;
             case TutorialController.Step.PauseEnemies1:
                 ProcessPauseEnemies1();
+                break;
+            case TutorialController.Step.ShowUI4:
+                controller.ShowUIForStep(step);
                 break;
             case TutorialController.Step.DestroyEnemiesWithFinger:
                 // nothing
@@ -405,6 +422,9 @@ public class GameHandler : MonoBehaviour {
                 break;
             case TutorialController.Step.PauseEnemies2:
                 ProcessPauseEnemies2();
+                break;
+            case TutorialController.Step.ShowUI5:
+                controller.ShowUIForStep(step);
                 break;
             case TutorialController.Step.DestroyEnemiesWithSatellite:
                 // nothing

@@ -220,7 +220,8 @@ public class Ship : MonoBehaviour {
     {
         while (true)
         {
-            if (!TutorialController.Instance.IsEnabled())
+            var tutorial = TutorialController.Instance;
+            if (!tutorial.IsEnabled() || !tutorial.IsStepCompleted(TutorialController.Step.InitialDelay))
             {
                 energy -= energySpeed;
                 if (fuel != null)
