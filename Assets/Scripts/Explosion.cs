@@ -6,10 +6,11 @@ public class Explosion : MonoBehaviour {
 
     public float scale_speed = 1;
     private bool isExploded = false;
+    private GameObject efx;
     // Use this for initialization
 	void Start () {
-		
-	}
+        efx = transform.GetChild(0).gameObject;
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -32,7 +33,10 @@ public class Explosion : MonoBehaviour {
             transform.localScale = _tmp;
             if (transform.localScale.x < 0.1)
             {
-                Destroy(gameObject);
+                if(efx == null)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
 	}

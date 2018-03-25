@@ -39,5 +39,6 @@ public class mine_meteor : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-	}
+    }
 }
+

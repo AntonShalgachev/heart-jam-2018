@@ -6,6 +6,7 @@ public class enemy_meteor : MonoBehaviour {
 
     public int health = 2;
     public int damage = 2;
+    public GameObject diePrefub;
     // Use this for initialization
     void Start () {
 		
@@ -41,3 +42,4 @@ public class enemy_meteor : MonoBehaviour {
         }
     }
 }
+

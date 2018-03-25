@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 58783716801761490}
   - component: {fileID: 50976523257263620}
   - component: {fileID: 114211507408366320}
+  - component: {fileID: 114779048094275442}
   m_Layer: 8
   m_Name: meteor_enemy
   m_TagString: Untagged
@@ -93,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 2
   damage: 2
+  diePrefub: {fileID: 1744413168383720, guid: 4849146f3595183449444732b1a59ef4, type: 2}
 --- !u!114 &114211507408366320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,6 +123,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7780e6365f7f6914cb87ee94ee9e81fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114779048094275442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1211204198030824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2297dee3633808748a6767d2074d9ead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diePrefub: {fileID: 1744413168383720, guid: 4849146f3595183449444732b1a59ef4, type: 2}
 --- !u!212 &212608354214577082
 SpriteRenderer:
   m_ObjectHideFlags: 1
