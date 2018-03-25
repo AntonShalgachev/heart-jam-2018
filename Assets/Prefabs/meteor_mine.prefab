@@ -131,10 +131,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skins:
-  - {fileID: 21300000, guid: 4021281abd3dc6b4aba75b23863433a3, type: 3}
-  - {fileID: 21300002, guid: 4021281abd3dc6b4aba75b23863433a3, type: 3}
-  - {fileID: 21300004, guid: 4021281abd3dc6b4aba75b23863433a3, type: 3}
-  - {fileID: 21300006, guid: 4021281abd3dc6b4aba75b23863433a3, type: 3}
+  - {fileID: 21300000, guid: efa94b414539de940b57e5b23b3fc55c, type: 3}
+  - {fileID: 21300002, guid: efa94b414539de940b57e5b23b3fc55c, type: 3}
+  - {fileID: 21300004, guid: efa94b414539de940b57e5b23b3fc55c, type: 3}
+  - {fileID: 21300006, guid: efa94b414539de940b57e5b23b3fc55c, type: 3}
   rotationSpeed: 0
 --- !u!212 &212511133619332794
 SpriteRenderer:

@@ -107,10 +107,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skins:
-  - {fileID: 21300000, guid: 12eacf3221144794c994243d67af22ad, type: 3}
-  - {fileID: 21300002, guid: 12eacf3221144794c994243d67af22ad, type: 3}
-  - {fileID: 21300004, guid: 12eacf3221144794c994243d67af22ad, type: 3}
-  - {fileID: 21300006, guid: 12eacf3221144794c994243d67af22ad, type: 3}
+  - {fileID: 21300000, guid: 9d03efb7cde8f734da1b31d4a811bdce, type: 3}
+  - {fileID: 21300002, guid: 9d03efb7cde8f734da1b31d4a811bdce, type: 3}
+  - {fileID: 21300004, guid: 9d03efb7cde8f734da1b31d4a811bdce, type: 3}
+  - {fileID: 21300006, guid: 9d03efb7cde8f734da1b31d4a811bdce, type: 3}
   rotationSpeed: 50
 --- !u!114 &114622728134557484
 MonoBehaviour:
