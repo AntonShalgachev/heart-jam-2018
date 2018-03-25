@@ -21,6 +21,8 @@ public class GameHandler : MonoBehaviour {
     [SerializeField]
     private RandomHelper.Range backTimeRange;
 
+    public Transform shipGamePoint;
+
     private GameObject gui_hud;
     private GameObject gui_lose;
     private GameObject gui_start;
@@ -29,6 +31,7 @@ public class GameHandler : MonoBehaviour {
     private GameObject gui_energy_bar;
     private GameObject gui_distance;
     private GameObject gui_money;
+    private static bool restartScene = false;
     // Use this for initialization
     void Awake () {
         if(hud != null)
@@ -47,6 +50,7 @@ public class GameHandler : MonoBehaviour {
         gameDistance = 0;
         updateDistance(0);
         ship.OnCurrencyChanged += OnMoneyChanged;
+        restartScene = false;
     }
 
     private void Start()
@@ -204,6 +208,7 @@ public class GameHandler : MonoBehaviour {
         {
             m.StopAllCoroutines();
         }*/
+        restartScene = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -225,8 +230,13 @@ public class GameHandler : MonoBehaviour {
             if (ship != null)
             {
                 float step = 5 * Time.deltaTime;
-                ship.transform.position = Vector3.MoveTowards(ship.transform.position, Vector3.zero, step);
-                if (Vector2.Distance(Vector3.zero, ship.transform.position) <= 0.1)
+                var _point = Vector3.zero;
+                if(shipGamePoint != null)
+                {
+                    _point = shipGamePoint.position;
+                }
+                ship.transform.position = Vector3.MoveTowards(ship.transform.position, _point, step);
+                if (Vector2.Distance(_point, ship.transform.position) <= 0.1)
                 {
                     if (ship != null)
                     {
@@ -269,6 +279,10 @@ public class GameHandler : MonoBehaviour {
         }
     }
 
+    public static bool isRestarting()
+    {
+        return restartScene;
+    }
     public float GetDistance()
     {
         return gameDistance;

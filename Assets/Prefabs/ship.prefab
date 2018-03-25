@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114710258388481572}
   - component: {fileID: 61374769748247738}
   - component: {fileID: 50688727435094626}
+  - component: {fileID: 114986579109085934}
   m_Layer: 0
   m_Name: ship
   m_TagString: Untagged
@@ -101,9 +102,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   energy: 100
+  energySpeed: 0.1
   satellitePrefub: {fileID: 1418698650848280, guid: 09355b0fd8a89614b84f27217353ac73,
     type: 2}
   workers: []
+  godMode: 1
+  satellites_count: 3
+  energyToMoneyConversionRatio: 0
+  moneyPerDestroyedMeteor: 0
+--- !u!114 &114986579109085934
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1926923431713730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2297dee3633808748a6767d2074d9ead, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diePrefub: {fileID: 1744413168383720, guid: 4849146f3595183449444732b1a59ef4, type: 2}
 --- !u!212 &212942663741112040
 SpriteRenderer:
   m_ObjectHideFlags: 1
