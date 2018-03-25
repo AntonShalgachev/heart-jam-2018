@@ -33,7 +33,7 @@ public class MeteorSpawner : MonoBehaviour
     [SerializeField]
     private float enemyMeteorSpawnPeriod;
     [SerializeField]
-    private float enemyMeteorSpawnGroupSize;
+    private RandomHelper.IntRange enemyMeteorSpawnGroupSize;
 
     [SerializeField]
     private GameObject minerMeteorPrefab;
@@ -126,7 +126,8 @@ public class MeteorSpawner : MonoBehaviour
     {
         while (true)
         {
-            for (var i = 0; i < enemyMeteorSpawnGroupSize; i++)
+            var groupSize = enemyMeteorSpawnGroupSize.GetRandom();
+            for (var i = 0; i < groupSize; i++)
                 SpawnEnemyMeteor(getRandomEnemyMeteorPath());
 
             yield return new WaitForSeconds(enemyMeteorSpawnPeriod);

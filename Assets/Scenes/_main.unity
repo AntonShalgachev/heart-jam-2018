@@ -1488,7 +1488,9 @@ MonoBehaviour:
       from: 1
       to: 2
   enemyMeteorSpawnPeriod: 2
-  enemyMeteorSpawnGroupSize: 5
+  enemyMeteorSpawnGroupSize:
+    from: 3
+    to: 8
   minerMeteorPrefab: {fileID: 1944365504202604, guid: 37708942f778d3b42ba14140b59ed675,
     type: 2}
   enemyMeteorPrefab: {fileID: 1211204198030824, guid: f24ee5a7663cedc42acd5b93fdb10d6c,

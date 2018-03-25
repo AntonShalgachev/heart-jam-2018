@@ -15,6 +15,17 @@ public class RandomHelper
             return Instance().GetFloat(from, to);
         }
     }
+    [Serializable]
+    public class IntRange
+    {
+        public int from;
+        public int to;
+
+        public int GetRandom()
+        {
+            return Instance().GetInt(from, to);
+        }
+    }
 
     static RandomHelper instance;
     System.Random rng = new System.Random(0);
