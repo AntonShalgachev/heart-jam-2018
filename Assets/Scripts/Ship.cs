@@ -14,6 +14,8 @@ public class Ship : MonoBehaviour {
     public bool godMode = true;
     public int satellites_count = 3;
 
+    public GameObject shield;
+
     public float energyToMoneyConversionRatio;
     public int moneyPerDestroyedMeteor;
 
@@ -34,6 +36,8 @@ public class Ship : MonoBehaviour {
     private SpriteRenderer spriteRenderer;
     private int engineStrength = 2;
 
+    private bool shieldActive;
+
     private Money currencyManager;
 
     public event Action<int> OnCurrencyChanged;
@@ -51,6 +55,8 @@ public class Ship : MonoBehaviour {
         currencyManager = GetComponent<Money>();
         currencyManager.OnCurrencyChanged += OnMoneyChanged;
         Debug.Assert(currencyManager);
+
+        SetShieldEnabled(false);
     }
 	
 	// Update is called once per frame
@@ -77,7 +83,7 @@ public class Ship : MonoBehaviour {
     }
     public void healthHit(int _damage)
     {
-        if (!godMode)
+        if (!godMode && !shieldActive)
         {
             health -= _damage;
             if (health <= 0)
@@ -85,6 +91,17 @@ public class Ship : MonoBehaviour {
                 wrapDestroy();
             }
         }
+    }
+
+    private void DisableShield()
+    {
+        SetShieldEnabled(false);
+    }
+
+    private void SetShieldEnabled(bool enabled)
+    {
+        shield.SetActive(enabled);
+        shieldActive = enabled;
     }
 
     private void AddSatellite()
@@ -244,14 +261,22 @@ public class Ship : MonoBehaviour {
 
     public void OnPurchaseShield()
     {
+        if (godMode)
+            return;
+
         if (currencyManager.TryPurchase(shieldPurchasePrice))
         {
-            // todo
+            SetShieldEnabled(true);
+
+            Invoke("DisableShield", shieldPurchaseDuration);
         }
     }
 
     public void OnPurchaseHP()
     {
+        if (godMode)
+            return;
+
         if (currencyManager.TryPurchase(hpPurchasePrice))
         {
             health = Mathf.Clamp(health + hpPurchaseAmount, 0, health_max);
@@ -260,6 +285,9 @@ public class Ship : MonoBehaviour {
 
     public void OnPurchaseSatellite()
     {
+        if (godMode)
+            return;
+
         if (currencyManager.TryPurchase(satellitePurchasePrice))
         {
             AddSatellite();
