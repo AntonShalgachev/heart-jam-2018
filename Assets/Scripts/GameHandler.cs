@@ -31,18 +31,20 @@ public class GameHandler : MonoBehaviour {
     private GameObject gui_energy_bar;
     private GameObject gui_distance;
     private GameObject gui_money;
+    private GameObject gui_helpOverlay;
     private static bool restartScene = false;
     // Use this for initialization
     void Awake () {
         if(hud != null)
         {
-            gui_hud = hud.transform.GetChild(0).gameObject;
-            gui_lose = hud.transform.GetChild(1).gameObject;
-            gui_start = hud.transform.GetChild(2).gameObject;
-            if(gui_hud != null)
+            gui_hud = hud.transform.GetChild(2).gameObject;
+            gui_lose = hud.transform.GetChild(3).gameObject;
+            gui_start = hud.transform.GetChild(0).gameObject;
+            gui_helpOverlay = hud.transform.GetChild(1).gameObject;
+            if (gui_hud != null)
             {
-                gui_hp_bar = gui_hud.transform.GetChild(4).gameObject;
-                gui_energy_bar = gui_hud.transform.GetChild(5).gameObject;
+                gui_hp_bar = gui_hud.transform.GetChild(4).GetChild(0).gameObject;
+                gui_energy_bar = gui_hud.transform.GetChild(5).GetChild(0).gameObject;
                 gui_distance = gui_hud.transform.GetChild(6).gameObject;
                 gui_money = gui_hud.transform.GetChild(7).gameObject;
             }
@@ -286,5 +288,13 @@ public class GameHandler : MonoBehaviour {
     public float GetDistance()
     {
         return gameDistance;
+    }
+
+    public void helpOverlaySetActive(bool _val)
+    {
+        if(gui_helpOverlay != null)
+        {
+            gui_helpOverlay.SetActive(_val);
+        }
     }
 }

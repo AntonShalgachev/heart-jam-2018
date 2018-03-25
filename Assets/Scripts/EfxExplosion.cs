@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class EfxExplosion : MonoBehaviour {
 
-    private ParticleSystem particleSystem;
+    private ParticleSystem partleSystem;
 
     // Use this for initialization
 	void Start () {
-        particleSystem = GetComponent<ParticleSystem>();
+        partleSystem = GetComponent<ParticleSystem>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-		if(particleSystem.isStopped)
+		if(partleSystem.isStopped)
         {
             Destroy(gameObject);
         }
