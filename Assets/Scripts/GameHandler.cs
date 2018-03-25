@@ -119,7 +119,7 @@ public class GameHandler : MonoBehaviour {
     private void check_mine(GameObject hit)
     {
         var _cmp = hit.transform.gameObject.GetComponent<mine_meteor>();
-        if (_cmp != null)
+        if (_cmp != null && IsActionAllowed(TutorialController.Step.MineMeteor))
         {
             addWorker(ship.try_to_get_satellite(), _cmp.workers, workType.miner, _cmp.gameObject);
             TryCompleteStep(TutorialController.Step.MineMeteor);
@@ -128,7 +128,7 @@ public class GameHandler : MonoBehaviour {
     private void check_ship(GameObject hit)
     {
         var _cmp = hit.transform.gameObject.GetComponent<Ship>();
-        if (_cmp != null)
+        if (_cmp != null && IsActionAllowed(TutorialController.Step.DestroyEnemiesWithSatellite))
         {
             addWorker(ship.try_to_get_satellite(), _cmp.workers, workType.defer, _cmp.gameObject);
         }
@@ -136,7 +136,7 @@ public class GameHandler : MonoBehaviour {
     private void check_enemy(GameObject hit)
     {
         var _cmp = hit.transform.gameObject.GetComponent<enemy_meteor>();
-        if (_cmp != null)
+        if (_cmp != null && IsActionAllowed(TutorialController.Step.DestroyEnemiesWithFinger))
         {
             _cmp.healthHit(mouse_damage);
             if (!_cmp.IsAlive())
@@ -153,7 +153,7 @@ public class GameHandler : MonoBehaviour {
     private void check_worker(GameObject hit)
     {
         var _cmp = hit.transform.gameObject.GetComponent<ship_satellite>();
-        if (_cmp != null && !IsStepActive(TutorialController.Step.DelayBeforeCancel))
+        if (_cmp != null && IsActionAllowed(TutorialController.Step.CancelMining))
         {
             _cmp.stopWork();
             TryCompleteStep(TutorialController.Step.CancelMining);
@@ -175,13 +175,17 @@ public class GameHandler : MonoBehaviour {
 
     private void updateDistance(float _value)
     {
-        gameDistance += _value;
-        if (gui_distance != null)
+        var tutorial = TutorialController.Instance;
+        if (!tutorial.IsEnabled() || !tutorial.IsStepCompleted(TutorialController.Step.InitialDelay))
         {
-            var _text = gui_distance.GetComponent<Text>();
-            if (_text != null)
+            gameDistance += _value;
+            if (gui_distance != null)
             {
-                _text.text = "Distance : " + gameDistance.ToString();
+                var _text = gui_distance.GetComponent<Text>();
+                if (_text != null)
+                {
+                    _text.text = "Distance : " + gameDistance.ToString();
+                }
             }
         }
     }
@@ -334,13 +338,13 @@ public class GameHandler : MonoBehaviour {
         }
     }
 
-    private bool IsStepActive(TutorialController.Step step)
+    private bool IsActionAllowed(TutorialController.Step step)
     {
         var controller = TutorialController.Instance;
         if (controller.IsEnabled())
             return controller.GetStep() == step;
 
-        return false;
+        return true;
     }
 
     public void ProcessNextTutorialStep()
@@ -353,6 +357,8 @@ public class GameHandler : MonoBehaviour {
         if (controller.IsCompleted())
         {
             Debug.Log("Tutorial completed");
+            restartScene = true;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             return;
         }
 
@@ -365,6 +371,9 @@ public class GameHandler : MonoBehaviour {
                     WaitTutorialDelay(TutorialController.Step.InitialDelay,
                     TutorialController.Instance.initialDelay));
                 break;
+            case TutorialController.Step.ShowUI1:
+                controller.ShowUIForStep(step);
+                break;
             case TutorialController.Step.MineMeteor:
                 ProcessSpawnMiner();
                 break;
@@ -373,6 +382,9 @@ public class GameHandler : MonoBehaviour {
                     WaitTutorialDelay(TutorialController.Step.DelayBeforeCancel,
                     TutorialController.Instance.delayBeforeCancel));
                 break;
+            case TutorialController.Step.ShowUI2:
+                controller.ShowUIForStep(step);
+                break;
             case TutorialController.Step.CancelMining:
                 // nothing
                 break;
@@ -380,6 +392,14 @@ public class GameHandler : MonoBehaviour {
                 ProcessRemoveMineMeteor();
                 break;
 
+            case TutorialController.Step.DelayBeforeEnemies:
+                StartCoroutine(
+                    WaitTutorialDelay(TutorialController.Step.DelayBeforeEnemies,
+                    TutorialController.Instance.delayBeforeEnemies));
+                break;
+            case TutorialController.Step.ShowUI3:
+                controller.ShowUIForStep(step);
+                break;
             case TutorialController.Step.SpawnEnemies1:
                 ProcessSpawnEnemies1();
                 break;
@@ -390,6 +410,9 @@ public class GameHandler : MonoBehaviour {
                 break;
             case TutorialController.Step.PauseEnemies1:
                 ProcessPauseEnemies1();
+                break;
+            case TutorialController.Step.ShowUI4:
+                controller.ShowUIForStep(step);
                 break;
             case TutorialController.Step.DestroyEnemiesWithFinger:
                 // nothing
@@ -406,8 +429,14 @@ public class GameHandler : MonoBehaviour {
             case TutorialController.Step.PauseEnemies2:
                 ProcessPauseEnemies2();
                 break;
+            case TutorialController.Step.ShowUI5:
+                controller.ShowUIForStep(step);
+                break;
             case TutorialController.Step.DestroyEnemiesWithSatellite:
                 // nothing
+                break;
+            case TutorialController.Step.ShowUI6:
+                controller.ShowUIForStep(step);
                 break;
 
             default:

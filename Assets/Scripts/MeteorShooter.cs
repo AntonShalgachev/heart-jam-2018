@@ -56,7 +56,10 @@ public class MeteorShooter : MonoBehaviour
 
     void Shoot()
     {
-        var colliders = Physics2D.OverlapCircleAll(transform.position, shootingRadius, targetLayerMask);
+        var radiusMult = 1.0f;
+        if (TutorialController.Instance.IsEnabled())
+            radiusMult = 20.0f;
+        var colliders = Physics2D.OverlapCircleAll(transform.position, shootingRadius * radiusMult, targetLayerMask);
 
         Collider2D closestCollider = null;
         float closestDist = 0.0f;
@@ -92,8 +95,7 @@ public class MeteorShooter : MonoBehaviour
         }
 
         Debug.Assert(target);
-
-#warning antonsh use sqrMagnitude?
+        
         return (target.transform.position - transform.position).magnitude;
     }
 
