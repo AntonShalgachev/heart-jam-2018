@@ -6,7 +6,9 @@ public class enemy_meteor : MonoBehaviour {
 
     public int health = 2;
     public int damage = 2;
+    public int cost = 1;
     public GameObject diePrefub;
+    public GameObject moneyReceiver;
     // Use this for initialization
     void Start () {
 		
@@ -16,6 +18,23 @@ public class enemy_meteor : MonoBehaviour {
 	void Update () {
 
 	}
+
+    public void healthHit(int _damage, bool _cost)
+    {
+        health -= _damage;
+        if (health <= 0)
+        {
+            if(_cost && moneyReceiver != null)
+            {
+                var _money = moneyReceiver.GetComponent<Money>();
+                if (_money != null)
+                {
+                    _money.Gain(cost);
+                }
+            }
+            Destroy(gameObject);
+        }
+    }
 
     public void healthHit(int _damage)
     {

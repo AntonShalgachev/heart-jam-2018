@@ -13,7 +13,7 @@ public class DamageHolder : MonoBehaviour
 
         if (meteor)
         {
-            meteor.healthHit(damage);
+            meteor.healthHit(damage,true);
             Destroy(gameObject);
 
             var tutorial = TutorialController.Instance;

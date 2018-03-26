@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,31 +13,46 @@ public class SoundController : MonoBehaviour {
     public Sprite sndOn;
     // Use this for initialization
     void Start () {
-		
-	}
+        string _str = PlayerPrefs.GetString("soundSwitch", "False");
+        soundState = Convert.ToBoolean(_str);
+        if(soundState)
+        {
+            stopAll();
+            setSprite(sndOff);
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
-    public void switchSound()
+    private void stopAll()
     {
-        soundState = !soundState;
         foreach (AudioSource _src in sources)
         {
             _src.mute = soundState;
         }
-        if(image != null)
+    }
+    private void setSprite(Sprite _spr)
+    {
+        if (image != null)
         {
-            if(!soundState)
-            {
-                image.sprite = sndOn;
-            }
-            else
-            {
-                image.sprite = sndOff;
-            }
+            image.sprite = _spr;
         }
+    }
+    public void switchSound()
+    {
+        soundState = !soundState;
+        stopAll();
+        if (!soundState)
+        {
+            setSprite(sndOn);
+        }
+        else
+        {
+            setSprite(sndOff);
+        }
+        PlayerPrefs.SetString("soundSwitch", soundState.ToString());
     }
 
     public static bool getSoundState()

@@ -39,7 +39,8 @@ public class Ship : MonoBehaviour {
     private bool shieldActive;
 
     private Money currencyManager;
-
+    private int hpAddCount = 1;
+    private int shieldCount = 1;
     public event Action<int> OnCurrencyChanged;
 
     // Use this for initialization
@@ -271,10 +272,10 @@ public class Ship : MonoBehaviour {
         if (godMode)
             return;
 
-        if (currencyManager.TryPurchase(shieldPurchasePrice))
+        if (currencyManager.TryPurchase(shieldPurchasePrice * shieldCount))
         {
             SetShieldEnabled(true);
-
+            shieldCount++;
             Invoke("DisableShield", shieldPurchaseDuration);
         }
     }
@@ -284,9 +285,10 @@ public class Ship : MonoBehaviour {
         if (godMode)
             return;
 
-        if (currencyManager.TryPurchase(hpPurchasePrice))
+        if (currencyManager.TryPurchase(hpPurchasePrice * hpAddCount))
         {
             health = Mathf.Clamp(health + hpPurchaseAmount, 0, health_max);
+            hpAddCount++;
         }
     }
 
@@ -295,9 +297,29 @@ public class Ship : MonoBehaviour {
         if (godMode)
             return;
 
-        if (currencyManager.TryPurchase(satellitePurchasePrice))
+        if (currencyManager.TryPurchase(satellitePurchasePrice * (1 + satellites.Count)))
         {
             AddSatellite();
         }
+    }
+    public enum Items { Shield, HP, Satellite};
+
+    public int getPrice(Items _type)
+    {
+        int _res = -1;
+        switch (_type)
+        {
+            case Items.Shield:
+                _res = shieldPurchasePrice * shieldCount;
+                break;
+            case Items.HP:
+                _res = hpPurchasePrice * hpAddCount;
+                break;
+            case Items.Satellite:
+                satellites.RemoveAll(item => item == null);
+                _res = satellitePurchasePrice * (1 + satellites.Count);
+                break;
+        }
+        return _res;
     }
 }

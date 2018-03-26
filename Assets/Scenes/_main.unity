@@ -1476,6 +1476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474e93271526fa34aabae94885794830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moneyReceiver: {fileID: 2008827653}
   mineMeteorPaths:
   - spawnPoints:
     - {fileID: 1554867849}
@@ -1564,7 +1565,7 @@ MonoBehaviour:
   gameHandler: {fileID: 1012763017}
   miningCapacityMulMax: 2
   miningCapacityMulMin: 0.5
-  miningCapacityDifficultyCoeff: 5
+  miningCapacityDifficultyCoeff: 2.5
   groupSizeDifficultyCoeff: 0.5
 --- !u!4 &511847637
 Transform:
@@ -2947,19 +2948,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22409990, guid: 81154777d5417884981849c5243f6c01, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 202.53313
+      value: 0.209
       objectReference: {fileID: 0}
     - target: {fileID: 22409990, guid: 81154777d5417884981849c5243f6c01, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 360
+      value: 0.0012789
       objectReference: {fileID: 0}
     - target: {fileID: 22409990, guid: 81154777d5417884981849c5243f6c01, type: 2}
       propertyPath: m_SizeDelta.x
-      value: 382
+      value: -21.765
       objectReference: {fileID: 0}
     - target: {fileID: 22409990, guid: 81154777d5417884981849c5243f6c01, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 679
+      value: -27.5
       objectReference: {fileID: 0}
     - target: {fileID: 22409990, guid: 81154777d5417884981849c5243f6c01, type: 2}
       propertyPath: m_AnchorMin.x
@@ -2971,11 +2972,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22409990, guid: 81154777d5417884981849c5243f6c01, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22409990, guid: 81154777d5417884981849c5243f6c01, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22409990, guid: 81154777d5417884981849c5243f6c01, type: 2}
       propertyPath: m_Pivot.x
@@ -4749,6 +4750,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2002205113}
+--- !u!1 &2008827653 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1926923431713730, guid: 901c7b49189c8f2459a6bf4a9bd70a87,
+    type: 2}
+  m_PrefabInternal: {fileID: 120350888}
 --- !u!1 &2013755294
 GameObject:
   m_ObjectHideFlags: 0

@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  energy: 200
+  energy: 100
   energySpeed: 0.5
   satellitePrefub: {fileID: 1418698650848280, guid: 09355b0fd8a89614b84f27217353ac73,
     type: 2}
@@ -358,8 +358,8 @@ MonoBehaviour:
   hpPurchaseAmount: 75
   hpPurchasePrice: 200
   shieldPurchaseDuration: 10
-  shieldPurchasePrice: 60
-  satellitePurchasePrice: 100
+  shieldPurchasePrice: 30
+  satellitePurchasePrice: 50
 --- !u!114 &114843846863470186
 MonoBehaviour:
   m_ObjectHideFlags: 1

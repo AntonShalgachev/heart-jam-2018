@@ -52,14 +52,12 @@ public class GameHandler : MonoBehaviour {
                 gui_energy_bar = gui_hud.transform.GetChild(5).GetChild(0).gameObject;
                 gui_distance = gui_hud.transform.GetChild(6).gameObject;
                 gui_money = gui_hud.transform.GetChild(7).gameObject;
-                setText(gui_hud.transform.GetChild(0).GetChild(0).gameObject, ship.hpPurchasePrice.ToString());
-                setText(gui_hud.transform.GetChild(1).GetChild(0).gameObject, ship.satellitePurchasePrice.ToString());
-                setText(gui_hud.transform.GetChild(2).GetChild(0).gameObject, ship.shieldPurchasePrice.ToString());
             }
         }
         gameDistance = 0;
         updateDistance(0);
         ship.OnCurrencyChanged += OnMoneyChanged;
+        PlayerPrefs.GetString("needTutor", "true");
         restartScene = false;
     }
 
@@ -197,6 +195,9 @@ public class GameHandler : MonoBehaviour {
             if (ship != null)
             {
                 updateDistance(gameSpeed);
+                setText(gui_hud.transform.GetChild(0).GetChild(0).gameObject, ship.getPrice(Ship.Items.HP).ToString());
+                setText(gui_hud.transform.GetChild(1).GetChild(0).gameObject, ship.getPrice(Ship.Items.Satellite).ToString());
+                setText(gui_hud.transform.GetChild(2).GetChild(0).gameObject, ship.getPrice(Ship.Items.Shield).ToString());
                 yield return new WaitForSeconds(gameDistanceAddPeriod);
             }
             else

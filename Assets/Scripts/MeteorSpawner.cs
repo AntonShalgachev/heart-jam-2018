@@ -24,6 +24,8 @@ public class MeteorSpawner : MonoBehaviour
         public RandomHelper.Range speed;
     }
 
+    public GameObject moneyReceiver;
+
     [SerializeField]
     private List<MineMeteorPathParams> mineMeteorPaths;
     [SerializeField]
@@ -168,7 +170,8 @@ public class MeteorSpawner : MonoBehaviour
         Debug.Assert(meteorMovement);
 
         meteorMovement.SetPath(path);
-
+        var deathHandler = meteor.GetComponent<enemy_meteor>();
+        deathHandler.moneyReceiver = moneyReceiver;
         return meteorMovement;
     }
 
