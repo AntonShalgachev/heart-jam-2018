@@ -143,7 +143,7 @@ namespace Assets.Scripts.ShipSatellite
                                 var _mine = owner.GetComponent<mine_meteor>();
                                 if (_mine != null)
                                 {
-                                    mine_amount += _mine.MineSpeed;
+                                    mine_amount += _mine.MineSpeed*Time.deltaTime;
                                 }
                                 transform.position = Vector2.MoveTowards(transform.position, owner.transform.position, step);
                             }

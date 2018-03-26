@@ -22,17 +22,19 @@ public class mine_meteor : MonoBehaviour {
 
     private void UpdateScale()
     {
+        
         var _scale = MineSpeed / ((mineSpeedRange.to - mineSpeedRange.from));
         _scale *= transform.localScale.x / 1.5f;
-
+        Debug.Log("scale | after = " + _scale.ToString());
         transform.localScale = new Vector3(_scale, _scale);
     }
 
     // Use this for initialization
     void Awake () {
         MineSpeed = mineSpeedRange.GetRandom();
+        Debug.Log("scale | random = " + transform.localScale.x.ToString());
+        Debug.Log("scale | start = " + transform.localScale.x.ToString());
         UpdateScale();
-
         workers = new List<ship_satellite>();
     }
 	
