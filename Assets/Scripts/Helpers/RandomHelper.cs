@@ -1,8 +1,32 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 public class RandomHelper
 {
+    [Serializable]
+    public class Range
+    {
+        public float from;
+        public float to;
+
+        public float GetRandom()
+        {
+            return Instance().GetFloat(from, to);
+        }
+    }
+    [Serializable]
+    public class IntRange
+    {
+        public int from;
+        public int to;
+
+        public int GetRandom()
+        {
+            return Instance().GetInt(from, to);
+        }
+    }
+
     static RandomHelper instance;
     System.Random rng = new System.Random(0);
 
@@ -17,6 +41,11 @@ public class RandomHelper
     public int GetInt(int a, int b)
     {
         return rng.Next(a, b);
+    }
+
+    public float GetFloat(float a, float b)
+    {
+        return (float)(a + rng.NextDouble() * (b - a));
     }
 
     public T GetItem<T>(List<T> items)
